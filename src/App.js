@@ -1,23 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { useState, useEffect } from "react";
+import Login from "./components/Login";
+import Logout from "./components/Logout";
 
 function App() {
+  console.log(localStorage);
+  const [token, setToken] = useState("");
+
+  useEffect(() => {
+    function handleChangeStorage() {
+      console.log("eiei");
+      setToken(localStorage.getItem("token"));
+    }
+    window.addEventListener("storage", handleChangeStorage);
+    return () => window.removeEventListener("storage", handleChangeStorage);
+  }, []);
+
+  useEffect(() => {
+    console.log(token);
+  }, [token]);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {token.length > 0 ? <Logout /> : <Login />}
+      <button
+        onClick={() => {
+          localStorage.clear();
+        }}
+      >
+        Clear
+      </button>
     </div>
   );
 }
