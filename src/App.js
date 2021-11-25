@@ -1,12 +1,13 @@
 import "./App.css";
 import Login from "./components/Login";
 import Logout from "./components/Logout";
+import Navbar from "./components/Navbar";
 
 function App() {
   return (
     <div className="App">
       {/* {localStorage.getItem("isLogin") ? <Logout /> : <Login />} */}
-      <Login />
+      {/* <Login />
       <Logout />
       <button
         onClick={() => {
@@ -14,7 +15,8 @@ function App() {
         }}
       >
         Show local storage
-      </button>
+      </button> */}
+      <Navbar />
     </div>
   );
 }
