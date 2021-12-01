@@ -15,19 +15,21 @@ import {
   SettingOutlined,
 } from "@ant-design/icons";
 
+import Covid from "../Covid";
+
 const { SubMenu } = Menu;
 
-export default function Navbar() {
+export default function Navbar_patient() {
   return (
     <Router>
       <Menu
         style={{ width: 256 }}
-        defaultSelectedKeys={["1"]}
-        defaultOpenKeys={["sub1"]}
+        defaultSelectedKeys={["0"]}
+        // defaultOpenKeys={["sub1"]}
         mode="inline"
       >
         <Menu.Item key="0">
-          <NavLink to="/dashboard" activeclassname="selectedLink">
+          <NavLink to="/" activeclassname="selectedLink">
             หน้าหลัก
           </NavLink>
         </Menu.Item>
