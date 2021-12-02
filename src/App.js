@@ -8,6 +8,8 @@ import Navbar_admin from "./components/Navbar/Navbar_admin";
 import Covid from "./components/Navbar/Covid";
 import Patient from "./pages/Register/Patient";
 import Agency from "./pages/Register/Agency";
+import Doctor from "./pages/Register/Agency/Doctor";
+import Hospital from "./pages/Register/Agency/Hospital";
 
 import Register from "./pages/Register";
 
@@ -24,7 +26,7 @@ function App() {
       >
         Show local storage
       </button> */}
-      <Agency />
+      <Hospital />
     </div>
   );
 }
