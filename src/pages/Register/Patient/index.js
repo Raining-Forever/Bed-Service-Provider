@@ -113,7 +113,15 @@ export default function Register() {
           <Input />
         </Form.Item>
 
-        <Form.Item name="gender" label="เพศ">
+        <Form.Item
+          name="gender"
+          label="เพศ"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        >
           <Radio.Group>
             <Radio value="male">ชาย</Radio>
             <Radio value="female">หญิง</Radio>
