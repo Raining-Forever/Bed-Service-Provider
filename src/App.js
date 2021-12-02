@@ -10,6 +10,8 @@ import Patient from "./pages/Register/Patient";
 import Agency from "./pages/Register/Agency";
 import Doctor from "./pages/Register/Agency/Doctor";
 import Hospital from "./pages/Register/Agency/Hospital";
+import Account from "./pages/Account";
+import Homepage from "./pages/Homepage";
 
 import Register from "./pages/Register";
 
@@ -26,7 +28,7 @@ function App() {
       >
         Show local storage
       </button> */}
-      <Hospital />
+      <Homepage />
     </div>
   );
 }
