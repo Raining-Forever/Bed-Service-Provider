@@ -16,6 +16,8 @@ import Symtom from "./pages/Symptom";
 
 import Register from "./pages/Register";
 
+import Form from "./pages/Symptom/Form";
+
 function App() {
   return (
     <div className="App">
@@ -29,7 +31,7 @@ function App() {
       >
         Show local storage
       </button> */}
-      <Symtom />
+      <Form />
     </div>
   );
 }

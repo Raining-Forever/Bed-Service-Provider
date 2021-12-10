@@ -37,6 +37,7 @@
 
 .content {
   display: flex;
+  width: 100%;
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
