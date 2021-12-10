@@ -17,6 +17,7 @@ import Symtom from "./pages/Symptom";
 import Register from "./pages/Register";
 
 import Form from "./pages/Symptom/Form";
+import Form2 from "./pages/Symptom/Form2";
 
 function App() {
   return (
@@ -31,7 +32,7 @@ function App() {
       >
         Show local storage
       </button> */}
-      <Form />
+      <Form2 />
     </div>
   );
 }
