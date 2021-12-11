@@ -1,7 +1,7 @@
 import React from "react";
 import "./index.css";
 
-import { Radio, Button, Form, Input } from "antd";
+import { Button, Form, Input } from "antd";
 
 export default function Hospital() {
   return (

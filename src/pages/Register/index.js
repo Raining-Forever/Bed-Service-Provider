@@ -1,5 +1,5 @@
 import React from "react";
-import "./index.css";
+import styles from "./Register.module.css";
 
 import { Radio, Button } from "antd";
 

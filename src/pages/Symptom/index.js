@@ -1,28 +1,25 @@
 import React from "react";
 import styles from "./Symtom.module.css";
-import Navbar_patient from "../../components/Navbar/Navbar_patient";
-import { Button } from "antd";
 
-export default function Symtom() {
+import Form0 from "./Form0";
+import Form1 from "./Form1";
+import Form2 from "./Form2";
+
+import Result from "../../components/Symptom/Result";
+
+import { useState, useEffect } from "react";
+
+export default function Symtom(props) {
+  const [page, setPage] = useState(0);
+  useEffect(() => {
+    console.log(page);
+  }, [page]);
   return (
-    <div className={styles.container}>
-      <div className={styles.navbar}>
-        <Navbar_patient />
-      </div>
-      <div className={styles.body}>
-        <h2 className={styles.header}>ความรุนแรงของอาการของคุณ</h2>
-        <div className={styles.box}>
-          <div className={styles.content}>
-            <img
-              src="https://www.img.in.th/images/557da396176494a319a15f15ae7bc109.png"
-              alt="557da396176494a319a15f15ae7bc109.png"
-              border="0"
-            />
-            <div className={styles.text}>ไม่มีข้อมูลการประเมินอาการของท่าน</div>
-            <Button type="primary">ทำแบบประเมิน</Button>
-          </div>
-        </div>
-      </div>
+    <div className={styles.body}>
+      {page === 0 && <Form0 setPage={setPage} />}
+      {page === 1 && <Form1 setPage={setPage} />}
+      {page === 2 && <Form2 setPage={setPage} />}
+      {page === 3 && <Result setPage={setPage} />}
     </div>
   );
 }

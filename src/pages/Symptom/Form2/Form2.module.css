@@ -9,13 +9,13 @@
 }
 
 .body {
-  width: calc(100% - 256px);
+  width: calc(100vw - 256px);
   background: #f8fbff;
   min-height: 100vh;
 }
 
 .header {
-  margin-top: 30px;
+  margin-top: 50px;
 }
 
 .box {

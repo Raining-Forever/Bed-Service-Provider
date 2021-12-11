@@ -10,10 +10,6 @@
   line-height: 54px;
 }
 
-.navbar {
-  width: 256px;
-}
-
 .body {
   width: calc(100% - 256px);
 }

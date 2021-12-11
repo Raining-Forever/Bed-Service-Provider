@@ -6,9 +6,6 @@ import { Button } from "antd";
 export default function Homepage() {
   return (
     <div className={styles.container}>
-      <div className={styles.navbar}>
-        <Navbar_patient />
-      </div>
       <div className={styles.body}>
         <div className={styles.box1}>
           <div className={styles.img1}>

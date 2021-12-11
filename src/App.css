@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500&display=swap");
+@import "~antd/dist/antd.css";
 .App {
   text-align: center;
   font-family: "Kanit", sans-serif;
@@ -37,4 +38,8 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.layout {
+  margin-left: 256px;
 }

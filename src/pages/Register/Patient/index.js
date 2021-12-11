@@ -7,12 +7,9 @@ import {
   Button,
   Radio,
   Select,
-  Space,
   Upload,
-  message,
   Checkbox,
   Row,
-  Col,
 } from "antd";
 import { InboxOutlined } from "@ant-design/icons";
 const { Dragger } = Upload;
