@@ -7,7 +7,16 @@ import Red from "../../../components/Symptom/Result/Red";
 import Yellow from "../../../components/Symptom/Result/Yellow";
 import Green from "../../../components/Symptom/Result/Green";
 
+import { useEffect } from "react";
+import { useScoreContext } from "../../../context/ScoreContext";
+
 export default function Form0(props) {
+  const [score, setScore] = useScoreContext();
+
+  useEffect(() => {
+    console.log("page0", score);
+  }, []);
+
   return (
     <div className={styles.container}>
       <div className={styles.body}>
@@ -21,8 +30,8 @@ export default function Form0(props) {
             />
             <div className={styles.text}>ไม่มีข้อมูลการประเมินอาการของท่าน</div>
           </div> */}
-          {}
-          <Empty />
+          {score === -1 && <Empty />}
+          {score > 5 && <Yellow />}
         </div>
 
         <Button onClick={() => props.setPage(1)} type="primary">

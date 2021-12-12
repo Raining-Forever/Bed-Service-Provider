@@ -3,7 +3,11 @@ import { NavLink } from "react-router-dom";
 import styles from "./Navbar.module.css";
 
 import { Menu } from "antd";
-import { AppstoreOutlined, MailOutlined } from "@ant-design/icons";
+import {
+  AppstoreOutlined,
+  UserOutlined,
+  HomeOutlined,
+} from "@ant-design/icons";
 
 const { SubMenu } = Menu;
 
@@ -13,15 +17,15 @@ export default function Navbar_patient() {
       style={{ width: 256 }}
       className={styles.menu}
       defaultSelectedKeys={["0"]}
-      // defaultOpenKeys={["sub1"]}
+      defaultOpenKeys={["sub1", "sub2"]}
       mode="inline"
     >
-      <Menu.Item key="0">
+      <Menu.Item key="0" icon={<HomeOutlined />}>
         <NavLink to="/" activeclassname="selectedLink">
           หน้าหลัก
         </NavLink>
       </Menu.Item>
-      <SubMenu key="sub1" icon={<MailOutlined />} title="สำหรับผู้ป่วย">
+      <SubMenu key="sub1" icon={<UserOutlined />} title="สำหรับผู้ป่วย">
         <Menu.Item key="1">
           <NavLink to="/account" activeclassname="selectedLink">
             ข้อมูลผู้ป่วย
