@@ -1,0 +1,26 @@
+.body {
+  margin: 40px 0px;
+}
+.containerinfo {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  /* margin: 0px 20px; */
+}
+.wrapinfo1 {
+  display: flex;
+  flex-direction: column;
+  /* width: 40%; */
+}
+
+.wrapinfo2 {
+  display: flex;
+  flex-direction: column;
+  /* width: 40%; */
+}
+.radioGroup {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+}

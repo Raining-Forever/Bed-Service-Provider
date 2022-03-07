@@ -16,9 +16,24 @@
   max-width: 900px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
-  margin-top: 100px;
+  /* margin-top: 100px; */
   margin: auto;
   display: flex;
-  align-content: space-around;
-  margin-top: 50px;
+  /* align-content: space-around; */
+  /* margin-top: 50px; */
+}
+
+.header {
+  font-size: 24px;
+  font-weight: medium;
+}
+
+.wrapheader {
+  display: flex;
+  flex-direction: row;
+  min-width: 400px;
+  width: 80%;
+  max-width: 900px;
+  justify-content: space-between;
+  margin: 10px auto;
 }
