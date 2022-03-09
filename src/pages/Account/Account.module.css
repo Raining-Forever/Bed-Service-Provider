@@ -21,6 +21,8 @@
   display: flex;
   /* align-content: space-around; */
   /* margin-top: 50px; */
+  justify-content: center;
+  padding: 0px 5%;
 }
 
 .header {

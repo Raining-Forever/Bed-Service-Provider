@@ -154,12 +154,14 @@ export default function Detail() {
             </Form.Item>
           </div>
         </div>
-
         <Form.Item
           name="covid-evidence"
           label="คุณมีหลักฐานการตรวจโควิด-19 :"
         >
-          <Radio.Group disabled>
+          <Radio.Group
+            disabled
+            className={styles.radioGroup}
+          >
             <Radio value="covid-evidence-yes">
               มี
             </Radio>
@@ -168,8 +170,56 @@ export default function Detail() {
             </Radio>
           </Radio.Group>
         </Form.Item>
-
-        <Form.Item name="covid-prove">
+        <Form.Item
+          name="type-prove"
+          label="ตรวจโควิด-19 ด้วยวิธีการใด :"
+        >
+          <Radio.Group
+            disabled
+            className={styles.radioGroup}
+          >
+            <Radio value="atk">ATK</Radio>
+            <Radio value="rt-pcr">
+              RT-PCR(ใบรับรองแพทย์)
+            </Radio>
+          </Radio.Group>
+        </Form.Item>
+        <Form.Item
+          name="resultform"
+          label="ผลตรวจที่ได้ :"
+        >
+          <Radio.Group
+            disabled
+            className={styles.radioGroup}
+          >
+            <Radio value="resultform-yes">
+              ติดเชื้อ
+            </Radio>
+            <Radio value="resultform-no">
+              ไม่ติดเชื้่อ
+            </Radio>
+          </Radio.Group>
+        </Form.Item>
+        <Form.Item
+          name="prove-result"
+          label="รูปภาพหลักฐาน :"
+        >
+          <Dragger className={styles.provepic}>
+            <p className="ant-upload-drag-icon">
+              <InboxOutlined />
+            </p>
+            <p className="ant-upload-text">
+              Click or drag file to this area to
+              upload
+            </p>
+            <p className="ant-upload-hint">
+              Support for a single or bulk upload.
+              Strictly prohibit from uploading
+              company data or other band files
+            </p>
+          </Dragger>
+        </Form.Item>
+        {/* <Form.Item name="covid-prove">
           <Checkbox.Group disabled>
             <Row>
               <Checkbox value="rt-pcr">
@@ -228,45 +278,51 @@ export default function Detail() {
               </Checkbox>
             </Row>
           </Checkbox.Group>
-        </Form.Item>
+        </Form.Item> */}
+
         <div className={styles.adresstitle}>
           ที่อยู่ที่สามารถติดต่อได้
         </div>
 
-        <Form.Item
-          name="address"
-          label="ที่อยู่ :"
-        >
-          <Input disabled />
-        </Form.Item>
+        <div className={styles.wrapaddress}>
+          <div className={styles.couple}>
+            <Form.Item
+              name="address"
+              label="ที่อยู่ :"
+            >
+              <Input disabled />
+            </Form.Item>
+            <Form.Item
+              name="province"
+              label="จังหวัด :"
+            >
+              <Input disabled />
+            </Form.Item>
 
-        <Form.Item
-          name="province"
-          label="จังหวัด :"
-        >
-          <Input disabled />
-        </Form.Item>
+            <Form.Item
+              name="district"
+              label="อำเภอ/เขต :"
+            >
+              <Input disabled />
+            </Form.Item>
+          </div>
 
-        <Form.Item
-          name="district"
-          label="อำเภอ/เขต :"
-        >
-          <Input disabled />
-        </Form.Item>
+          <div className={styles.couple}>
+            <Form.Item
+              name="subdistrict"
+              label="ตำบล/แขวง :"
+            >
+              <Input disabled />
+            </Form.Item>
 
-        <Form.Item
-          name="subdistrict"
-          label="ตำบล/แขวง :"
-        >
-          <Input disabled />
-        </Form.Item>
-
-        <Form.Item
-          name="zipcode"
-          label="รหัสไปรษณีย์ :"
-        >
-          <Input disabled />
-        </Form.Item>
+            <Form.Item
+              name="zipcode"
+              label="รหัสไปรษณีย์ :"
+            >
+              <Input disabled />
+            </Form.Item>
+          </div>
+        </div>
       </Form>
     </div>
   );
