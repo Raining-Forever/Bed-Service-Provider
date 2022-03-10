@@ -4,6 +4,7 @@ import Account from "./pages/Account";
 import Homepage from "./pages/Homepage";
 import Symtom from "./pages/Symptom";
 import Register from "./pages/Register";
+import DoctorAppoint from "./pages/DoctorAppoint"
 import Result from "./components/Symptom/Result";
 
 import Navbar_patient from "./components/Navbar/Navbar_patient";
@@ -24,6 +25,7 @@ function App() {
               <Route exact path="/form" element={<Symtom />} />
               <Route exact path="/formResult" element={<Result />} />
               <Route path="/register" element={<Register />} />
+              <Route path="/appoint" element={<DoctorAppoint />} />
             </Routes>
           </div>
         </div>
