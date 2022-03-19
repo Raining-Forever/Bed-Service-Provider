@@ -2,6 +2,7 @@ import React from "react";
 
 import styles from "./Detail.module.css";
 import { InboxOutlined } from "@ant-design/icons";
+import { useState, useEffect } from "react";
 
 import {
   Form,
@@ -13,6 +14,8 @@ import {
   Checkbox,
   Row,
 } from "antd";
+import axios from "axios";
+import { result } from "lodash";
 
 const { Dragger } = Upload;
 const { Option } = Select;
@@ -36,6 +39,25 @@ const formItemLayout = {
 };
 
 export default function Detail() {
+  const [patientinfo, setPatientinfo] = useState(
+    {}
+  );
+  const [isLoading, setisLoading] =
+    useState(true);
+  async function fetchPatientData() {
+    const result = await axios.get(
+      "https://bed-service-provider.herokuapp.com/api/patients"
+    );
+    setPatientinfo(result.data[0]);
+    setisLoading(false);
+  }
+
+  useEffect(() => {
+    fetchPatientData();
+  }, []);
+
+  if (isLoading) return <div>loading</div>;
+
   return (
     <div className={styles.body}>
       <Form
@@ -47,21 +69,22 @@ export default function Detail() {
             <Form.Item
               name="idcard"
               label="เลขบัตรประชาชน :"
-              rules={[
-                {
-                  type: "email",
-                  message:
-                    "The input is not valid E-mail!",
-                },
-                {
-                  required: true,
-                  message:
-                    "Please input your E-mail!",
-                },
-              ]}
+              // rules={[
+              //   {
+              //     type: "email",
+              //     message:
+              //       "The input is not valid E-mail!",
+              //   },
+              //   {
+              //     required: true,
+              //     message:
+              //       "Please input your E-mail!",
+              //   },
+              // ]}
             >
               <Input
                 className={styles.inputinfo}
+                defaultValue={patientinfo.idcard}
                 disabled
               />
             </Form.Item>
@@ -85,6 +108,9 @@ export default function Detail() {
             >
               <Input
                 className={styles.inputinfo}
+                defaultValue={
+                  patientinfo.firstname
+                }
                 disabled
               />
             </Form.Item>
@@ -94,6 +120,7 @@ export default function Detail() {
             >
               <Input
                 className={styles.inputinfo}
+                defaultValue={patientinfo.email}
                 disabled
               />
             </Form.Item>
