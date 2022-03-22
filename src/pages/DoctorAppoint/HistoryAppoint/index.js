@@ -1,8 +1,8 @@
 import React from "react";
-import styles from "./DoctorAppoint.module.css";
+import styles from "./HistoryAppoint.module.css";
 import { Button, Table, Tag, Space } from "antd";
 
-export default function DoctorAppoint() {
+export default function HistoryAppoint() {
   const columns = [
     {
       title: "วันที่",
@@ -30,10 +30,6 @@ export default function DoctorAppoint() {
             let color = tag.length > 9 ? "green" : "geekblue";
             if (tag === "ยกเลิกนัด") {
               color = "volcano";
-            } else if (tag == "ปรึกษาสำเร็จ") {
-              color = "green";
-            } else {
-              color = "geekblue";
             }
             return (
               <Tag color={color} key={tag}>
@@ -52,24 +48,21 @@ export default function DoctorAppoint() {
       date: "2/9/2564",
       period: "17.00 - 17.30",
       docname: "นพ.สมชาย เก่งมาก",
-      status: ["รอให้คำปรึกษา"],
+      status: ["ปรึกษาสำเร็จ"],
     },
     {
       id: "2",
       date: "3/9/2564",
       period: "14.00 - 14.30",
       docname: "นพ.สมชาย เก่งมาก",
-      status: ["รอให้คำปรึกษา"],
+      status: ["ยกเลิกนัด"],
     },
   ];
+
   return (
     <div className={styles.container}>
       <div className={styles.body}>
-        <h2 className={styles.header}>รายการปรึกษาแพทย์ของฉัน</h2>
-        <div className={styles.box}>
-          <Table columns={columns} dataSource={data} />
-        </div>
-        <h2 className={styles.header}>นัดปรึกษาแพทย์</h2>
+        <h2 className={styles.header}>ประวัติการปรึกษาแพทย์</h2>
         <div className={styles.box}>
           <Table columns={columns} dataSource={data} />
         </div>
