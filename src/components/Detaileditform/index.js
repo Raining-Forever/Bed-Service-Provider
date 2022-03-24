@@ -1,10 +1,9 @@
 import React from "react";
 
-import styles from "../../../components/Detail/Detail.module.css";
-
+import styles from "./Detaileditform.module.css";
 import { InboxOutlined } from "@ant-design/icons";
-// import { useState, useEffect } from "react";
-// import { Oval } from "react-loader-spinner";
+import { useState, useEffect } from "react";
+import { Oval } from "react-loader-spinner";
 
 import {
   Form,
@@ -40,7 +39,37 @@ const formItemLayout = {
   },
 };
 
-export default function Patientregister() {
+export default function Detaileditform() {
+  const [patientinfo, setPatientinfo] = useState(
+    {}
+  );
+  const [isLoading, setisLoading] =
+    useState(true);
+  async function fetchPatientData() {
+    const result = await axios.get(
+      "https://bed-service-provider.herokuapp.com/api/patient/"
+    );
+    setPatientinfo(result.data[0]);
+    setisLoading(false);
+  }
+
+  useEffect(() => {
+    fetchPatientData();
+  }, []);
+
+  if (isLoading)
+    return (
+      <div className={styles.loadcontainer}>
+        <Oval
+          height="100"
+          width="100"
+          color="#1890ff"
+          secondaryColor="gray"
+        />
+        Loading
+      </div>
+    );
+
   return (
     <div className={styles.body}>
       <Form
@@ -67,6 +96,7 @@ export default function Patientregister() {
             >
               <Input
                 className={styles.inputinfo}
+                defaultValue={patientinfo.idcard}
               />
             </Form.Item>
             <Form.Item
@@ -85,6 +115,9 @@ export default function Patientregister() {
             >
               <Input
                 className={styles.inputinfo}
+                defaultValue={
+                  patientinfo.firstname
+                }
               />
             </Form.Item>
             <Form.Item
@@ -93,6 +126,7 @@ export default function Patientregister() {
             >
               <Input
                 className={styles.inputinfo}
+                defaultValue={patientinfo.email}
               />
             </Form.Item>
             <Form.Item
