@@ -46,6 +46,59 @@ export default function DoctorAppoint() {
     },
   ];
 
+  const columns2 = [
+    {
+      title: "วันที่",
+      dataIndex: "date",
+      key: "date",
+      render: (text) => <a>{text}</a>,
+    },
+    {
+      title: "ช่วงเวลา",
+      dataIndex: "period",
+      key: "period",
+    },
+    {
+      title: "รายชื่อแพทย์",
+      dataIndex: "docname",
+      key: "docname",
+    },
+    {
+      title: "เพศ",
+      key: "sex",
+      dataIndex: "sex",
+      render: (sex) => (
+        <>
+          {sex.map((tag) => {
+            let color = tag.length;
+            if (tag === "ชาย") {
+              color = "geekblue";
+            } else if (tag == "หญิง") {
+              color = "volcano";
+            } else {
+              color = "green";
+            }
+            return (
+              <Tag color={color} key={tag}>
+                {tag.toUpperCase()}
+              </Tag>
+            );
+          })}
+        </>
+      ),
+    },
+    {
+      title: "",
+      key: "button",
+      dataIndex: "button",
+      render: (text, record) => (
+        <Space size="middle">
+          <a>ปรึกษา</a>
+        </Space>
+      ),
+    },
+  ];
+
   const data = [
     {
       id: "1",
@@ -62,6 +115,24 @@ export default function DoctorAppoint() {
       status: ["รอให้คำปรึกษา"],
     },
   ];
+
+  const data2 = [
+    {
+      id: "1",
+      date: "2/9/2564",
+      period: "17.00 - 17.30",
+      docname: "นพ.สมชาย เก่งมาก",
+      sex: ["ชาย"],
+    },
+    {
+      id: "2",
+      date: "3/9/2564",
+      period: "14.00 - 14.30",
+      docname: "นพ.สมชาย เก่งมาก",
+      sex: ["หญิง"],
+    },
+  ];
+
   return (
     <div className={styles.container}>
       <div className={styles.body}>
@@ -71,7 +142,7 @@ export default function DoctorAppoint() {
         </div>
         <h2 className={styles.header}>นัดปรึกษาแพทย์</h2>
         <div className={styles.box}>
-          <Table columns={columns} dataSource={data} />
+          <Table columns={columns2} dataSource={data2} />
         </div>
       </div>
     </div>
