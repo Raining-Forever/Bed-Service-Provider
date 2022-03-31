@@ -75,8 +75,14 @@ function App() {
                 path="/register/agency/hospital"
                 element={<Hospital />}
               />
-              <Route path="/appoint" element={<DoctorAppoint />} />
-              <Route path="/historyappoint" element={<HistoryAppoint />} />
+              <Route
+                path="/appoint"
+                element={<DoctorAppoint />}
+              />
+              <Route
+                path="/historyappoint"
+                element={<HistoryAppoint />}
+              />
             </Routes>
           </div>
         </div>
