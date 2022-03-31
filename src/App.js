@@ -7,6 +7,9 @@ import Symtom from "./pages/Symptom";
 import Result from "./components/Symptom/Result";
 import SelectRegister from "./pages/Register/SelectRegister";
 import Patientregister from "./pages/Register/Patientregister";
+import Agency from "./pages/Register/Agency";
+import Doctor from "./pages/Register/Agency/Doctor";
+import Hospital from "./pages/Register/Agency/Hospital";
 
 import Navbar_patient from "./components/Navbar/Navbar_patient";
 
@@ -55,8 +58,20 @@ function App() {
                 element={<SelectRegister />}
               />
               <Route
-                path="/register"
+                path="/register/patient"
                 element={<Patientregister />}
+              />
+              <Route
+                path="/register/agency"
+                element={<Agency />}
+              />
+              <Route
+                path="/register/agency/doctor"
+                element={<Doctor />}
+              />
+              <Route
+                path="/register/agency/hospital"
+                element={<Hospital />}
               />
             </Routes>
           </div>

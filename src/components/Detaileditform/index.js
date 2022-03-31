@@ -100,7 +100,7 @@ export default function Detaileditform() {
               />
             </Form.Item>
             <Form.Item
-              name="gender"
+              name="title"
               label="คำนำหน้า :"
             >
               <Select placeholder="" allowClear>
