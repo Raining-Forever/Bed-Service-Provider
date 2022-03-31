@@ -1,12 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./Account.module.css";
 
 import Navbar_patient from "../../components/Navbar/Navbar_patient";
 
-import Detail from "./Detail";
+import Detail from "../../components/Detail";
+import Detaileditform from "../../components/Detaileditform";
 import { Button } from "antd";
 
 export default function Account() {
+  const [isEdit, setIsEdit] = useState(false);
+
+  function ToggleEditform() {
+    setIsEdit(!isEdit);
+  }
   return (
     <div className={styles.container}>
       <div className={styles.body}>
@@ -14,15 +20,29 @@ export default function Account() {
           <div className={styles.header}>
             ข้อมูลผู้ป่วย
           </div>
-          <Button
-            type="primary"
-            htmlType="submit"
-          >
-            แก้ไขข้อมูล
-          </Button>
+          {isEdit ? (
+            <Button
+              type="primary"
+              onClick={ToggleEditform}
+              danger
+            >
+              ยกเลิกแก้ไข
+            </Button>
+          ) : (
+            <Button
+              type="primary"
+              onClick={ToggleEditform}
+            >
+              แก้ไขข้อมูล
+            </Button>
+          )}
         </div>
         <div className={styles.box}>
-          <Detail />
+          {isEdit ? (
+            <Detaileditform />
+          ) : (
+            <Detail />
+          )}
         </div>
       </div>
     </div>

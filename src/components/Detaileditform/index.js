@@ -1,7 +1,9 @@
 import React from "react";
 
-import styles from "./Detail.module.css";
+import styles from "./Detaileditform.module.css";
 import { InboxOutlined } from "@ant-design/icons";
+import { useState, useEffect } from "react";
+import { Oval } from "react-loader-spinner";
 
 import {
   Form,
@@ -13,6 +15,8 @@ import {
   Checkbox,
   Row,
 } from "antd";
+import axios from "axios";
+import { result } from "lodash";
 
 const { Dragger } = Upload;
 const { Option } = Select;
@@ -35,7 +39,37 @@ const formItemLayout = {
   },
 };
 
-export default function Detail() {
+export default function Detaileditform() {
+  const [patientinfo, setPatientinfo] = useState(
+    {}
+  );
+  const [isLoading, setisLoading] =
+    useState(true);
+  async function fetchPatientData() {
+    const result = await axios.get(
+      "https://bed-service-provider.herokuapp.com/api/patient/"
+    );
+    setPatientinfo(result.data[0]);
+    setisLoading(false);
+  }
+
+  useEffect(() => {
+    fetchPatientData();
+  }, []);
+
+  if (isLoading)
+    return (
+      <div className={styles.loadcontainer}>
+        <Oval
+          height="100"
+          width="100"
+          color="#1890ff"
+          secondaryColor="gray"
+        />
+        Loading
+      </div>
+    );
+
   return (
     <div className={styles.body}>
       <Form
@@ -47,33 +81,29 @@ export default function Detail() {
             <Form.Item
               name="idcard"
               label="เลขบัตรประชาชน :"
-              rules={[
-                {
-                  type: "email",
-                  message:
-                    "The input is not valid E-mail!",
-                },
-                {
-                  required: true,
-                  message:
-                    "Please input your E-mail!",
-                },
-              ]}
+              // rules={[
+              //   {
+              //     type: "email",
+              //     message:
+              //       "The input is not valid E-mail!",
+              //   },
+              //   {
+              //     required: true,
+              //     message:
+              //       "Please input your E-mail!",
+              //   },
+              // ]}
             >
               <Input
                 className={styles.inputinfo}
-                disabled
+                defaultValue={patientinfo.idcard}
               />
             </Form.Item>
             <Form.Item
-              name="gender"
+              name="title"
               label="คำนำหน้า :"
             >
-              <Select
-                placeholder=""
-                allowClear
-                disabled
-              >
+              <Select placeholder="" allowClear>
                 <Option value="mr">นาย</Option>
                 <Option value="mrs">นาง</Option>
                 <Option value="ms">นางสาว</Option>
@@ -85,7 +115,9 @@ export default function Detail() {
             >
               <Input
                 className={styles.inputinfo}
-                disabled
+                defaultValue={
+                  patientinfo.firstname
+                }
               />
             </Form.Item>
             <Form.Item
@@ -94,7 +126,7 @@ export default function Detail() {
             >
               <Input
                 className={styles.inputinfo}
-                disabled
+                defaultValue={patientinfo.email}
               />
             </Form.Item>
             <Form.Item
@@ -104,7 +136,6 @@ export default function Detail() {
               <Input
                 className={styles.inputinfo}
                 suffix="kg"
-                disabled
               />
             </Form.Item>
           </div>
@@ -115,11 +146,10 @@ export default function Detail() {
             >
               <Input
                 className={styles.inputinfo}
-                disabled
               />
             </Form.Item>
             <Form.Item name="gender" label="เพศ">
-              <Radio.Group disabled>
+              <Radio.Group>
                 <Radio value="male">ชาย</Radio>
                 <Radio value="female">หญิง</Radio>
               </Radio.Group>
@@ -130,7 +160,6 @@ export default function Detail() {
             >
               <Input
                 className={styles.inputinfo}
-                disabled
               />
             </Form.Item>
             <Form.Item
@@ -139,7 +168,6 @@ export default function Detail() {
             >
               <Input
                 className={styles.inputinfo}
-                disabled
               />
             </Form.Item>
             <Form.Item
@@ -149,7 +177,6 @@ export default function Detail() {
               <Input
                 className={styles.inputinfo}
                 suffix="cm"
-                disabled
               />
             </Form.Item>
           </div>
@@ -159,7 +186,6 @@ export default function Detail() {
           label="คุณมีหลักฐานการตรวจโควิด-19 :"
         >
           <Radio.Group
-            disabled
             className={styles.radioGroup}
           >
             <Radio value="covid-evidence-yes">
@@ -175,7 +201,6 @@ export default function Detail() {
           label="ตรวจโควิด-19 ด้วยวิธีการใด :"
         >
           <Radio.Group
-            disabled
             className={styles.radioGroup}
           >
             <Radio value="atk">ATK</Radio>
@@ -189,7 +214,6 @@ export default function Detail() {
           label="ผลตรวจที่ได้ :"
         >
           <Radio.Group
-            disabled
             className={styles.radioGroup}
           >
             <Radio value="resultform-yes">
@@ -220,7 +244,7 @@ export default function Detail() {
           </Dragger>
         </Form.Item>
         {/* <Form.Item name="covid-prove">
-          <Checkbox.Group disabled>
+          <Checkbox.Group >
             <Row>
               <Checkbox value="rt-pcr">
                 หลักฐานการตรวจโควิด-19 ด้วยวิธีการ
@@ -231,7 +255,7 @@ export default function Detail() {
                   label="ผลตรวจที่ได้ :"
                 >
                   <Radio.Group
-                    disabled
+                    
                     className={styles.radioGroup}
                   >
                     <Radio value="rt-pcr-form-yes">
@@ -266,7 +290,7 @@ export default function Detail() {
                   name="atk-form"
                   label="ผลตรวจที่ได้ :"
                 >
-                  <Radio.Group disabled>
+                  <Radio.Group >
                     <Radio value="atk-form-yes">
                       ติดเชื้อ
                     </Radio>
@@ -290,20 +314,20 @@ export default function Detail() {
               name="address"
               label="ที่อยู่ :"
             >
-              <Input disabled />
+              <Input />
             </Form.Item>
             <Form.Item
               name="province"
               label="จังหวัด :"
             >
-              <Input disabled />
+              <Input />
             </Form.Item>
 
             <Form.Item
               name="district"
               label="อำเภอ/เขต :"
             >
-              <Input disabled />
+              <Input />
             </Form.Item>
           </div>
 
@@ -312,14 +336,14 @@ export default function Detail() {
               name="subdistrict"
               label="ตำบล/แขวง :"
             >
-              <Input disabled />
+              <Input />
             </Form.Item>
 
             <Form.Item
               name="zipcode"
               label="รหัสไปรษณีย์ :"
             >
-              <Input disabled />
+              <Input />
             </Form.Item>
           </div>
         </div>

@@ -1,0 +1,41 @@
+@import "~antd/dist/antd.css";
+.body {
+}
+.selectbutton {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: 350px;
+  height: 300px;
+  border-radius: 5px;
+  background: transparent;
+  font-size: 18px;
+  border: 1px solid #a5a5a5;
+  font-weight: medium;
+  color: #565656;
+  padding: 20px;
+}
+.selectbutton:hover {
+  border: 2px solid #51a2ee;
+  transition: 0.1s;
+}
+.hregis {
+  font-size: 36px;
+  font-weight: medium;
+  width: 100%;
+  height: 140px;
+  color: #ffffff;
+  background-color: #377de2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.wrapregisbutton {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 800px;
+  margin: 50px auto;
+}
