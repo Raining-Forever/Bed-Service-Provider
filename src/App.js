@@ -3,7 +3,9 @@ import React from "react";
 import Account from "./pages/Account";
 import Homepage from "./pages/Homepage";
 import Symtom from "./pages/Symptom";
-// import Register from "./pages/Register";
+import Register from "./pages/Register";
+import DoctorAppoint from "./pages/DoctorAppoint";
+import HistoryAppoint from "./pages/DoctorAppoint/HistoryAppoint";
 import Result from "./components/Symptom/Result";
 import SelectRegister from "./pages/Register/SelectRegister";
 import Patientregister from "./pages/Register/Patientregister";
@@ -73,6 +75,8 @@ function App() {
                 path="/register/agency/hospital"
                 element={<Hospital />}
               />
+              <Route path="/appoint" element={<DoctorAppoint />} />
+              <Route path="/historyappoint" element={<HistoryAppoint />} />
             </Routes>
           </div>
         </div>
