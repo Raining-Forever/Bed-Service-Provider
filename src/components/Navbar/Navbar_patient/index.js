@@ -38,11 +38,15 @@ export default function Navbar_patient() {
         </Menu.Item>
         <Menu.ItemGroup key="g1" title="ปรึกษาแพทย์">
           <Menu.Item key="3">
-            <NavLink to="/formResult" activeclassname="selectedLink">
+            <NavLink to="/appoint" activeclassname="selectedLink">
               ปรึกษาแพทย์
             </NavLink>
           </Menu.Item>
-          <Menu.Item key="4">ประวัติการปรึกษาแพทย์</Menu.Item>
+          <Menu.Item key="4">
+            <NavLink to="/historyappoint" activeclassname="selectedLink">
+              ประวัติการปรึกษาแพทย์
+            </NavLink>
+          </Menu.Item>
         </Menu.ItemGroup>
         <Menu.ItemGroup key="g2" title="การค้นหาและจองเตียง">
           <Menu.Item key="5">การค้นหาและจองเตียง</Menu.Item>
