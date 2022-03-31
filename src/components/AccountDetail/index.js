@@ -38,33 +38,8 @@ const formItemLayout = {
     },
   },
 };
-// const defaultValue = {
-//   id: 1,
-//   user_id: 1,
-//   email: null,
-//   idcard: null,
-//   title: null,
-//   firstname: null,
-//   lastname: null,
-//   birthday: null,
-//   tel: null,
-//   weight: null,
-//   height: null,
-//   gender: null,
-//   is_covid_test: null,
-//   proof_type: null,
-//   is_detected: null,
-//   proof_url: null,
-//   address: null,
-//   province: null,
-//   district: null,
-//   subdistrict: null,
-//   postalcode: null,
-//   created_at: null,
-//   updated_at: null,
-// };
 
-export default function Detail({
+export default function AccountDetail({
   patientinfo,
   setPatientinfo,
   disabled,

@@ -4,8 +4,7 @@ import styles from "./Account.module.css";
 import Navbar_patient from "../../components/Navbar/Navbar_patient";
 import AccountDetail from "../../components/AccountDetail";
 import { useState, useEffect } from "react";
-import Detail from "../../components/Detail";
-import Detaileditform from "../../components/Detaileditform";
+
 import { Button } from "antd";
 import axios from "axios";
 import { Oval } from "react-loader-spinner";
@@ -15,18 +14,23 @@ export default function Account() {
   const [patientinfo, setPatientinfo] = useState(
     {}
   );
+
   const [isLoading, setisLoading] =
     useState(true);
+
   async function fetchPatientData() {
     const result = await axios.get(
       "https://bed-service-provider.herokuapp.com/api/patient/"
     );
     setPatientinfo(result.data[0]);
     setisLoading(false);
+    console.log(result);
   }
+
   function ToggleEditform() {
     setIsEdit(!isEdit);
   }
+
   useEffect(() => {
     fetchPatientData();
   }, []);
