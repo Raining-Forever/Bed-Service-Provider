@@ -24,16 +24,16 @@ export default function CheckEvid() {
       dataIndex: "typeEvi",
       key: "typeEvi",
     },
-    /*{
+    {
       title: "",
       key: "button",
       dataIndex: "button",
       render: (text, record) => (
         <Space size="middle">
-          <a>></a>
+          <a>ดูข้อมูลเพิ่มเติม ></a>
         </Space>
       ),
-    },*/
+    },
   ];
 
   const data = [
