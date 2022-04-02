@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "../../Account/Account.module.css";
-import Detaileditform from "../../../components/Detaileditform";
+import AccountDetail from "../../../components/AccountDetail";
 
 export default function Patientregister() {
   return (
@@ -12,7 +12,7 @@ export default function Patientregister() {
           </div>
         </div>
         <div className={styles.box}>
-          <Detaileditform />
+          <AccountDetail />
         </div>
       </div>
     </div>
