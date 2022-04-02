@@ -30,15 +30,25 @@
     text-align: left;
     /* margin-left: 10%; */
   }
-  .wrapaddress {
+  .wrapaddress{
+    display: flex;
+    flex-direction: column;
+  }
+  /* .topaddress{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+ 
+  } */
+  .botaddress {
     justify-content: center;
     display: flex;
     flex-direction: row;
     /* align-items: center; */
   }
-  .provepic {
-    /* max-width: 360px; */
-  }
+  /* .provepic {
+    max-width: 360px;
+  } */
   .couple {
     display: flex;
     flex-direction: column;

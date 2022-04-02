@@ -2,8 +2,6 @@ import React from "react";
 import styles from "./AccountDetail.module.css";
 
 import { InboxOutlined } from "@ant-design/icons";
-import { useState, useEffect } from "react";
-import { Oval } from "react-loader-spinner";
 
 import {
   Form,
@@ -12,11 +10,8 @@ import {
   Radio,
   Select,
   Upload,
-  Checkbox,
-  Row,
 } from "antd";
 import axios from "axios";
-import { result } from "lodash";
 
 const { Dragger } = Upload;
 const { Option } = Select;
@@ -38,7 +33,26 @@ const formItemLayout = {
     },
   },
 };
-
+const tailFormItemLayout = {
+  labelCol: {
+    xs: {
+      span: 24,
+    },
+    sm: {
+      span: 6,
+    },
+  },
+  wrapperCol: {
+    xs: {
+      span: 24,
+      offset: 0,
+    },
+    sm: {
+      span: 15,
+      // offset: 4,
+    },
+  },
+};
 export default function AccountDetail({
   patientinfo,
   setPatientinfo,
@@ -255,42 +269,46 @@ export default function AccountDetail({
           ที่อยู่ที่สามารถติดต่อได้
         </div>
         <div className={styles.wrapaddress}>
-          <div className={styles.couple}>
+          <div className={styles.topaddress}>
             <Form.Item
+              {...tailFormItemLayout}
               name="address"
               label="ที่อยู่ :"
             >
               <Input disabled={disabled} />
             </Form.Item>
-            <Form.Item
-              name="province"
-              label="จังหวัด :"
-            >
-              <Input disabled={disabled} />
-            </Form.Item>
-
-            <Form.Item
-              name="district"
-              label="อำเภอ/เขต :"
-            >
-              <Input disabled={disabled} />
-            </Form.Item>
           </div>
+          <div className={styles.botaddress}>
+            <div className={styles.couple}>
+              <Form.Item
+                name="province"
+                label="จังหวัด :"
+              >
+                <Input disabled={disabled} />
+              </Form.Item>
 
-          <div className={styles.couple}>
-            <Form.Item
-              name="subdistrict"
-              label="ตำบล/แขวง :"
-            >
-              <Input disabled={disabled} />
-            </Form.Item>
+              <Form.Item
+                name="district"
+                label="อำเภอ/เขต :"
+              >
+                <Input disabled={disabled} />
+              </Form.Item>
+            </div>
+            <div className={styles.couple}>
+              <Form.Item
+                name="subdistrict"
+                label="ตำบล/แขวง :"
+              >
+                <Input disabled={disabled} />
+              </Form.Item>
 
-            <Form.Item
-              name="zipcode"
-              label="รหัสไปรษณีย์ :"
-            >
-              <Input disabled={disabled} />
-            </Form.Item>
+              <Form.Item
+                name="zipcode"
+                label="รหัสไปรษณีย์ :"
+              >
+                <Input disabled={disabled} />
+              </Form.Item>
+            </div>
           </div>
         </div>
       </Form>

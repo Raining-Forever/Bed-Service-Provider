@@ -24,7 +24,7 @@ const formItemLayout = {
 
 export default function DoctorDetail() {
   return (
-    <div>
+    <div className={styles.body}>
       <Form {...formItemLayout}>
         <Form.Item
           name="doctor_id"

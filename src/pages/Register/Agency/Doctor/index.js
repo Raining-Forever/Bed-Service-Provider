@@ -10,7 +10,7 @@ export default function Doctor() {
       <div className={styles.body}>
         <div className={styles.wrapheader}>
           <div className={styles.header}>
-            ข้อมูลผู้ป่วย
+            ลงทะเบียนแพทย์
           </div>
         </div>
         <div className={styles.box}>
