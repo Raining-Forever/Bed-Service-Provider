@@ -96,7 +96,11 @@ export default function AccountDetail({
               name="title"
               label="คำนำหน้า :"
             >
-              <Select placeholder="" allowClear>
+              <Select
+                placeholder=""
+                allowClear
+                disabled={disabled}
+              >
                 <Option value="mr">นาย</Option>
                 <Option value="mrs">นาง</Option>
                 <Option value="ms">นางสาว</Option>
@@ -143,9 +147,10 @@ export default function AccountDetail({
             </Form.Item>
             <Form.Item name="gender" label="เพศ">
               <Radio.Group
-              // value={form.getFieldValue([
-              //   "gender",
-              // ])}
+                disabled={disabled}
+                // value={form.getFieldValue([
+                //   "gender",
+                // ])}
               >
                 <Radio value="male">ชาย</Radio>
                 <Radio value="female">หญิง</Radio>
@@ -174,9 +179,9 @@ export default function AccountDetail({
               label="ส่วนสูง :"
             >
               <Input
-                disabled={disabled}
                 className={styles.inputinfo}
                 suffix="cm"
+                disabled={disabled}
               />
             </Form.Item>
           </div>
@@ -186,6 +191,7 @@ export default function AccountDetail({
           label="คุณมีหลักฐานการตรวจโควิด-19 :"
         >
           <Radio.Group
+            disabled={disabled}
             className={styles.radioGroup}
           >
             <Radio value="covid-evidence-yes">
@@ -201,6 +207,7 @@ export default function AccountDetail({
           label="ตรวจโควิด-19 ด้วยวิธีการใด :"
         >
           <Radio.Group
+            disabled={disabled}
             className={styles.radioGroup}
           >
             <Radio value="atk">ATK</Radio>
@@ -214,6 +221,7 @@ export default function AccountDetail({
           label="ผลตรวจที่ได้ :"
         >
           <Radio.Group
+            disabled={disabled}
             className={styles.radioGroup}
           >
             <Radio value="resultform-yes">

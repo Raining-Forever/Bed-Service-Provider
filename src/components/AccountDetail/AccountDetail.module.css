@@ -49,10 +49,26 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+
     /* color: gray; */
   }
+
   Input:disabled {
-    background-color: transparent !important;
+    background-color: transparent!important;
+    color: black!important;
+    border: none!important;
+    cursor: default!important;
+  }
+  
+  .ant-select-disabled.ant-select:not(.ant-select-customize-input) .ant-select-selector {
+    background: transparent !important;
+    color: black!important;
+    border: none!important;
+    cursor: default!important;
+  }
+
+  .ant-input-affix-wrapper-disabled{
+    background-color: transparent!important;
     color: black!important;
     border: none!important;
     cursor: default!important;
