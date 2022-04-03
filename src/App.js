@@ -12,6 +12,7 @@ import Patientregister from "./pages/Register/Patientregister";
 import Agency from "./pages/Register/Agency";
 import Doctor from "./pages/Register/Agency/Doctor";
 import Hospital from "./pages/Register/Agency/Hospital";
+import Accessdeined from "./components/AccessDenied";
 
 import Navbar_patient from "./components/Navbar/Navbar_patient";
 
@@ -82,6 +83,10 @@ function App() {
               <Route
                 path="/historyappoint"
                 element={<HistoryAppoint />}
+              />
+              <Route
+                path="/accessdenied"
+                element={<Accessdeined />}
               />
             </Routes>
           </div>

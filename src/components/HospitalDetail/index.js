@@ -1,12 +1,54 @@
 import React from "react";
-import styles from "./HospitalDetail.module.css"
+import styles from "./HospitalDetail.module.css";
 
 import { Button, Form, Input } from "antd";
 
-export default function HospitalDetail() {
+const formItemLayout = {
+  labelCol: {
+    xs: {
+      span: 24,
+    },
+    sm: {
+      span: 10,
+    },
+  },
+  wrapperCol: {
+    xs: {
+      span: 24,
+    },
+    sm: {
+      span: 14,
+    },
+  },
+};
+
+const tailFormItemLayout = {
+  labelCol: {
+    xs: {
+      span: 24,
+    },
+    sm: {
+      span: 5,
+    },
+  },
+  wrapperCol: {
+    xs: {
+      span: 24,
+      offset: 0,
+    },
+    sm: {
+      span: 19,
+      // offset: 4,
+    },
+  },
+};
+
+export default function HospitalDetail({
+  disabled,
+}) {
   return (
-    <div>
-      <Form>
+    <div className={styles.body}>
+      <Form {...formItemLayout}>
         <Form.Item
           name="hospital_id"
           label="รหัสสถานพยาบาล :"
@@ -30,67 +72,6 @@ export default function HospitalDetail() {
         >
           <Input />
         </Form.Item>
-
-        <Form.Item
-          name="hospital_address"
-          label="ที่อยู่ :"
-          rules={[
-            {
-              required: true,
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          name="hospital_province"
-          label="จังหวัด :"
-          rules={[
-            {
-              required: true,
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          name="hospital_district"
-          label="อำเภอ/เขต :"
-          rules={[
-            {
-              required: true,
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          name="hospital_subdistrict"
-          label="ตำบล/แขวง :"
-          rules={[
-            {
-              required: true,
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          name="hospital_zipcode"
-          label="รหัสไปรษณีย์ :"
-          rules={[
-            {
-              required: true,
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-
         <Form.Item
           name="hospital_tel"
           label="เบอร์โทรศัพท์ :"
@@ -102,6 +83,52 @@ export default function HospitalDetail() {
         >
           <Input />
         </Form.Item>
+        <div className={styles.adresstitle}>
+          ที่อยู่ที่สามารถติดต่อได้
+        </div>
+        <div className={styles.wrapaddress}>
+          <div className={styles.topaddress}>
+            <Form.Item
+              {...tailFormItemLayout}
+              name="address"
+              label="ที่อยู่ :"
+            >
+              <Input disabled={disabled} />
+            </Form.Item>
+          </div>
+          <div className={styles.botaddress}>
+            <div className={styles.couple}>
+              <Form.Item
+                name="province"
+                label="จังหวัด :"
+              >
+                <Input disabled={disabled} />
+              </Form.Item>
+
+              <Form.Item
+                name="district"
+                label="อำเภอ/เขต :"
+              >
+                <Input disabled={disabled} />
+              </Form.Item>
+            </div>
+            <div className={styles.couple}>
+              <Form.Item
+                name="subdistrict"
+                label="ตำบล/แขวง :"
+              >
+                <Input disabled={disabled} />
+              </Form.Item>
+
+              <Form.Item
+                name="zipcode"
+                label="รหัสไปรษณีย์ :"
+              >
+                <Input disabled={disabled} />
+              </Form.Item>
+            </div>
+          </div>
+        </div>
       </Form>
       <Button type="primary">ลงทะเบียน</Button>
     </div>

@@ -36,7 +36,7 @@ const headFormItemLayout = {
       offset: 0,
     },
     sm: {
-      span: 17,
+      span: 15,
       // offset: 4,
     },
   },
@@ -61,6 +61,7 @@ const tailFormItemLayout = {
     },
   },
 };
+
 export default function DoctorDetail({
   disabled,
 }) {
