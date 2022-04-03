@@ -1,50 +1,40 @@
-import React from "react";
-import { useState } from "react";
 import { GoogleLogin } from "react-google-login";
-import UserInfo from "../UserInfo";
+import axios from "axios";
 
 const clientId =
-  "543267694047-6fpjeu5rjbcsc5s2podj86qvb4l3akel.apps.googleusercontent.com";
+  "998136068404-6n8uj2nhv01eevcrq0751cqq11bgn81i.apps.googleusercontent.com";
 
 export default function Login() {
-  const [user, setUser] = useState({
-    name: "",
-    email: "",
-    image: "",
-  });
-
-  const onSuccess = (response) => {
-    const profileObj = JSON.stringify(response.profileObj);
-    localStorage.setItem("profileObj", profileObj);
-    localStorage.setItem("isLogin", "True");
-    setUser({
-      name: response.profileObj.name,
-      email: response.profileObj.email,
-      image: response.profileObj.imageUrl,
-    });
+  const onSuccess = (res) => {
+    const profile = res.profileObj;
+    const email = profile.email;
+    axios
+      .post("http://localhost:3000/api/user", { email: email })
+      .then((response) => {
+        console.log("response: ", response.data);
+        localStorage.setItem("email", response.data.email);
+        localStorage.setItem("loggedIn", response.data.loggedIn);
+        localStorage.setItem("user_id", response.data.user_id);
+        localStorage.setItem("role", response.data.role);
+      });
+    console.log("Login success! user: ", profile);
+    localStorage.setItem("googleAccount", JSON.stringify(profile));
   };
 
-  const responseGoogle = (response) => {
-    console.log(response);
+  const onFailure = (res) => {
+    console.log("Login failed! res: ", res);
   };
 
   return (
     <div>
       <GoogleLogin
         clientId={clientId}
+        buttonText="Login"
         onSuccess={onSuccess}
-        onFailure={responseGoogle}
+        onFailure={onFailure}
         cookiePolicy={"single_host_origin"}
-        isSignedIn={true}
+        // isSignedIn={true}
       />
-      <UserInfo user={user} />
-      <button
-        onClick={() => {
-          console.log(user);
-        }}
-      >
-        user
-      </button>
     </div>
   );
 }

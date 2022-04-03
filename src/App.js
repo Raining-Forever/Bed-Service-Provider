@@ -13,8 +13,6 @@ import Agency from "./pages/Register/Agency";
 import Doctor from "./pages/Register/Agency/Doctor";
 import Hospital from "./pages/Register/Agency/Hospital";
 
-import Login from "./pages/Login";
-
 import Navbar_patient from "./components/Navbar/Navbar_patient";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -39,8 +37,6 @@ function App() {
               <Route path="/register/agency/hospital" element={<Hospital />} />
               <Route path="/appoint" element={<DoctorAppoint />} />
               <Route path="/historyappoint" element={<HistoryAppoint />} />
-
-              <Route path="/login" element={<Login />} />
             </Routes>
           </div>
         </div>
