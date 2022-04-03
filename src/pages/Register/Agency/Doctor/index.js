@@ -2,8 +2,6 @@ import React from "react";
 import styles from "./Doctor.module.css";
 import DoctorDetail from "../../../../components/DoctorDetail";
 
-import { Radio, Button, Form, Input } from "antd";
-
 export default function Doctor() {
   return (
     <div className={styles.container}>
