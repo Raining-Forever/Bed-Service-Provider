@@ -13,34 +13,35 @@ import Agency from "./pages/Register/Agency";
 import Doctor from "./pages/Register/Agency/Doctor";
 import Hospital from "./pages/Register/Agency/Hospital";
 
-import Navbar_patient from "./components/Navbar/Navbar_patient";
+// import Navbar_patient from "./components/Navbar/Navbar_patient";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Navbar } from "./components/Navbar";
+
+import { MyRoute } from "./MyRoute";
 
 function App() {
   // console.log(window.location.pathname);
   return (
     <div className="App">
-      <Router>
-        <div>
-          {window.location.pathname !== "/register" && <Navbar_patient />}
-          <div className={window.location.pathname !== "/register" && "layout"}>
-            <Routes>
-              <Route exact path="/" element={<Homepage />} />
-              <Route path="/account" element={<Account />} />
-              <Route exact path="/form" element={<Symtom />} />
-              <Route exact path="/formResult" element={<Result />} />
-              <Route path="/register" element={<SelectRegister />} />
-              <Route path="/register/patient" element={<Patientregister />} />
-              <Route path="/register/agency" element={<Agency />} />
-              <Route path="/register/agency/doctor" element={<Doctor />} />
-              <Route path="/register/agency/hospital" element={<Hospital />} />
-              <Route path="/appoint" element={<DoctorAppoint />} />
-              <Route path="/historyappoint" element={<HistoryAppoint />} />
-            </Routes>
-          </div>
+      <div>
+        {window.location.pathname !== "/register" && <Navbar />}
+        <div className={window.location.pathname !== "/register" && "layout"}>
+          <Routes>
+            <Route exact path="/" element={<Homepage />} />
+            <Route element={<Account />} path="/account" />
+            <Route exact path="/form" element={<Symtom />} />
+            <Route exact path="/formResult" element={<Result />} />
+            <Route path="/register" element={<SelectRegister />} />
+            <Route path="/register/patient" element={<Patientregister />} />
+            <Route path="/register/agency" element={<Agency />} />
+            <Route path="/register/agency/doctor" element={<Doctor />} />
+            <Route path="/register/agency/hospital" element={<Hospital />} />
+            <Route path="/appoint" element={<DoctorAppoint />} />
+            <Route path="/historyappoint" element={<HistoryAppoint />} />
+          </Routes>
         </div>
-      </Router>
+      </div>
     </div>
   );
 }
