@@ -24,7 +24,8 @@
   flex-direction: column;
   justify-content: center;
   object-fit: contain;
-  width: 100%;
+  height:auto;
+  width:100%;
   position: relative;
   color: #ffffff;
 }

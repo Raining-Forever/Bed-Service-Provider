@@ -2,8 +2,6 @@ import React from "react";
 import styles from "./AccountDetail.module.css";
 
 import { InboxOutlined } from "@ant-design/icons";
-import { useState, useEffect } from "react";
-import { Oval } from "react-loader-spinner";
 
 import {
   Form,
@@ -12,11 +10,8 @@ import {
   Radio,
   Select,
   Upload,
-  Checkbox,
-  Row,
 } from "antd";
 import axios from "axios";
-import { result } from "lodash";
 
 const { Dragger } = Upload;
 const { Option } = Select;
@@ -38,7 +33,26 @@ const formItemLayout = {
     },
   },
 };
-
+const tailFormItemLayout = {
+  labelCol: {
+    xs: {
+      span: 24,
+    },
+    sm: {
+      span: 6,
+    },
+  },
+  wrapperCol: {
+    xs: {
+      span: 24,
+      offset: 0,
+    },
+    sm: {
+      span: 15,
+      // offset: 1,
+    },
+  },
+};
 export default function AccountDetail({
   patientinfo,
   setPatientinfo,
@@ -96,7 +110,11 @@ export default function AccountDetail({
               name="title"
               label="คำนำหน้า :"
             >
-              <Select placeholder="" allowClear>
+              <Select
+                placeholder=""
+                allowClear
+                disabled={disabled}
+              >
                 <Option value="mr">นาย</Option>
                 <Option value="mrs">นาง</Option>
                 <Option value="ms">นางสาว</Option>
@@ -143,9 +161,10 @@ export default function AccountDetail({
             </Form.Item>
             <Form.Item name="gender" label="เพศ">
               <Radio.Group
-              // value={form.getFieldValue([
-              //   "gender",
-              // ])}
+                disabled={disabled}
+                // value={form.getFieldValue([
+                //   "gender",
+                // ])}
               >
                 <Radio value="male">ชาย</Radio>
                 <Radio value="female">หญิง</Radio>
@@ -174,9 +193,9 @@ export default function AccountDetail({
               label="ส่วนสูง :"
             >
               <Input
-                disabled={disabled}
                 className={styles.inputinfo}
                 suffix="cm"
+                disabled={disabled}
               />
             </Form.Item>
           </div>
@@ -186,6 +205,7 @@ export default function AccountDetail({
           label="คุณมีหลักฐานการตรวจโควิด-19 :"
         >
           <Radio.Group
+            disabled={disabled}
             className={styles.radioGroup}
           >
             <Radio value="covid-evidence-yes">
@@ -201,6 +221,7 @@ export default function AccountDetail({
           label="ตรวจโควิด-19 ด้วยวิธีการใด :"
         >
           <Radio.Group
+            disabled={disabled}
             className={styles.radioGroup}
           >
             <Radio value="atk">ATK</Radio>
@@ -214,6 +235,7 @@ export default function AccountDetail({
           label="ผลตรวจที่ได้ :"
         >
           <Radio.Group
+            disabled={disabled}
             className={styles.radioGroup}
           >
             <Radio value="resultform-yes">
@@ -247,42 +269,46 @@ export default function AccountDetail({
           ที่อยู่ที่สามารถติดต่อได้
         </div>
         <div className={styles.wrapaddress}>
-          <div className={styles.couple}>
+          <div className={styles.topaddress}>
             <Form.Item
+              {...tailFormItemLayout}
               name="address"
               label="ที่อยู่ :"
             >
               <Input disabled={disabled} />
             </Form.Item>
-            <Form.Item
-              name="province"
-              label="จังหวัด :"
-            >
-              <Input disabled={disabled} />
-            </Form.Item>
-
-            <Form.Item
-              name="district"
-              label="อำเภอ/เขต :"
-            >
-              <Input disabled={disabled} />
-            </Form.Item>
           </div>
+          <div className={styles.botaddress}>
+            <div className={styles.couple}>
+              <Form.Item
+                name="province"
+                label="จังหวัด :"
+              >
+                <Input disabled={disabled} />
+              </Form.Item>
 
-          <div className={styles.couple}>
-            <Form.Item
-              name="subdistrict"
-              label="ตำบล/แขวง :"
-            >
-              <Input disabled={disabled} />
-            </Form.Item>
+              <Form.Item
+                name="district"
+                label="อำเภอ/เขต :"
+              >
+                <Input disabled={disabled} />
+              </Form.Item>
+            </div>
+            <div className={styles.couple}>
+              <Form.Item
+                name="subdistrict"
+                label="ตำบล/แขวง :"
+              >
+                <Input disabled={disabled} />
+              </Form.Item>
 
-            <Form.Item
-              name="zipcode"
-              label="รหัสไปรษณีย์ :"
-            >
-              <Input disabled={disabled} />
-            </Form.Item>
+              <Form.Item
+                name="zipcode"
+                label="รหัสไปรษณีย์ :"
+              >
+                <Input disabled={disabled} />
+              </Form.Item>
+            </div>
           </div>
         </div>
       </Form>
