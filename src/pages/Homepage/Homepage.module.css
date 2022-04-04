@@ -32,7 +32,6 @@
 
 .img1 {
   width: 100%;
-  min-height: 300px;
 }
 
 .img1 img {
@@ -183,8 +182,4 @@
   align-items: flex-start;
   text-align: left;
   justify-content: space-around;
-}
-
-.subnav {
-  height: 72px;
 }

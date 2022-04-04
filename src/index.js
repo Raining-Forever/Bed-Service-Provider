@@ -5,18 +5,11 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
 import { ScoreProvider } from "./context/ScoreContext";
-import { AuthProvider } from "./context/AuthContext";
-
-import { BrowserRouter as Router } from "react-router-dom";
 
 ReactDOM.render(
-  <Router>
-    <ScoreProvider>
-      <AuthProvider>
-        <App />
-      </AuthProvider>
-    </ScoreProvider>
-  </Router>,
+  <ScoreProvider>
+    <App />
+  </ScoreProvider>,
   document.getElementById("root")
 );
 

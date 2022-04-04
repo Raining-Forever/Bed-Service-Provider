@@ -3,9 +3,9 @@ import styles from "./Form0.module.css";
 import { Button } from "antd";
 
 import Empty from "../../../components/Symptom/Result/Empty";
-// import Red from "../../../components/Symptom/Result/Red";
+import Red from "../../../components/Symptom/Result/Red";
 import Yellow from "../../../components/Symptom/Result/Yellow";
-// import Green from "../../../components/Symptom/Result/Green";
+import Green from "../../../components/Symptom/Result/Green";
 
 import { useEffect } from "react";
 import { useScoreContext } from "../../../context/ScoreContext";

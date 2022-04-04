@@ -1,44 +1,50 @@
+import React from "react";
+import { useState } from "react";
 import { GoogleLogin } from "react-google-login";
-import axios from "axios";
-import { useAuthContext } from "../../context/AuthContext";
+import UserInfo from "../UserInfo";
 
 const clientId =
-  "998136068404-6n8uj2nhv01eevcrq0751cqq11bgn81i.apps.googleusercontent.com";
+  "543267694047-6fpjeu5rjbcsc5s2podj86qvb4l3akel.apps.googleusercontent.com";
 
 export default function Login() {
-  const { login } = useAuthContext();
+  const [user, setUser] = useState({
+    name: "",
+    email: "",
+    image: "",
+  });
 
-  const onSuccess = (res) => {
-    const profile = res.profileObj;
-    const email = profile.email;
-    axios
-      .post("http://localhost:3000/api/user", { email: email })
-      .then((response) => {
-        console.log("response: ", response.data);
-        // localStorage.setItem("email", response.data.email);
-        // localStorage.setItem("loggedIn", response.data.loggedIn);
-        // localStorage.setItem("user_id", response.data.user_id);
-        // localStorage.setItem("role", response.data.role);
-        login(response.data);
-      });
-    console.log("Login success! user: ", profile);
-    localStorage.setItem("googleAccount", JSON.stringify(profile));
+  const onSuccess = (response) => {
+    const profileObj = JSON.stringify(response.profileObj);
+    localStorage.setItem("profileObj", profileObj);
+    localStorage.setItem("isLogin", "True");
+    setUser({
+      name: response.profileObj.name,
+      email: response.profileObj.email,
+      image: response.profileObj.imageUrl,
+    });
   };
 
-  const onFailure = (res) => {
-    console.log("Login failed! res: ", res);
+  const responseGoogle = (response) => {
+    console.log(response);
   };
 
   return (
     <div>
       <GoogleLogin
         clientId={clientId}
-        buttonText="Login"
         onSuccess={onSuccess}
-        onFailure={onFailure}
+        onFailure={responseGoogle}
         cookiePolicy={"single_host_origin"}
-        // isSignedIn={true}
+        isSignedIn={true}
       />
+      <UserInfo user={user} />
+      <button
+        onClick={() => {
+          console.log(user);
+        }}
+      >
+        user
+      </button>
     </div>
   );
 }
