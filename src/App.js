@@ -14,18 +14,18 @@ import Doctor from "./pages/Register/Agency/Doctor";
 import Hospital from "./pages/Register/Agency/Hospital";
 import Accessdeined from "./components/AccessDenied";
 
-import Navbar_patient from "./components/Navbar/Navbar_patient";
+// import Navbar_patient from "./components/Navbar/Navbar_patient";
 
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Navbar } from "./components/Navbar";
+
+import { MyRoute } from "./MyRoute";
 
 function App() {
   // console.log(window.location.pathname);
   return (
     <div className="App">
+
       <Router>
         <div>
           {window.location.pathname !==
@@ -91,7 +91,7 @@ function App() {
             </Routes>
           </div>
         </div>
-      </Router>
+      </div>
     </div>
   );
 }
