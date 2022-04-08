@@ -35,7 +35,7 @@ export default function Navbar_patient() {
       >
         <Menu.Item key="1">
           <NavLink
-            to="/account"
+            to="/accountpatient"
             activeclassname="selectedLink"
           >
             ข้อมูลผู้ป่วย

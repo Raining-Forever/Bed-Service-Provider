@@ -1,25 +1,29 @@
 import React from "react";
-import styles from "./Account.module.css";
+import styles from "../Account.module.css";
 
-import Navbar_patient from "../../components/Navbar/Navbar_patient";
-import AccountDetail from "../../components/AccountDetail";
+import Navbar_patient from "../../../components/Navbar/Navbar_patient";
+import AccountDetail from "../../../components/AccountDetail";
 import { useState, useEffect } from "react";
 
 import { Button } from "antd";
 import axios from "axios";
 import { Oval } from "react-loader-spinner";
-import { useAuthContext } from "../../context/AuthContext";
+import { useAuthContext } from "../../../context/AuthContext";
 
-export default function Account() {
-  const { auth, authLoaded, roleCheck } = useAuthContext();
-  useEffect(() => {
-    roleCheck(["doctor"]);
-  }, [authLoaded]);
+export default function AccountPatient() {
+  const { auth, authLoaded, roleCheck } =
+    useAuthContext();
+  // useEffect(() => {
+  //   roleCheck(["doctor"]);
+  // }, [authLoaded]);
 
   const [isEdit, setIsEdit] = useState(true);
-  const [patientinfo, setPatientinfo] = useState({});
+  const [patientinfo, setPatientinfo] = useState(
+    {}
+  );
 
-  const [isLoading, setisLoading] = useState(true);
+  const [isLoading, setisLoading] =
+    useState(true);
 
   async function fetchPatientData() {
     const result = await axios.get(
@@ -42,13 +46,22 @@ export default function Account() {
     <div className={styles.container}>
       <div className={styles.body}>
         <div className={styles.wrapheader}>
-          <div className={styles.header}>ข้อมูลผู้ป่วย</div>
+          <div className={styles.header}>
+            ข้อมูลผู้ป่วย
+          </div>
           {isEdit ? (
-            <Button type="primary" onClick={ToggleEditform}>
+            <Button
+              type="primary"
+              onClick={ToggleEditform}
+            >
               แก้ไขข้อมูล
             </Button>
           ) : (
-            <Button type="primary" onClick={ToggleEditform} danger>
+            <Button
+              type="primary"
+              onClick={ToggleEditform}
+              danger
+            >
               ยกเลิกแก้ไข
             </Button>
           )}
@@ -65,7 +78,10 @@ export default function Account() {
               Loading
             </div>
           ) : (
-            <AccountDetail patientinfo={patientinfo} disabled={isEdit} />
+            <AccountDetail
+              patientinfo={patientinfo}
+              disabled={isEdit}
+            />
           )}
         </div>
       </div>

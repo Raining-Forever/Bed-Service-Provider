@@ -313,7 +313,7 @@ export default function AccountDetail({
         </div>
       </Form>
       <Button onClick={() => form.submit()}>
-        asdfasdf
+        ลงทะเบียน
       </Button>
     </div>
   );

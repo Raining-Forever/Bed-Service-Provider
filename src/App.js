@@ -1,6 +1,7 @@
 import "./App.css";
 import React from "react";
-import Account from "./pages/Account";
+import AccountPatient from "./pages/Account/AccountPatient";
+import AccountHospital from "./pages/Account/AccountHospital";
 import Homepage from "./pages/Homepage";
 import Symtom from "./pages/Symptom";
 import Register from "./pages/Register";
@@ -45,8 +46,8 @@ function App() {
               element={<Homepage />}
             />
             <Route
-              element={<Account />}
-              path="/account"
+              element={<AccountPatient />}
+              path="/accountpatient"
             />
             <Route
               exact
@@ -85,6 +86,10 @@ function App() {
             <Route
               path="/historyappoint"
               element={<HistoryAppoint />}
+            />
+            <Route
+              path="/accounthospital"
+              element={<AccountHospital />}
             />
           </Routes>
         </div>
