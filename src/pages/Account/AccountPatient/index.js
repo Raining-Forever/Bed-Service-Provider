@@ -11,23 +11,30 @@ import { Oval } from "react-loader-spinner";
 import { useAuthContext } from "../../../context/AuthContext";
 
 export default function AccountPatient() {
-  const { auth, authLoaded, roleCheck } =
-    useAuthContext();
-  // useEffect(() => {
-  //   roleCheck(["doctor"]);
-  // }, [authLoaded]);
+  const {
+    auth,
+    authLoaded,
+    roleCheck,
+    userinfo,
+  } = useAuthContext();
 
-  const [isEdit, setIsEdit] = useState(true);
+  useEffect(() => {
+    roleCheck(["patient"]);
+    if (authLoaded) {
+      fetchPatientData();
+    }
+  }, [authLoaded]);
+
+  const [isEdit, setIsEdit] = useState(false);
   const [patientinfo, setPatientinfo] = useState(
     {}
   );
-
   const [isLoading, setisLoading] =
     useState(true);
 
   async function fetchPatientData() {
     const result = await axios.get(
-      "https://bed-service-provider.herokuapp.com/api/patient/"
+      `https://bed-service-provider.herokuapp.com/api/patient/${auth.user_info.id}`
     );
     setPatientinfo(result.data[0]);
     setisLoading(false);
@@ -38,9 +45,9 @@ export default function AccountPatient() {
     setIsEdit(!isEdit);
   }
 
-  useEffect(() => {
-    fetchPatientData();
-  }, []);
+  // useEffect(() => {
+
+  // }, [authLoaded]);
 
   return (
     <div className={styles.container}>
@@ -53,16 +60,16 @@ export default function AccountPatient() {
             <Button
               type="primary"
               onClick={ToggleEditform}
+              danger
             >
-              แก้ไขข้อมูล
+              ยกเลิกแก้ไข
             </Button>
           ) : (
             <Button
               type="primary"
               onClick={ToggleEditform}
-              danger
             >
-              ยกเลิกแก้ไข
+              แก้ไขข้อมูล
             </Button>
           )}
         </div>
@@ -80,7 +87,8 @@ export default function AccountPatient() {
           ) : (
             <AccountDetail
               patientinfo={patientinfo}
-              disabled={isEdit}
+              disabled={!isEdit}
+              onSubmit={() => setIsEdit(false)}
             />
           )}
         </div>

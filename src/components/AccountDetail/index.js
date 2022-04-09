@@ -57,6 +57,7 @@ export default function AccountDetail({
   patientinfo,
   setPatientinfo,
   disabled,
+  onSubmit,
 }) {
   const [form] = Form.useForm();
 
@@ -81,6 +82,8 @@ export default function AccountDetail({
             );
             console.log(data);
           }
+          console.log("onsubmit");
+          onSubmit();
         }}
       >
         <div className={styles.containerinfo}>
