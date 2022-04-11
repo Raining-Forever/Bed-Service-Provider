@@ -1,52 +1,46 @@
-import { useEffect, useState } from "react";
-import styles from "../Account.module.css";
-import { Button } from "antd/lib/radio";
-import { Oval } from "react-loader-spinner";
-import HospitalDetail from "../../../components/HospitalDetail";
-import axios from "axios";
 import React from "react";
+import styles from "../Account.module.css";
+import { Oval } from "react-loader-spinner";
+import { Button } from "antd/lib/radio";
+import { useEffect, useState } from "react";
+import DoctorDetail from "../../../components/DoctorDetail";
+import axios from "axios";
 import { useAuthContext } from "../../../context/AuthContext";
 
-export default function AccountHospital() {
+export default function AccountDoctor() {
   const { auth, authLoaded, roleCheck } =
     useAuthContext();
   useEffect(() => {
     roleCheck(["doctor"]);
     if (authLoaded) {
-      fetchHospitalData();
+      fetchDoctorData();
     }
   }, [authLoaded]);
-
   const [isEdit, setIsEdit] = useState(true);
-  const [hospitalinfo, setHospitalinfo] =
-    useState({});
 
   const [isLoading, setisLoading] =
     useState(true);
-
+  const [doctorinfo, setDoctorinfo] = useState(
+    {}
+  );
   function ToggleEditform() {
     setIsEdit(!isEdit);
   }
-
-  async function fetchHospitalData() {
+  async function fetchDoctorData() {
     const result = await axios.get(
-      `https://bed-service-provider.herokuapp.com/api/hospital/${auth.user_info.id}`
+      `https://bed-service-provider.herokuapp.com/api/doctor/${auth.user_info.id}`
     );
-    setHospitalinfo(result.data);
+    setDoctorinfo(result.data[0]);
     setisLoading(false);
     console.log(result);
   }
-
-  // useEffect(() => {
-  //   fetchHospitalData();
-  // }, []);
 
   return (
     <div className={styles.container}>
       <div className={styles.body}>
         <div className={styles.wrapheader}>
           <div className={styles.header}>
-            ข้อมูลสถานพยาบาล
+            ข้อมูลแพทย์
           </div>
           {isEdit ? (
             <Button
@@ -77,9 +71,9 @@ export default function AccountHospital() {
               Loading
             </div>
           ) : (
-            <HospitalDetail
-              hospitalinfo={hospitalinfo}
+            <DoctorDetail
               disabled={!isEdit}
+              doctorinfo={doctorinfo}
             />
           )}
         </div>

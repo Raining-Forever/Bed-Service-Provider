@@ -64,6 +64,7 @@ const tailFormItemLayout = {
 
 export default function DoctorDetail({
   disabled,
+  doctorinfo,
 }) {
   return (
     <div className={styles.body}>

@@ -69,21 +69,23 @@ export default function AccountDetail({
         {...formItemLayout}
         form={form}
         onFinish={async () => {
+          const tempResult = form.getFieldValue();
           if (patientinfo?.id) {
             const { data } = await axios.put(
               `https://bed-service-provider.herokuapp.com/api/patient/${patientinfo.id}`,
               form.getFieldsValue()
             );
             console.log(data);
+            console.log("tempResult", tempResult);
+            onSubmit();
           } else {
             const { data } = await axios.post(
               `https://bed-service-provider.herokuapp.com/api/patient/`,
               form.getFieldsValue()
             );
             console.log(data);
+            console.log("tempResult", tempResult);
           }
-          console.log("onsubmit");
-          onSubmit();
         }}
       >
         <div className={styles.containerinfo}>

@@ -25,6 +25,7 @@ import {
 import { Navbar } from "./components/Navbar";
 
 import { MyRoute } from "./MyRoute";
+import AccountDoctor from "./pages/Account/AccountDoctor";
 
 function App() {
   // console.log(window.location.pathname);
@@ -90,6 +91,10 @@ function App() {
             <Route
               path="/accounthospital"
               element={<AccountHospital />}
+            />
+            <Route
+              path="accountdoctor"
+              element={<AccountDoctor />}
             />
           </Routes>
         </div>

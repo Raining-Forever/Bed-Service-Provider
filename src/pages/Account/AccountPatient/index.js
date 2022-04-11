@@ -11,18 +11,11 @@ import { Oval } from "react-loader-spinner";
 import { useAuthContext } from "../../../context/AuthContext";
 
 export default function AccountPatient() {
-  const {
-    auth,
-    authLoaded,
-    roleCheck,
-    userinfo,
-  } = useAuthContext();
+  const { auth, authLoaded, roleCheck } =
+    useAuthContext();
 
   useEffect(() => {
     roleCheck(["patient"]);
-    if (authLoaded) {
-      fetchPatientData();
-    }
   }, [authLoaded]);
 
   const [isEdit, setIsEdit] = useState(false);
@@ -45,9 +38,11 @@ export default function AccountPatient() {
     setIsEdit(!isEdit);
   }
 
-  // useEffect(() => {
-
-  // }, [authLoaded]);
+  useEffect(() => {
+    if (authLoaded) {
+      fetchPatientData();
+    }
+  }, [authLoaded, isEdit]);
 
   return (
     <div className={styles.container}>
