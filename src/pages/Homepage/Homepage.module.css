@@ -24,13 +24,15 @@
   flex-direction: column;
   justify-content: center;
   object-fit: contain;
-  width: 100%;
+  height:auto;
+  width:100%;
   position: relative;
   color: #ffffff;
 }
 
 .img1 {
   width: 100%;
+  min-height: 300px;
 }
 
 .img1 img {
@@ -181,4 +183,8 @@
   align-items: flex-start;
   text-align: left;
   justify-content: space-around;
+}
+
+.subnav {
+  height: 72px;
 }

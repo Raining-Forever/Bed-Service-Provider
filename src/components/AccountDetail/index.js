@@ -1,9 +1,7 @@
 import React from "react";
+import styles from "./AccountDetail.module.css";
 
-import styles from "./Detail.module.css";
 import { InboxOutlined } from "@ant-design/icons";
-import { useState, useEffect } from "react";
-import { Oval } from "react-loader-spinner";
 
 import {
   Form,
@@ -12,11 +10,8 @@ import {
   Radio,
   Select,
   Upload,
-  Checkbox,
-  Row,
 } from "antd";
 import axios from "axios";
-import { result } from "lodash";
 
 const { Dragger } = Upload;
 const { Option } = Select;
@@ -38,76 +33,87 @@ const formItemLayout = {
     },
   },
 };
+const tailFormItemLayout = {
+  labelCol: {
+    xs: {
+      span: 24,
+    },
+    sm: {
+      span: 6,
+    },
+  },
+  wrapperCol: {
+    xs: {
+      span: 24,
+      offset: 0,
+    },
+    sm: {
+      span: 15,
+      // offset: 1,
+    },
+  },
+};
+export default function AccountDetail({
+  patientinfo,
+  setPatientinfo,
+  disabled,
+}) {
+  const [form] = Form.useForm();
 
-export default function Detail() {
-  const [patientinfo, setPatientinfo] = useState(
-    {}
-  );
-  const [isLoading, setisLoading] =
-    useState(true);
-  async function fetchPatientData() {
-    const result = await axios.get(
-      "https://bed-service-provider.herokuapp.com/api/patient/"
-    );
-    setPatientinfo(result.data[0]);
-    setisLoading(false);
-  }
-
-  useEffect(() => {
-    fetchPatientData();
-  }, []);
-
-  if (isLoading)
-    return (
-      <div className={styles.loadcontainer}>
-        <Oval
-          height="100"
-          width="100"
-          color="#1890ff"
-          secondaryColor="gray"
-        />
-        Loading
-      </div>
-    );
-
+  form.setFieldsValue(patientinfo);
   return (
     <div className={styles.body}>
       <Form
         name="validate_other"
         {...formItemLayout}
+        form={form}
+        onFinish={async () => {
+          if (patientinfo?.id) {
+            const { data } = await axios.put(
+              `https://bed-service-provider.herokuapp.com/api/patient/${patientinfo.id}`,
+              form.getFieldsValue()
+            );
+            console.log(data);
+          } else {
+            const { data } = await axios.post(
+              `https://bed-service-provider.herokuapp.com/api/patient/`,
+              form.getFieldsValue()
+            );
+            console.log(data);
+          }
+        }}
       >
         <div className={styles.containerinfo}>
           <div className={styles.wrapinfo1}>
             <Form.Item
               name="idcard"
               label="เลขบัตรประชาชน :"
-              // rules={[
-              //   {
-              //     type: "email",
-              //     message:
-              //       "The input is not valid E-mail!",
-              //   },
-              //   {
-              //     required: true,
-              //     message:
-              //       "Please input your E-mail!",
-              //   },
-              // ]}
+              rules={[
+                {
+                  pattern: /^\d{13}$/,
+                  message:
+                    "The input is not valid idcard",
+                },
+                {
+                  required: true,
+                  message:
+                    "Please input your idcard",
+                },
+              ]}
             >
               <Input
+                disabled={disabled}
                 className={styles.inputinfo}
-                defaultValue={patientinfo.idcard}
-                disabled
               />
             </Form.Item>
             <Form.Item
-              name="gender"
+              name="title"
               label="คำนำหน้า :"
             >
               <Select
                 placeholder=""
                 allowClear
-                disabled
+                disabled={disabled}
               >
                 <Option value="mr">นาย</Option>
                 <Option value="mrs">นาง</Option>
@@ -115,15 +121,12 @@ export default function Detail() {
               </Select>
             </Form.Item>
             <Form.Item
-              name="fname"
+              name="firstname"
               label="ชื่อ :"
             >
               <Input
+                disabled={disabled}
                 className={styles.inputinfo}
-                defaultValue={
-                  patientinfo.firstname
-                }
-                disabled
               />
             </Form.Item>
             <Form.Item
@@ -131,9 +134,8 @@ export default function Detail() {
               label="อีเมล :"
             >
               <Input
+                disabled={disabled}
                 className={styles.inputinfo}
-                defaultValue={patientinfo.email}
-                disabled
               />
             </Form.Item>
             <Form.Item
@@ -141,9 +143,9 @@ export default function Detail() {
               label="น้ำหนัก :"
             >
               <Input
+                disabled={disabled}
                 className={styles.inputinfo}
                 suffix="kg"
-                disabled
               />
             </Form.Item>
           </div>
@@ -153,23 +155,28 @@ export default function Detail() {
               label="วัน/เดือน/ปีเกิด :"
             >
               <Input
+                disabled={disabled}
                 className={styles.inputinfo}
-                disabled
               />
             </Form.Item>
             <Form.Item name="gender" label="เพศ">
-              <Radio.Group disabled>
+              <Radio.Group
+                disabled={disabled}
+                // value={form.getFieldValue([
+                //   "gender",
+                // ])}
+              >
                 <Radio value="male">ชาย</Radio>
                 <Radio value="female">หญิง</Radio>
               </Radio.Group>
             </Form.Item>
             <Form.Item
-              name="lname"
+              name="lastname"
               label="นามสกุล :"
             >
               <Input
+                disabled={disabled}
                 className={styles.inputinfo}
-                disabled
               />
             </Form.Item>
             <Form.Item
@@ -177,8 +184,8 @@ export default function Detail() {
               label="เบอร์โทรศัพท์ :"
             >
               <Input
+                disabled={disabled}
                 className={styles.inputinfo}
-                disabled
               />
             </Form.Item>
             <Form.Item
@@ -188,7 +195,7 @@ export default function Detail() {
               <Input
                 className={styles.inputinfo}
                 suffix="cm"
-                disabled
+                disabled={disabled}
               />
             </Form.Item>
           </div>
@@ -198,7 +205,7 @@ export default function Detail() {
           label="คุณมีหลักฐานการตรวจโควิด-19 :"
         >
           <Radio.Group
-            disabled
+            disabled={disabled}
             className={styles.radioGroup}
           >
             <Radio value="covid-evidence-yes">
@@ -214,7 +221,7 @@ export default function Detail() {
           label="ตรวจโควิด-19 ด้วยวิธีการใด :"
         >
           <Radio.Group
-            disabled
+            disabled={disabled}
             className={styles.radioGroup}
           >
             <Radio value="atk">ATK</Radio>
@@ -228,7 +235,7 @@ export default function Detail() {
           label="ผลตรวจที่ได้ :"
         >
           <Radio.Group
-            disabled
+            disabled={disabled}
             className={styles.radioGroup}
           >
             <Radio value="resultform-yes">
@@ -258,111 +265,56 @@ export default function Detail() {
             </p>
           </Dragger>
         </Form.Item>
-        {/* <Form.Item name="covid-prove">
-          <Checkbox.Group disabled>
-            <Row>
-              <Checkbox value="rt-pcr">
-                หลักฐานการตรวจโควิด-19 ด้วยวิธีการ
-                RT-PCR(ใบรับรองแพทย์)
-                <br />
-                <Form.Item
-                  name="rt-pcr-form"
-                  label="ผลตรวจที่ได้ :"
-                >
-                  <Radio.Group
-                    disabled
-                    className={styles.radioGroup}
-                  >
-                    <Radio value="rt-pcr-form-yes">
-                      ติดเชื้อ
-                    </Radio>
-                    <Radio value="rt-pcr-form-no">
-                      ไม่ติดเชื้่อ
-                    </Radio>
-                  </Radio.Group>
-                </Form.Item>
-                <Dragger>
-                  <p className="ant-upload-drag-icon">
-                    <InboxOutlined />
-                  </p>
-                  <p className="ant-upload-text">
-                    Click or drag file to this
-                    area to upload
-                  </p>
-                  <p className="ant-upload-hint">
-                    Support for a single or bulk
-                    upload. Strictly prohibit from
-                    uploading company data or
-                    other band files
-                  </p>
-                </Dragger>
-              </Checkbox>
-              <Checkbox value="atk">
-                หลักฐานการตรวจโควิด-19 ด้วยวิธีการ
-                ATK
-                <br />
-                <Form.Item
-                  name="atk-form"
-                  label="ผลตรวจที่ได้ :"
-                >
-                  <Radio.Group disabled>
-                    <Radio value="atk-form-yes">
-                      ติดเชื้อ
-                    </Radio>
-                    <Radio value="atk-form-no">
-                      ไม่ติดเชื้่อ
-                    </Radio>
-                  </Radio.Group>
-                </Form.Item>
-              </Checkbox>
-            </Row>
-          </Checkbox.Group>
-        </Form.Item> */}
-
         <div className={styles.adresstitle}>
           ที่อยู่ที่สามารถติดต่อได้
         </div>
-
         <div className={styles.wrapaddress}>
-          <div className={styles.couple}>
+          <div className={styles.topaddress}>
             <Form.Item
+              {...tailFormItemLayout}
               name="address"
               label="ที่อยู่ :"
             >
-              <Input disabled />
-            </Form.Item>
-            <Form.Item
-              name="province"
-              label="จังหวัด :"
-            >
-              <Input disabled />
-            </Form.Item>
-
-            <Form.Item
-              name="district"
-              label="อำเภอ/เขต :"
-            >
-              <Input disabled />
+              <Input disabled={disabled} />
             </Form.Item>
           </div>
+          <div className={styles.botaddress}>
+            <div className={styles.couple}>
+              <Form.Item
+                name="province"
+                label="จังหวัด :"
+              >
+                <Input disabled={disabled} />
+              </Form.Item>
 
-          <div className={styles.couple}>
-            <Form.Item
-              name="subdistrict"
-              label="ตำบล/แขวง :"
-            >
-              <Input disabled />
-            </Form.Item>
+              <Form.Item
+                name="district"
+                label="อำเภอ/เขต :"
+              >
+                <Input disabled={disabled} />
+              </Form.Item>
+            </div>
+            <div className={styles.couple}>
+              <Form.Item
+                name="subdistrict"
+                label="ตำบล/แขวง :"
+              >
+                <Input disabled={disabled} />
+              </Form.Item>
 
-            <Form.Item
-              name="zipcode"
-              label="รหัสไปรษณีย์ :"
-            >
-              <Input disabled />
-            </Form.Item>
+              <Form.Item
+                name="zipcode"
+                label="รหัสไปรษณีย์ :"
+              >
+                <Input disabled={disabled} />
+              </Form.Item>
+            </div>
           </div>
         </div>
       </Form>
+      <Button onClick={() => form.submit()}>
+        asdfasdf
+      </Button>
     </div>
   );
 }

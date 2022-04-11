@@ -3,10 +3,15 @@ import styles from "./Homepage.module.css";
 import Navbar_patient from "../../components/Navbar/Navbar_patient";
 import { Button } from "antd";
 
+import Login from "../../components/Login";
+
 export default function Homepage() {
   return (
     <div className={styles.container}>
       <div className={styles.body}>
+        <div className={styles.subnav}>
+          <Login />
+        </div>
         <div className={styles.box1}>
           <div className={styles.img1}>
             <img src="https://www.img.in.th/images/5da81e0bb15358c4f11f42f31f3ac0cd.png" />
