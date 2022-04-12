@@ -13,7 +13,7 @@ import Patientregister from "./pages/Register/Patientregister";
 import Agency from "./pages/Register/Agency";
 import Doctor from "./pages/Register/Agency/Doctor";
 import Hospital from "./pages/Register/Agency/Hospital";
-import Accessdeined from "./components/AccessDenied";
+import Accessdeined from "./components/ShowStatus/AccessDenied";
 
 // import Navbar_patient from "./components/Navbar/Navbar_patient";
 
@@ -26,6 +26,7 @@ import { Navbar } from "./components/Navbar";
 
 import { MyRoute } from "./MyRoute";
 import AccountDoctor from "./pages/Account/AccountDoctor";
+import RegisterSuccess from "./components/ShowStatus/RegisterSuccess";
 
 function App() {
   // console.log(window.location.pathname);
@@ -93,8 +94,16 @@ function App() {
               element={<AccountHospital />}
             />
             <Route
-              path="accountdoctor"
+              path="/accountdoctor"
               element={<AccountDoctor />}
+            />
+            <Route
+              path="/accessdenied"
+              element={<Accessdeined />}
+            />
+            <Route
+              path="/registersuccess"
+              element={<RegisterSuccess />}
             />
           </Routes>
         </div>

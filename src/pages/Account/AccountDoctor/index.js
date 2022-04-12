@@ -11,7 +11,7 @@ export default function AccountDoctor() {
   const { auth, authLoaded, roleCheck } =
     useAuthContext();
   useEffect(() => {
-    roleCheck(["doctor"]);
+    roleCheck(["doctor"], "/accessdenied");
     if (authLoaded) {
       fetchDoctorData();
     }

@@ -49,10 +49,13 @@ export const AuthProvider = ({ children }) => {
     });
   };
 
-  const roleCheck = (roles = []) => {
+  const roleCheck = (
+    roles = [],
+    redicrecto = "/accessdenied"
+  ) => {
     if (authLoaded) {
       if (!roles.includes(auth.role)) {
-        navigate("/");
+        navigate(redicrecto);
       }
     }
   };

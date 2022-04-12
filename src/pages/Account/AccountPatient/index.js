@@ -15,7 +15,7 @@ export default function AccountPatient() {
     useAuthContext();
 
   useEffect(() => {
-    roleCheck(["patient"]);
+    roleCheck(["patient"], "/accessdinied");
   }, [authLoaded]);
 
   const [isEdit, setIsEdit] = useState(false);

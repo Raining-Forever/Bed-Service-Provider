@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./DoctorDetail.module.css";
+import axios from "axios";
 
 import { Radio, Button, Form, Input } from "antd";
 
@@ -66,9 +67,30 @@ export default function DoctorDetail({
   disabled,
   doctorinfo,
 }) {
+  const [form] = Form.useForm();
+
+  form.setFieldsValue(doctorinfo);
   return (
     <div className={styles.body}>
-      <Form {...formItemLayout}>
+      <Form
+        {...formItemLayout}
+        form={form}
+        onFinish={async () => {
+          if (doctorinfo?.id) {
+            const { data } = await axios.put(
+              `https://bed-service-provider.herokuapp.com/api/doctor/${doctorinfo.id}`,
+              form.getFieldValue()
+            );
+            console.log(data);
+          } else {
+            const { data } = await axios.post(
+              `https://bed-service-provider.herokuapp.com/api/doctor`,
+              form.getFieldValue()
+            );
+            console.log(data);
+          }
+        }}
+      >
         <div className={styles.wrapaddress}>
           <div className={styles.topaddress}>
             <Form.Item
