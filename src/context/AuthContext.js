@@ -1,4 +1,9 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+} from "react";
 import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext({
@@ -18,12 +23,19 @@ export const AuthProvider = ({ children }) => {
     loggedIn: false,
   });
 
-  const [authLoaded, setAuthLoaded] = useState(false);
+  const [authLoaded, setAuthLoaded] =
+    useState(false);
   const navigate = useNavigate();
 
   const login = (data) => {
-    localStorage.setItem("auth", JSON.stringify(data));
+    localStorage.setItem(
+      "auth",
+      JSON.stringify(data)
+    );
     setAuth(data);
+    if (authLoaded) {
+      setUserinfo(data);
+    }
   };
 
   const logout = () => {
@@ -37,13 +49,23 @@ export const AuthProvider = ({ children }) => {
     });
   };
 
-  const roleCheck = (roles = []) => {
+  const roleCheck = (
+    roles = [],
+    redicrecto = "/accessdenied"
+  ) => {
     if (authLoaded) {
       if (!roles.includes(auth.role)) {
-        navigate("/");
+        navigate(redicrecto);
       }
     }
   };
+
+  const [userinfo, setUserinfo] = useState({});
+  // add new for get localstorage
+  // const getUserinfo = () => {
+  //   if (authLoaded) {
+  //   }
+  // };
 
   useEffect(() => {
     const data = localStorage.getItem("auth");
@@ -52,7 +74,14 @@ export const AuthProvider = ({ children }) => {
   }, []);
   return (
     <AuthContext.Provider
-      value={{ auth, login, logout, authLoaded, roleCheck }}
+      value={{
+        auth,
+        login,
+        logout,
+        authLoaded,
+        roleCheck,
+        userinfo,
+      }}
     >
       {children}
     </AuthContext.Provider>

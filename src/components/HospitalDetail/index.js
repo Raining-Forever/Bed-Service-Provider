@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./HospitalDetail.module.css";
 
 import { Button, Form, Input } from "antd";
+import axios from "axios";
 
 const formItemLayout = {
   labelCol: {
@@ -44,11 +45,35 @@ const tailFormItemLayout = {
 };
 
 export default function HospitalDetail({
+  hospitalinfo,
+  setHospitalinfo,
   disabled,
 }) {
+  const [form] = Form.useForm();
+
+  form.setFieldsValue(hospitalinfo);
+
   return (
     <div className={styles.body}>
-      <Form {...formItemLayout}>
+      <Form
+        {...formItemLayout}
+        form={form}
+        onFinish={async () => {
+          if (hospitalinfo?.id) {
+            const { data } = await axios.put(
+              `https://bed-service-provider.herokuapp.com/api/hospital/${hospitalinfo.id}`,
+              form.getFieldValue()
+            );
+            console.log(data);
+          } else {
+            const { data } = await axios.post(
+              `https://bed-service-provider.herokuapp.com/api/hospital`,
+              form.getFieldValue()
+            );
+            console.log(data);
+          }
+        }}
+      >
         <Form.Item
           name="hospital_id"
           label="รหัสสถานพยาบาล :"
@@ -58,7 +83,7 @@ export default function HospitalDetail({
             },
           ]}
         >
-          <Input />
+          <Input disabled={disabled} />
         </Form.Item>
 
         <Form.Item
@@ -70,7 +95,7 @@ export default function HospitalDetail({
             },
           ]}
         >
-          <Input />
+          <Input disabled={disabled} />
         </Form.Item>
         <Form.Item
           name="hospital_tel"
@@ -81,7 +106,7 @@ export default function HospitalDetail({
             },
           ]}
         >
-          <Input />
+          <Input disabled={disabled} />
         </Form.Item>
         <div className={styles.adresstitle}>
           ที่อยู่ที่สามารถติดต่อได้
@@ -130,7 +155,12 @@ export default function HospitalDetail({
           </div>
         </div>
       </Form>
-      <Button type="primary">ลงทะเบียน</Button>
+      <Button
+        type="primary"
+        onClick={() => form.submit()}
+      >
+        ลงทะเบียน
+      </Button>
     </div>
   );
 }

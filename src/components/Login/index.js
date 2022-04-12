@@ -12,7 +12,10 @@ export default function Login() {
     const profile = res.profileObj;
     const email = profile.email;
     axios
-      .post("http://localhost:3000/api/user", { email: email })
+      .post(
+        "https://bed-service-provider.herokuapp.com/api/user",
+        { email: email }
+      )
       .then((response) => {
         console.log("response: ", response.data);
         // localStorage.setItem("email", response.data.email);
@@ -22,7 +25,10 @@ export default function Login() {
         login(response.data);
       });
     console.log("Login success! user: ", profile);
-    localStorage.setItem("googleAccount", JSON.stringify(profile));
+    localStorage.setItem(
+      "googleAccount",
+      JSON.stringify(profile)
+    );
   };
 
   const onFailure = (res) => {

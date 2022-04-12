@@ -27,7 +27,12 @@ export default function Navbar_patient() {
       </Menu.Item>
       <SubMenu key="sub1" icon={<UserOutlined />} title="สำหรับผู้ป่วย">
         <Menu.Item key="1">
-          <NavLink to="/account" activeclassname="selectedLink">
+
+          <NavLink
+            to="/accountpatient"
+            activeclassname="selectedLink"
+          >
+
             ข้อมูลผู้ป่วย
           </NavLink>
         </Menu.Item>

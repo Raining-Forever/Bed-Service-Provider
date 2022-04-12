@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./AccountDetail.module.css";
+import { useAuthContext } from "../../context/AuthContext";
 
 import { InboxOutlined } from "@ant-design/icons";
 
@@ -12,6 +13,8 @@ import {
   Upload,
 } from "antd";
 import axios from "axios";
+import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const { Dragger } = Upload;
 const { Option } = Select;
@@ -57,10 +60,14 @@ export default function AccountDetail({
   patientinfo,
   setPatientinfo,
   disabled,
+  onSubmit,
 }) {
+  const { auth, authLoaded, roleCheck } =
+    useAuthContext();
   const [form] = Form.useForm();
-
+  const navigate = useNavigate();
   form.setFieldsValue(patientinfo);
+
   return (
     <div className={styles.body}>
       <Form
@@ -74,12 +81,18 @@ export default function AccountDetail({
               form.getFieldsValue()
             );
             console.log(data);
+
+            onSubmit();
           } else {
+            const registerData =
+              form.getFieldValue();
+            registerData.user_id = auth.user_id;
             const { data } = await axios.post(
               `https://bed-service-provider.herokuapp.com/api/patient/`,
-              form.getFieldsValue()
+              registerData
             );
             console.log(data);
+            navigate("/registersuccess");
           }
         }}
       >
@@ -129,13 +142,15 @@ export default function AccountDetail({
                 className={styles.inputinfo}
               />
             </Form.Item>
+
             <Form.Item
-              name="email"
-              label="อีเมล :"
+              name="heigth"
+              label="ส่วนสูง :"
             >
               <Input
-                disabled={disabled}
                 className={styles.inputinfo}
+                suffix="cm"
+                disabled={disabled}
               />
             </Form.Item>
             <Form.Item
@@ -189,13 +204,13 @@ export default function AccountDetail({
               />
             </Form.Item>
             <Form.Item
-              name="heigth"
-              label="ส่วนสูง :"
+              name="email"
+              label="อีเมล :"
             >
               <Input
+                disabled={true}
                 className={styles.inputinfo}
-                suffix="cm"
-                disabled={disabled}
+                // defaultValue={auth.email}
               />
             </Form.Item>
           </div>
@@ -312,9 +327,20 @@ export default function AccountDetail({
           </div>
         </div>
       </Form>
-      <Button onClick={() => form.submit()}>
-        asdfasdf
-      </Button>
+      {!disabled ? (
+        <div className={styles.submitButton}>
+          <Button
+            type="primary"
+            onClick={() => form.submit()}
+          >
+            ลงทะเบียน
+          </Button>
+        </div>
+      ) : (
+        <div
+          className={styles.submitButton}
+        ></div>
+      )}
     </div>
   );
 }

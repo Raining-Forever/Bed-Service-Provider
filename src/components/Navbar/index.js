@@ -15,5 +15,5 @@ export const Navbar = () => {
   if (auth.role === "hospital") {
     return <Navbar_hospital />;
   }
-  return null;
+  return <Navbar_patient />;
 };
