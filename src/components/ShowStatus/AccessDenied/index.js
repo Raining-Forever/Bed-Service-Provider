@@ -3,7 +3,7 @@ import styles from "../Accessdeined.module.css";
 import { Button } from "antd";
 import { NavLink } from "react-router-dom";
 
-export default function Accessdeined() {
+export default function Accessdenied() {
   return (
     <div className={styles.container}>
       <div className={styles.body}>

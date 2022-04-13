@@ -14,8 +14,7 @@ import Agency from "./pages/Register/Agency";
 import Doctor from "./pages/Register/Agency/Doctor";
 import Hospital from "./pages/Register/Agency/Hospital";
 
-import Accessdeined from "./components/ShowStatus/AccessDenied";
-
+import Accessdenied from "./components/ShowStatus/AccessDenied";
 
 //import Admin from "./pages/Admin";
 import ManagePatient from "./pages/Admin/ManagePatient";
@@ -26,10 +25,11 @@ import ManageAppoint from "./pages/Admin/ManageAppoint";
 import ManageReserve from "./pages/Admin/ManageReserve";
 import Navbar_patient from "./components/Navbar/Navbar_patient";
 
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
-import Accessdeined from "./components/AccessDenied";
-
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+} from "react-router-dom";
 
 // import Navbar_patient from "./components/Navbar/Navbar_patient";
 
@@ -44,8 +44,14 @@ function App() {
   return (
     <div className="App">
       <div>
-        {window.location.pathname !== "/register" && <Navbar />}
-        <div className={window.location.pathname !== "/register" && "layout"}>
+        {window.location.pathname !==
+          "/register" && <Navbar />}
+        <div
+          className={
+            window.location.pathname !==
+              "/register" && "layout"
+          }
+        >
           <Routes>
             <Route
               exact
@@ -104,19 +110,36 @@ function App() {
             />
             <Route
               path="/accessdenied"
-              element={<Accessdeined />}
+              element={<Accessdenied />}
             />
             <Route
               path="/registersuccess"
               element={<RegisterSuccess />}
             />
-                <Route path="/managepatient" element={<ManagePatient />} />
-            <Route path="/managedoctor" element={<ManageDoctor />} />
-            <Route path="/managehospital" element={<ManageHospital />} />
-            <Route path="/manageappoint" element={<ManageAppoint />} />
-            <Route path="/managereserve" element={<ManageReserve />} />
-            <Route path="/checkevidence" element={<CheckEvid />} />
-
+            <Route
+              path="/managepatient"
+              element={<ManagePatient />}
+            />
+            <Route
+              path="/managedoctor"
+              element={<ManageDoctor />}
+            />
+            <Route
+              path="/managehospital"
+              element={<ManageHospital />}
+            />
+            <Route
+              path="/manageappoint"
+              element={<ManageAppoint />}
+            />
+            <Route
+              path="/managereserve"
+              element={<ManageReserve />}
+            />
+            <Route
+              path="/checkevidence"
+              element={<CheckEvid />}
+            />
           </Routes>
         </div>
       </div>

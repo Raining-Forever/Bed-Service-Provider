@@ -26,12 +26,14 @@ export default function AccountPatient() {
     useState(true);
 
   async function fetchPatientData() {
-    const result = await axios.get(
-      `https://bed-service-provider.herokuapp.com/api/patient/${auth.user_info.id}`
-    );
-    setPatientinfo(result.data[0]);
-    setisLoading(false);
-    console.log(result);
+    if (auth.user_info.id) {
+      const result = await axios.get(
+        `https://bed-service-provider.herokuapp.com/api/patient/${auth.user_info.id}`
+      );
+      setPatientinfo(result.data[0]);
+      setisLoading(false);
+      console.log(result);
+    } else console.log("no user_info.id");
   }
 
   function ToggleEditform() {
