@@ -27,7 +27,10 @@ export default function DoctorAppoint() {
       render: (status) => (
         <>
           {status.map((tag) => {
-            let color = tag.length > 9 ? "green" : "geekblue";
+            let color =
+              tag.length > 9
+                ? "green"
+                : "geekblue";
             if (tag === "ยกเลิกนัด") {
               color = "volcano";
             } else if (tag == "ปรึกษาสำเร็จ") {
@@ -93,7 +96,7 @@ export default function DoctorAppoint() {
       dataIndex: "button",
       render: (text, record) => (
         <Space size="middle">
-          <a>ปรึกษา</a>
+          <>asdfa</>
         </Space>
       ),
     },
@@ -136,13 +139,23 @@ export default function DoctorAppoint() {
   return (
     <div className={styles.container}>
       <div className={styles.body}>
-        <h2 className={styles.header}>รายการปรึกษาแพทย์ของฉัน</h2>
+        <h2 className={styles.header}>
+          รายการปรึกษาแพทย์ของฉัน
+        </h2>
         <div className={styles.box}>
-          <Table columns={columns} dataSource={data} />
+          <Table
+            columns={columns}
+            dataSource={data}
+          />
         </div>
-        <h2 className={styles.header}>นัดปรึกษาแพทย์</h2>
+        <h2 className={styles.header}>
+          นัดปรึกษาแพทย์
+        </h2>
         <div className={styles.box}>
-          <Table columns={columns2} dataSource={data2} />
+          <Table
+            columns={columns2}
+            dataSource={data2}
+          />
         </div>
       </div>
     </div>

@@ -62,7 +62,7 @@ export default function AccountDetail({
   disabled,
   onSubmit,
 }) {
-  const { auth, authLoaded, roleCheck } =
+  const { auth, authLoaded, roleCheck, login } =
     useAuthContext();
   const [form] = Form.useForm();
   const navigate = useNavigate();
@@ -87,10 +87,19 @@ export default function AccountDetail({
             const registerData =
               form.getFieldValue();
             registerData.user_id = auth.user_id;
-            const { data } = await axios.post(
-              `https://bed-service-provider.herokuapp.com/api/patient/`,
-              registerData
-            );
+            const data = await axios
+              .post(
+                `https://bed-service-provider.herokuapp.com/api/patient/`,
+                registerData
+              )
+              .then((response) => {
+                console.log(
+                  "response: ",
+                  response.data
+                );
+                login(response.data);
+              });
+
             console.log(data);
             navigate("/registersuccess");
           }
