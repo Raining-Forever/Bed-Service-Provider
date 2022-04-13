@@ -35,3 +35,17 @@
   margin-bottom: 50px;
   padding: 30px;
 }
+
+.box2 {
+  background: #E0404E;
+  border-radius: 8px;
+  padding: 5px;
+  width: 120%;
+  cursor: pointer;
+  margin: auto;
+}
+
+.box2_button_text {
+  color: white;
+  text-align: center;
+}
