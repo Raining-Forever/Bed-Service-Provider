@@ -38,6 +38,7 @@ import { Navbar } from "./components/Navbar";
 import { MyRoute } from "./MyRoute";
 import AccountDoctor from "./pages/Account/AccountDoctor";
 import RegisterSuccess from "./components/ShowStatus/RegisterSuccess";
+import AppointmentDetail from "./components/AppointmentDetail";
 
 function App() {
   // console.log(window.location.pathname);
@@ -139,6 +140,10 @@ function App() {
             <Route
               path="/checkevidence"
               element={<CheckEvid />}
+            />
+            <Route
+              path="/appoint/detail"
+              element={<AppointmentDetail />}
             />
           </Routes>
         </div>
