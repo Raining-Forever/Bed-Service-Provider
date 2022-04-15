@@ -66,15 +66,17 @@
 }
 .submitButton{
   display: flex;
-  justify-content: flex-end;
-  
+  justify-content: flex-end; 
 }
+
 Input:disabled {
   background-color: transparent!important;
   color: black!important;
   border: none!important;
   cursor: default!important;
 }
+
+
 
 .ant-select-disabled.ant-select:not(.ant-select-customize-input) .ant-select-selector {
   background: transparent !important;
@@ -88,4 +90,14 @@ Input:disabled {
   color: black!important;
   border: none!important;
   cursor: default!important;
+}
+
+.buttonEdit{
+  background-color: #0B9780;
+  border-color: transparent;
+}
+
+.buttonEdit:hover {
+  background: rgb(82, 175, 160);
+  border-color: transparent;
 }

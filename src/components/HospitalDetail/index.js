@@ -3,6 +3,8 @@ import styles from "./HospitalDetail.module.css";
 
 import { Button, Form, Input } from "antd";
 import axios from "axios";
+import { useAuthContext } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const formItemLayout = {
   labelCol: {
@@ -48,9 +50,12 @@ export default function HospitalDetail({
   hospitalinfo,
   setHospitalinfo,
   disabled,
+  onSubmit,
 }) {
   const [form] = Form.useForm();
-
+  const { auth, authLoaded, roleCheck, login } =
+    useAuthContext();
+  const navigate = useNavigate();
   form.setFieldsValue(hospitalinfo);
 
   return (
@@ -65,12 +70,25 @@ export default function HospitalDetail({
               form.getFieldValue()
             );
             console.log(data);
+            onSubmit();
           } else {
-            const { data } = await axios.post(
-              `https://bed-service-provider.herokuapp.com/api/hospital`,
-              form.getFieldValue()
-            );
+            const registerData =
+              form.getFieldValue();
+            registerData.user_id = auth.user_id;
+            const data = await axios
+              .post(
+                `https://bed-service-provider.herokuapp.com/api/hospital`,
+                registerData
+              )
+              .then((response) => {
+                console.log(
+                  "response: ",
+                  response.data
+                );
+                login(response.data);
+              });
             console.log(data);
+            navigate("/registersuccess");
           }
         }}
       >
@@ -155,12 +173,20 @@ export default function HospitalDetail({
           </div>
         </div>
       </Form>
-      <Button
-        type="primary"
-        onClick={() => form.submit()}
-      >
-        ลงทะเบียน
-      </Button>
+      {!disabled ? (
+        <div className={styles.submitButton}>
+          <Button
+            type="primary"
+            onClick={() => form.submit()}
+          >
+            ลงทะเบียน
+          </Button>
+        </div>
+      ) : (
+        <div
+          className={styles.submitButton}
+        ></div>
+      )}
     </div>
   );
 }

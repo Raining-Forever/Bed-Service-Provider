@@ -1,5 +1,5 @@
 import "./App.css";
-import React from "react";
+import React, { useState } from "react";
 import AccountPatient from "./pages/Account/AccountPatient";
 import AccountHospital from "./pages/Account/AccountHospital";
 import Homepage from "./pages/Homepage";
@@ -41,7 +41,6 @@ import RegisterSuccess from "./components/ShowStatus/RegisterSuccess";
 import AppointmentDetail from "./components/AppointmentDetail";
 
 function App() {
-  // console.log(window.location.pathname);
   return (
     <div className="App">
       <div>
@@ -142,7 +141,7 @@ function App() {
               element={<CheckEvid />}
             />
             <Route
-              path="/appoint/detail"
+              path="/appoint/:appointId"
               element={<AppointmentDetail />}
             />
           </Routes>

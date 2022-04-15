@@ -1,16 +1,33 @@
-import React from "react";
+import React, {
+  useEffect,
+  useState,
+} from "react";
+
 import styles from "./Homepage.module.css";
 import Navbar_patient from "../../components/Navbar/Navbar_patient";
 import { Button } from "antd";
-
-import Login from "../../components/Login";
+import { useAuthContext } from "../../context/AuthContext";
+import Logout from "../../components/AuthButton/Logout";
+import Login from "../../components/AuthButton/Login";
 
 export default function Homepage() {
+  const { auth, authLoaded, registerCheck } =
+    useAuthContext();
+  const [isLogin, setIsLogin] = useState(false);
+
+  useEffect(() => {
+    if (authLoaded) {
+      setIsLogin(auth.loggedIn);
+    }
+    // registerCheck();
+  }, [auth]);
+
+  // console.log(isLogin);
   return (
     <div className={styles.container}>
       <div className={styles.body}>
         <div className={styles.subnav}>
-          <Login />
+          {isLogin ? <Logout /> : <Login />}
         </div>
         <div className={styles.box1}>
           <div className={styles.img1}>
@@ -18,7 +35,9 @@ export default function Homepage() {
           </div>
           <div className={styles.box1_body}>
             <div className={styles.top}>
-              <p>รายงานผู้ป่วยโควิด-19 ประจำวันนี้</p>
+              <p>
+                รายงานผู้ป่วยโควิด-19 ประจำวันนี้
+              </p>
             </div>
             <div className={styles.box1_row}>
               <div className={styles.left}>
@@ -45,7 +64,11 @@ export default function Homepage() {
           </div>
           <div className={styles.box2_bottom}>
             <div className={styles.box2_items}>
-              <div className={styles.box2_items_text}>ประเมินอาการป่วย</div>
+              <div
+                className={styles.box2_items_text}
+              >
+                ประเมินอาการป่วย
+              </div>
               <img
                 src="https://www.img.in.th/images/318b4d6279ff8c57cf7e382ede2a9c92.png"
                 alt="318b4d6279ff8c57cf7e382ede2a9c92.png"
@@ -53,7 +76,11 @@ export default function Homepage() {
               />
             </div>
             <div className={styles.box2_items}>
-              <div className={styles.box2_items_text}>รับคำปรึกษาจากแพทย์</div>
+              <div
+                className={styles.box2_items_text}
+              >
+                รับคำปรึกษาจากแพทย์
+              </div>
               <img
                 src="https://www.img.in.th/images/3e4f390eae68fa69a73a4694aec4d16e.png"
                 alt="3e4f390eae68fa69a73a4694aec4d16e.png"
@@ -61,7 +88,11 @@ export default function Homepage() {
               />
             </div>
             <div className={styles.box2_items}>
-              <div className={styles.box2_items_text}>ค้นหาและจองเตียง</div>
+              <div
+                className={styles.box2_items_text}
+              >
+                ค้นหาและจองเตียง
+              </div>
               <img
                 src="https://www.img.in.th/images/f12fd9c2289aa5ae7cd18b14dc5cd2f9.png"
                 alt="f12fd9c2289aa5ae7cd18b14dc5cd2f9.png"
@@ -91,7 +122,9 @@ export default function Homepage() {
               </p>
             </div>
             <div className={styles.box_button}>
-              <Button type="primary">ทำแบบประเมิน</Button>
+              <Button type="primary">
+                ทำแบบประเมิน
+              </Button>
             </div>
           </div>
         </div>
@@ -99,14 +132,19 @@ export default function Homepage() {
         <div className={styles.box4}>
           <div className={styles.box4_left}>
             <div className={styles.box4_text}>
-              <div className={styles.header}>นัดรับปรึกษาจากแพทย์</div>
+              <div className={styles.header}>
+                นัดรับปรึกษาจากแพทย์
+              </div>
               <p>
-                พบแพทย์เพื่อประเมินอาการ และให้คำปรึกษาตาม
+                พบแพทย์เพื่อประเมินอาการ
+                และให้คำปรึกษาตาม
                 อาการความรุนแรงของผู้ป่วย
               </p>
             </div>
             <div className={styles.box_button}>
-              <Button type="primary">นัดพบแพทย์</Button>
+              <Button type="primary">
+                นัดพบแพทย์
+              </Button>
             </div>
           </div>
           <div className={styles.box4_right}>
@@ -128,11 +166,17 @@ export default function Homepage() {
           </div>
           <div className={styles.box5_right}>
             <div className={styles.box5_text}>
-              <div className={styles.header}>ค้นหาและจองคิวเพื่อรับเตียง</div>
-              <p>ค้นหาสถานที่ที่ต้องการจองเตียงและจองเตียง</p>
+              <div className={styles.header}>
+                ค้นหาและจองคิวเพื่อรับเตียง
+              </div>
+              <p>
+                ค้นหาสถานที่ที่ต้องการจองเตียงและจองเตียง
+              </p>
             </div>
             <div className={styles.box_button}>
-              <Button type="primary">ค้นหาและจองคิว</Button>
+              <Button type="primary">
+                ค้นหาและจองคิว
+              </Button>
             </div>
           </div>
         </div>

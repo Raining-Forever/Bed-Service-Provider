@@ -1,6 +1,10 @@
 import React from "react";
 import styles from "./DoctorAppoint.module.css";
 import { Button, Table, Tag, Space } from "antd";
+import {
+  Navigate,
+  useNavigate,
+} from "react-router-dom";
 
 export default function DoctorAppoint() {
   const columns = [
@@ -136,6 +140,7 @@ export default function DoctorAppoint() {
     },
   ];
 
+  const navigate = useNavigate();
   return (
     <div className={styles.container}>
       <div className={styles.body}>
@@ -146,6 +151,15 @@ export default function DoctorAppoint() {
           <Table
             columns={columns}
             dataSource={data}
+            onRow={(record, rowIndex) => {
+              return {
+                onClick: (e) => {
+                  navigate(
+                    `/appoint/${record.id}`
+                  );
+                },
+              };
+            }}
           />
         </div>
         <h2 className={styles.header}>

@@ -1,7 +1,7 @@
 .container {
   display: flex;
   flex-direction: row;
-  width: 100vw;
+  /* width: 100vw */
 }
 
 .header {
@@ -11,10 +11,10 @@
 }
 
 .body {
-  width: calc(100% - 256px);
+  width: 100%
 }
 .body > * {
-  height: 400px;
+  /* height: 400px; */
   overflow: hidden;
 }
 
@@ -186,5 +186,8 @@
 }
 
 .subnav {
-  height: 72px;
+  /* height: 72px; */
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
 }

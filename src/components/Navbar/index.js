@@ -2,6 +2,7 @@ import { useAuthContext } from "../../context/AuthContext";
 import Navbar_patient from "./Navbar_patient";
 import Navbar_doctor from "./Navbar_doctor";
 import Navbar_hospital from "./Navbar_hospital";
+import { useEffect } from "react";
 
 export const Navbar = () => {
   const { auth } = useAuthContext();
