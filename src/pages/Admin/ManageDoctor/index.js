@@ -21,7 +21,10 @@ export default function ManageDoctor() {
       dataIndex: "button",
       render: (text, record) => (
         <Space size="middle">
-          <a>ระงับบัญชี</a>
+          {/* <a>ระงับบัญชี</a> */}
+          <div className={styles.box2}>
+            <div className={styles.box2_button_text}>ระงับบัญชี</div>
+          </div>
         </Space>
       ),
     },
