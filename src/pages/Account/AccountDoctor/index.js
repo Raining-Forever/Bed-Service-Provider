@@ -12,11 +12,9 @@ export default function AccountDoctor() {
     useAuthContext();
   useEffect(() => {
     roleCheck(["doctor"], "/accessdenied");
-    if (authLoaded) {
-      fetchDoctorData();
-    }
   }, [authLoaded]);
-  const [isEdit, setIsEdit] = useState(true);
+
+  const [isEdit, setIsEdit] = useState(false);
 
   const [isLoading, setisLoading] =
     useState(true);
@@ -27,14 +25,20 @@ export default function AccountDoctor() {
     setIsEdit(!isEdit);
   }
   async function fetchDoctorData() {
-    const result = await axios.get(
-      `https://bed-service-provider.herokuapp.com/api/doctor/${auth.user_info.id}`
-    );
-    setDoctorinfo(result.data[0]);
-    setisLoading(false);
-    console.log(result);
+    if (auth.user_info.id) {
+      const result = await axios.get(
+        `https://bed-service-provider.herokuapp.com/api/doctor/${auth.user_info.id}`
+      );
+      setDoctorinfo(result.data[0]);
+      setisLoading(false);
+      console.log(result);
+    } else console.log("no user_info.id");
   }
-
+  useEffect(() => {
+    if (authLoaded) {
+      fetchDoctorData();
+    }
+  }, [authLoaded, isEdit]);
   return (
     <div className={styles.container}>
       <div className={styles.body}>
@@ -74,6 +78,7 @@ export default function AccountDoctor() {
             <DoctorDetail
               disabled={!isEdit}
               doctorinfo={doctorinfo}
+              onSubmit={() => setIsEdit(false)}
             />
           )}
         </div>

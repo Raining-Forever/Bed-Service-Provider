@@ -1,0 +1,6 @@
+@import "~antd/dist/antd.css";
+
+.menu {
+  min-width: 256px;
+  position: fixed;
+}

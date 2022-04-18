@@ -1,6 +1,10 @@
 import React from "react";
 import styles from "./DoctorAppoint.module.css";
 import { Button, Table, Tag, Space } from "antd";
+import {
+  Navigate,
+  useNavigate,
+} from "react-router-dom";
 
 export default function DoctorAppoint() {
   const columns = [
@@ -104,14 +108,42 @@ export default function DoctorAppoint() {
 
   const data = [
     {
-      id: "1",
+      id: "1123412341",
       date: "2/9/2564",
       period: "17.00 - 17.30",
       docname: "นพ.สมชาย เก่งมาก",
       status: ["รอให้คำปรึกษา"],
     },
     {
-      id: "2",
+      id: "212341234",
+      date: "3/9/2564",
+      period: "14.00 - 14.30",
+      docname: "นพ.สมชาย เก่งมาก",
+      status: ["รอให้คำปรึกษา"],
+    },
+    {
+      id: "1123412341",
+      date: "2/9/2564",
+      period: "17.00 - 17.30",
+      docname: "นพ.สมชาย เก่งมาก",
+      status: ["รอให้คำปรึกษา"],
+    },
+    {
+      id: "212341234",
+      date: "3/9/2564",
+      period: "14.00 - 14.30",
+      docname: "นพ.สมชาย เก่งมาก",
+      status: ["รอให้คำปรึกษา"],
+    },
+    {
+      id: "1123412341",
+      date: "2/9/2564",
+      period: "17.00 - 17.30",
+      docname: "นพ.สมชาย เก่งมาก",
+      status: ["รอให้คำปรึกษา"],
+    },
+    {
+      id: "212341234",
       date: "3/9/2564",
       period: "14.00 - 14.30",
       docname: "นพ.สมชาย เก่งมาก",
@@ -136,6 +168,7 @@ export default function DoctorAppoint() {
     },
   ];
 
+  const navigate = useNavigate();
   return (
     <div className={styles.container}>
       <div className={styles.body}>
@@ -146,6 +179,15 @@ export default function DoctorAppoint() {
           <Table
             columns={columns}
             dataSource={data}
+            onRow={(record, rowIndex) => {
+              return {
+                onClick: (e) => {
+                  navigate(
+                    `/appoint/${record.id}`
+                  );
+                },
+              };
+            }}
           />
         </div>
         <h2 className={styles.header}>

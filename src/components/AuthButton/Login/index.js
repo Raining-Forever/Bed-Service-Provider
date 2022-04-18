@@ -1,12 +1,16 @@
 import { GoogleLogin } from "react-google-login";
 import axios from "axios";
-import { useAuthContext } from "../../context/AuthContext";
+import { useAuthContext } from "../../../context/AuthContext";
+import styles from "../../AuthButton/AuthButton.module.css";
+import { useNavigate } from "react-router-dom";
 
 const clientId =
   "998136068404-6n8uj2nhv01eevcrq0751cqq11bgn81i.apps.googleusercontent.com";
 
 export default function Login() {
-  const { login } = useAuthContext();
+  const { login, registerCheck } =
+    useAuthContext();
+  const navigate = useNavigate();
 
   const onSuccess = (res) => {
     const profile = res.profileObj;
@@ -23,6 +27,11 @@ export default function Login() {
         // localStorage.setItem("user_id", response.data.user_id);
         // localStorage.setItem("role", response.data.role);
         login(response.data);
+        if (response.data.loggedIn) {
+          if (response.data.role === "none") {
+            navigate("/register");
+          }
+        }
       });
     console.log("Login success! user: ", profile);
     localStorage.setItem(
@@ -38,8 +47,9 @@ export default function Login() {
   return (
     <div>
       <GoogleLogin
+        className={styles.googleButton}
         clientId={clientId}
-        buttonText="Login"
+        buttonText="เข้าสู่ระบบ"
         onSuccess={onSuccess}
         onFailure={onFailure}
         cookiePolicy={"single_host_origin"}

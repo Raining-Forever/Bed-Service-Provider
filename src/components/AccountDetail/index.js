@@ -11,6 +11,7 @@ import {
   Radio,
   Select,
   Upload,
+  DatePicker,
 } from "antd";
 import axios from "axios";
 import { Navigate } from "react-router-dom";
@@ -175,13 +176,18 @@ export default function AccountDetail({
           </div>
           <div className={styles.wrapinfo2}>
             <Form.Item
-              name="bdate"
+              name="birthday"
               label="วัน/เดือน/ปีเกิด :"
             >
               <Input
                 disabled={disabled}
                 className={styles.inputinfo}
               />
+              {/* <DatePicker
+                disabled={disabled}
+                className={styles.inputinfo}
+                format="DD/MM/YYYY"
+              /> */}
             </Form.Item>
             <Form.Item name="gender" label="เพศ">
               <Radio.Group
@@ -338,12 +344,24 @@ export default function AccountDetail({
       </Form>
       {!disabled ? (
         <div className={styles.submitButton}>
-          <Button
-            type="primary"
-            onClick={() => form.submit()}
-          >
-            ลงทะเบียน
-          </Button>
+          {patientinfo?.id ? (
+            <Button
+              type="primary"
+              className={styles.buttonEdit}
+              onClick={() => form.submit()}
+              // style="backgrond-color:#0B9780;"
+            >
+              ยืนยันการแก้ไข
+            </Button>
+          ) : (
+            <Button
+              type="primary"
+              onClick={() => form.submit()}
+              // style="backgrond-color:#0B9780;"
+            >
+              ลงทะเบียน
+            </Button>
+          )}
         </div>
       ) : (
         <div

@@ -15,7 +15,7 @@ export default function AccountPatient() {
     useAuthContext();
 
   useEffect(() => {
-    roleCheck(["patient"], "/accessdinied");
+    roleCheck(["patient"], "/accessdenied");
   }, [authLoaded]);
 
   const [isEdit, setIsEdit] = useState(false);
@@ -26,7 +26,7 @@ export default function AccountPatient() {
     useState(true);
 
   async function fetchPatientData() {
-    if (auth.user_info.id) {
+    if (auth.user_info?.id) {
       const result = await axios.get(
         `https://bed-service-provider.herokuapp.com/api/patient/${auth.user_info.id}`
       );

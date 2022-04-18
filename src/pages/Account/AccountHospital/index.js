@@ -10,14 +10,12 @@ import { useAuthContext } from "../../../context/AuthContext";
 export default function AccountHospital() {
   const { auth, authLoaded, roleCheck } =
     useAuthContext();
+
   useEffect(() => {
-    roleCheck(["doctor"]);
-    if (authLoaded) {
-      fetchHospitalData();
-    }
+    roleCheck(["hospital"]);
   }, [authLoaded]);
 
-  const [isEdit, setIsEdit] = useState(true);
+  const [isEdit, setIsEdit] = useState(false);
   const [hospitalinfo, setHospitalinfo] =
     useState({});
 
@@ -27,14 +25,20 @@ export default function AccountHospital() {
   function ToggleEditform() {
     setIsEdit(!isEdit);
   }
-
+  useEffect(() => {
+    if (authLoaded) {
+      fetchHospitalData();
+    }
+  }, [authLoaded, isEdit]);
   async function fetchHospitalData() {
-    const result = await axios.get(
-      `https://bed-service-provider.herokuapp.com/api/hospital/${auth.user_info.id}`
-    );
-    setHospitalinfo(result.data);
-    setisLoading(false);
-    console.log(result);
+    if (auth.user_info.id) {
+      const result = await axios.get(
+        `https://bed-service-provider.herokuapp.com/api/hospital/${auth.user_info.id}`
+      );
+      setHospitalinfo(result.data);
+      setisLoading(false);
+      console.log(result);
+    } else console.log("no user_info.id");
   }
 
   // useEffect(() => {
@@ -80,6 +84,7 @@ export default function AccountHospital() {
             <HospitalDetail
               hospitalinfo={hospitalinfo}
               disabled={!isEdit}
+              onSubmit={() => setIsEdit(false)}
             />
           )}
         </div>

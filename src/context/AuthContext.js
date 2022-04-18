@@ -25,6 +25,7 @@ export const AuthProvider = ({ children }) => {
 
   const [authLoaded, setAuthLoaded] =
     useState(false);
+
   const navigate = useNavigate();
 
   const login = (data) => {
@@ -33,20 +34,39 @@ export const AuthProvider = ({ children }) => {
       JSON.stringify(data)
     );
     setAuth(data);
-    if (authLoaded) {
-      setUserinfo(data);
-    }
   };
 
   const logout = () => {
     localStorage.removeItem("auth");
+    localStorage.setItem(
+      "auth",
+      JSON.stringify({
+        user_id: 0,
+        email: "",
+        role: "none",
+        googleAccount: "",
+        loggedIn: false,
+      })
+    );
     setAuth({
       user_id: 0,
       email: "",
-      role: "",
+      role: "none",
       googleAccount: "",
       loggedIn: false,
     });
+  };
+
+  const registerCheck = () => {
+    console.log("registerCheck");
+    if (auth.loggedIn) {
+      console.log(
+        "registerCheck loggedIn : true"
+      );
+      if (auth.role === "none") {
+        navigate("/register");
+      }
+    }
   };
 
   const roleCheck = (
@@ -59,13 +79,6 @@ export const AuthProvider = ({ children }) => {
       }
     }
   };
-
-  const [userinfo, setUserinfo] = useState({});
-  // add new for get localstorage
-  // const getUserinfo = () => {
-  //   if (authLoaded) {
-  //   }
-  // };
 
   useEffect(() => {
     const data = localStorage.getItem("auth");
@@ -80,7 +93,7 @@ export const AuthProvider = ({ children }) => {
         logout,
         authLoaded,
         roleCheck,
-        userinfo,
+        registerCheck,
       }}
     >
       {children}

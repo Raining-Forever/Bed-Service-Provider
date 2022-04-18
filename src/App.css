@@ -3,6 +3,7 @@
 .App {
   text-align: center;
   font-family: "Kanit", sans-serif;
+  font-weight: 400;
 }
 
 .App-logo {
@@ -42,4 +43,20 @@
 
 .layout {
   margin-left: 256px;
+}
+
+body::-webkit-scrollbar {
+  width: 10px; 
+  height: 10px;
+  position: initial;              /* width of the entire scrollbar */
+}
+
+body::-webkit-scrollbar-track {
+  background: transparent;        /* color of the tracking area */
+}
+
+body::-webkit-scrollbar-thumb {
+  background: rgba(157, 157, 157, 0.5);    /* color of the scroll thumb */
+  border-radius: 20px;       /* roundness of the scroll thumb */
+  border: 3px solid transparent;  /* creates padding around scroll thumb */
 }

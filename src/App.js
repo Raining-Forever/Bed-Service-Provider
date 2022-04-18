@@ -1,5 +1,5 @@
 import "./App.css";
-import React from "react";
+import React, { useState } from "react";
 import AccountPatient from "./pages/Account/AccountPatient";
 import AccountHospital from "./pages/Account/AccountHospital";
 import Homepage from "./pages/Homepage";
@@ -38,9 +38,9 @@ import { Navbar } from "./components/Navbar";
 import { MyRoute } from "./MyRoute";
 import AccountDoctor from "./pages/Account/AccountDoctor";
 import RegisterSuccess from "./components/ShowStatus/RegisterSuccess";
+import AppointmentDetail from "./components/AppointmentDetail";
 
 function App() {
-  // console.log(window.location.pathname);
   return (
     <div className="App">
       <div>
@@ -139,6 +139,10 @@ function App() {
             <Route
               path="/checkevidence"
               element={<CheckEvid />}
+            />
+            <Route
+              path="/appoint/:appointId"
+              element={<AppointmentDetail />}
             />
           </Routes>
         </div>
