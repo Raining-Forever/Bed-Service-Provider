@@ -83,9 +83,12 @@ export default function DoctorDetail({
         form={form}
         onFinish={async () => {
           if (doctorinfo?.id) {
-            const { data } = await axios.put(
+            const registerData =
+              form.getFieldValue();
+            registerData.user_id = auth.user_id;
+            const data = await axios.put(
               `https://bed-service-provider.herokuapp.com/api/doctor/${doctorinfo.id}`,
-              form.getFieldValue()
+              registerData
             );
             console.log(data);
             onSubmit();
@@ -93,7 +96,7 @@ export default function DoctorDetail({
             const registerData =
               form.getFieldValue();
             registerData.user_id = auth.user_id;
-            const  data  = await axios
+            const data = await axios
               .post(
                 `https://bed-service-provider.herokuapp.com/api/doctor`,
                 registerData

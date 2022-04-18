@@ -100,7 +100,17 @@ export default function DoctorAppoint() {
       dataIndex: "button",
       render: (text, record) => (
         <Space size="middle">
-          <>asdfa</>
+          <div className={styles.wrapappointbut}>
+            <Button
+              type="primary"
+              onClick={() =>
+                alert("นัดปรึกษาแพทย์")
+              }
+              className={styles.appointbutton}
+            >
+              ปรึกษาแพทย์
+            </Button>
+          </div>
         </Space>
       ),
     },
@@ -108,7 +118,21 @@ export default function DoctorAppoint() {
 
   const data = [
     {
-      id: "1123412341",
+      id: "1",
+      date: "2/9/2564",
+      period: "17.00 - 17.30",
+      docname: "นพ.สมชาย เก่งมาก",
+      status: ["รอให้คำปรึกษา"],
+    },
+    {
+      id: "21",
+      date: "3/9/2564",
+      period: "14.00 - 14.30",
+      docname: "นพ.สมชาย เก่งมาก",
+      status: ["รอให้คำปรึกษา"],
+    },
+    {
+      id: "141",
       date: "2/9/2564",
       period: "17.00 - 17.30",
       docname: "นพ.สมชาย เก่งมาก",
@@ -136,17 +160,10 @@ export default function DoctorAppoint() {
       status: ["รอให้คำปรึกษา"],
     },
     {
-      id: "1123412341",
-      date: "2/9/2564",
-      period: "17.00 - 17.30",
-      docname: "นพ.สมชาย เก่งมาก",
-      status: ["รอให้คำปรึกษา"],
-    },
-    {
-      id: "212341234",
+      id: "2123412344",
       date: "3/9/2564",
       period: "14.00 - 14.30",
-      docname: "นพ.สมชาย เก่งมาก",
+      docname: "TESTESTESETE",
       status: ["รอให้คำปรึกษา"],
     },
   ];

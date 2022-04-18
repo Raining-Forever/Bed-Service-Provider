@@ -7,15 +7,15 @@ import { get, sum } from "lodash";
 import { useScoreContext } from "../../../context/ScoreContext";
 
 const score_map = {
-  Q3_1_1: 1,
-  Q3_1_2: 2,
-  Q3_1_3: 3,
-  Q3_2_1: 1,
+  Q3_1_1: 0,
+  Q3_1_2: 1,
+  Q3_1_3: 2,
+  Q3_2_1: 0,
   Q3_2_2: 2,
-  Q3_2_3: 3,
-  Q3_3_1: 1,
-  Q3_3_2: 2,
-  Q3_3_3: 3,
+  Q3_2_3: 5,
+  Q3_3_1: 0,
+  Q3_3_2: 4,
+  Q3_3_3: 5,
 };
 
 export default function Form2(props) {

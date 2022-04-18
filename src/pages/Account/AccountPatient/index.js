@@ -84,6 +84,7 @@ export default function AccountPatient() {
           ) : (
             <AccountDetail
               patientinfo={patientinfo}
+              setPatientinfo={setPatientinfo}
               disabled={!isEdit}
               onSubmit={() => setIsEdit(false)}
             />

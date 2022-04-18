@@ -10,7 +10,7 @@ export default function Accessdenied() {
         <div className={styles.box}>
           <img
             className={styles.imgaccessdeined}
-            src="https://cdn-icons-png.flaticon.com/512/1281/1281278.png"
+            src="https://cdn-icons-png.flaticon.com/512/6750/6750041.png"
           />
           <div className={styles.header}>
             ไม่สามารถเข้าถึงเว็บไซต์ได้
