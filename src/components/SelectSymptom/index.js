@@ -8,11 +8,11 @@ export default function SelectSymptom(props) {
     if (total_score < 0) {
       return 99;
     }
-    if (total_score <= 10) {
+    if (total_score <= 20) {
       return 1; // green
-    } else if (total_score < 20) {
+    } else if (total_score < 30) {
       return 2; //yellow
-    } else if (total_score > 20) {
+    } else if (total_score > 30) {
       return 3; //red
     }
   }
