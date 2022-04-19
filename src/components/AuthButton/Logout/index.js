@@ -7,8 +7,12 @@ const clientId =
   "543267694047-6fpjeu5rjbcsc5s2podj86qvb4l3akel.apps.googleusercontent.com";
 
 export default function Logout() {
-  const { auth, logout, authLoaded } =
-    useAuthContext();
+  const {
+    googleAccount,
+    auth,
+    logout,
+    authLoaded,
+  } = useAuthContext();
 
   const responseGoogle = (response) => {
     console.log(response);
@@ -20,7 +24,12 @@ export default function Logout() {
   };
 
   return (
-    <div>
+    <div className={styles.wrapprofile}>
+      <img
+        className={styles.imgproflie}
+        src="https://cdn-icons-png.flaticon.com/512/847/847969.png"
+      />
+
       <GoogleLogout
         className={styles.googleButton}
         buttonText="ออกจากระบบ"

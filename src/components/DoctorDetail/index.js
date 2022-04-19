@@ -83,9 +83,12 @@ export default function DoctorDetail({
         form={form}
         onFinish={async () => {
           if (doctorinfo?.id) {
-            const { data } = await axios.put(
+            const registerData =
+              form.getFieldValue();
+            registerData.user_id = auth.user_id;
+            const data = await axios.put(
               `https://bed-service-provider.herokuapp.com/api/doctor/${doctorinfo.id}`,
-              form.getFieldValue()
+              registerData
             );
             console.log(data);
             onSubmit();
@@ -93,7 +96,7 @@ export default function DoctorDetail({
             const registerData =
               form.getFieldValue();
             registerData.user_id = auth.user_id;
-            const  data  = await axios
+            const data = await axios
               .post(
                 `https://bed-service-provider.herokuapp.com/api/doctor`,
                 registerData
@@ -117,7 +120,14 @@ export default function DoctorDetail({
               label="เลขที่ใบประกอบวิชาชีพ :"
               rules={[
                 {
+                  pattern: /^\d{13}$/,
+                  message:
+                    "The input is not valid idcard",
+                },
+                {
                   required: true,
+                  message:
+                    "กรุณาระบุข้อมูลบัตรประชาชน",
                 },
               ]}
               {...headFormItemLayout}
@@ -133,6 +143,8 @@ export default function DoctorDetail({
                 rules={[
                   {
                     required: true,
+                    message:
+                      "กรุณาระบุข้อมูลบัตรประชาชน",
                   },
                 ]}
               >
@@ -192,6 +204,12 @@ export default function DoctorDetail({
               {...tailFormItemLayout}
               name="address"
               label="ที่อยู่ :"
+              rules={[
+                {
+                  required: true,
+                  message: "กรุณาระบุที่อยู่",
+                },
+              ]}
             >
               <Input disabled={disabled} />
             </Form.Item>
@@ -201,6 +219,12 @@ export default function DoctorDetail({
               <Form.Item
                 name="province"
                 label="จังหวัด :"
+                rules={[
+                  {
+                    required: true,
+                    message: "กรุณาระบุจังหวัด",
+                  },
+                ]}
               >
                 <Input disabled={disabled} />
               </Form.Item>
@@ -208,6 +232,12 @@ export default function DoctorDetail({
               <Form.Item
                 name="district"
                 label="อำเภอ/เขต :"
+                rules={[
+                  {
+                    required: true,
+                    message: "กรุณาระบุอำเภอ/เขต",
+                  },
+                ]}
               >
                 <Input disabled={disabled} />
               </Form.Item>
@@ -216,13 +246,26 @@ export default function DoctorDetail({
               <Form.Item
                 name="subdistrict"
                 label="ตำบล/แขวง :"
+                rules={[
+                  {
+                    required: true,
+                    message: "กรุณาระบุตำบล/แขวง",
+                  },
+                ]}
               >
                 <Input disabled={disabled} />
               </Form.Item>
 
               <Form.Item
-                name="zipcode"
+                name="postalcode"
                 label="รหัสไปรษณีย์ :"
+                rules={[
+                  {
+                    required: true,
+                    message:
+                      "กรุณาระบุรหัสไปรษณี",
+                  },
+                ]}
               >
                 <Input disabled={disabled} />
               </Form.Item>
