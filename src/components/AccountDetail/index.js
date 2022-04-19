@@ -72,13 +72,15 @@ export default function AccountDetail({
   const [form] = Form.useForm();
 
   useEffect(() => {
-    let tempBirthday = moment(
-      patientinfo.birthday
-    );
-    form.setFieldsValue({
-      ...patientinfo,
-      birthday: tempBirthday,
-    });
+    if (patientinfo) {
+      let tempBirthday = moment(
+        patientinfo.birthday
+      );
+      form.setFieldsValue({
+        ...patientinfo,
+        birthday: tempBirthday,
+      });
+    }
   }, [patientinfo]);
 
   return (
@@ -115,7 +117,7 @@ export default function AccountDetail({
                 );
                 login(response.data);
               });
-            console.log(registerData);
+            // console.log(registerData);
             console.log(data);
             navigate("/registersuccess");
           }

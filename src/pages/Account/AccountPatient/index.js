@@ -33,6 +33,10 @@ export default function AccountPatient() {
       setPatientinfo(result.data[0]);
       setisLoading(false);
       console.log(result);
+      setPatientinfo({
+        ...patientinfo,
+        email: auth.email,
+      });
     } else console.log("no user_info.id");
   }
 

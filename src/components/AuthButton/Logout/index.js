@@ -27,7 +27,7 @@ export default function Logout() {
     <div className={styles.wrapprofile}>
       <img
         className={styles.imgproflie}
-        src="https://cdn-icons-png.flaticon.com/512/527/527489.png"
+        src="https://cdn-icons-png.flaticon.com/512/847/847969.png"
       />
 
       <GoogleLogout
