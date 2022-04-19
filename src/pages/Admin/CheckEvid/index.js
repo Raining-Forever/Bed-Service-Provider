@@ -30,7 +30,7 @@ export default function CheckEvid() {
       dataIndex: "button",
       render: (text, record) => (
         <Space size="middle">
-          <a>ดูข้อมูลเพิ่มเติม ></a>
+          <a>ดูข้อมูลเพิ่มเติม {">"}</a>
         </Space>
       ),
     },

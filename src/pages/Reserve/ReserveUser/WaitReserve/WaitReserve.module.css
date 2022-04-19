@@ -15,16 +15,6 @@
   margin: 10px auto;
 }
 
-.wrapheader {
-  display: flex;
-  flex-direction: row;
-  min-width: 400px;
-  width: 80%;
-  max-width: 900px;
-  justify-content: space-between;
-  margin: 10px auto;
-}
-
 .body {
   width: calc(100vw - 256px);
   background: #f8fbff;
@@ -44,4 +34,8 @@
   margin-top: 30px;
   margin-bottom: 50px;
   padding: 30px;
+}
+
+.text {
+  margin: auto;
 }
