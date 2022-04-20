@@ -1,0 +1,24 @@
+.googleButton{
+ /* font-size: 14px; */
+ font-weight: 400;
+ font-size: 400px;
+ font-family: 'Kanit';
+ /* height: 100px; */
+}
+.googleButton span{
+ font-weight: 400;
+ font-size: 14px;
+ font-family: 'Kanit';
+}
+.imgproflie{
+ width: 40px;
+ height: 40px;
+ margin: 30px 30px;
+}
+.wrapprofile{
+ height: 100px;
+ display: flex;
+ flex-direction: row;
+ justify-content: end;
+ align-items: center;
+}

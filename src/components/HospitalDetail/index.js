@@ -2,6 +2,9 @@ import React from "react";
 import styles from "./HospitalDetail.module.css";
 
 import { Button, Form, Input } from "antd";
+import axios from "axios";
+import { useAuthContext } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const formItemLayout = {
   labelCol: {
@@ -44,11 +47,51 @@ const tailFormItemLayout = {
 };
 
 export default function HospitalDetail({
+  hospitalinfo,
+  setHospitalinfo,
   disabled,
+  onSubmit,
 }) {
+  const [form] = Form.useForm();
+  const { auth, authLoaded, roleCheck, login } =
+    useAuthContext();
+  const navigate = useNavigate();
+  form.setFieldsValue(hospitalinfo);
+
   return (
     <div className={styles.body}>
-      <Form {...formItemLayout}>
+      <Form
+        {...formItemLayout}
+        form={form}
+        onFinish={async () => {
+          if (hospitalinfo?.id) {
+            const { data } = await axios.put(
+              `https://bed-service-provider.herokuapp.com/api/hospital/${hospitalinfo.id}`,
+              form.getFieldValue()
+            );
+            console.log(data);
+            onSubmit();
+          } else {
+            const registerData =
+              form.getFieldValue();
+            registerData.user_id = auth.user_id;
+            const data = await axios
+              .post(
+                `https://bed-service-provider.herokuapp.com/api/hospital`,
+                registerData
+              )
+              .then((response) => {
+                console.log(
+                  "response: ",
+                  response.data
+                );
+                login(response.data);
+              });
+            console.log(data);
+            navigate("/registersuccess");
+          }
+        }}
+      >
         <Form.Item
           name="hospital_id"
           label="รหัสสถานพยาบาล :"
@@ -58,7 +101,7 @@ export default function HospitalDetail({
             },
           ]}
         >
-          <Input />
+          <Input disabled={disabled} />
         </Form.Item>
 
         <Form.Item
@@ -70,7 +113,7 @@ export default function HospitalDetail({
             },
           ]}
         >
-          <Input />
+          <Input disabled={disabled} />
         </Form.Item>
         <Form.Item
           name="hospital_tel"
@@ -81,7 +124,7 @@ export default function HospitalDetail({
             },
           ]}
         >
-          <Input />
+          <Input disabled={disabled} />
         </Form.Item>
         <div className={styles.adresstitle}>
           ที่อยู่ที่สามารถติดต่อได้
@@ -92,6 +135,12 @@ export default function HospitalDetail({
               {...tailFormItemLayout}
               name="address"
               label="ที่อยู่ :"
+              rules={[
+                {
+                  required: true,
+                  message: "กรุณาระบุที่อยู่",
+                },
+              ]}
             >
               <Input disabled={disabled} />
             </Form.Item>
@@ -101,6 +150,12 @@ export default function HospitalDetail({
               <Form.Item
                 name="province"
                 label="จังหวัด :"
+                rules={[
+                  {
+                    required: true,
+                    message: "กรุณาระบุจังหวัด",
+                  },
+                ]}
               >
                 <Input disabled={disabled} />
               </Form.Item>
@@ -108,6 +163,12 @@ export default function HospitalDetail({
               <Form.Item
                 name="district"
                 label="อำเภอ/เขต :"
+                rules={[
+                  {
+                    required: true,
+                    message: "กรุณาระบุอำเภอ/เขต",
+                  },
+                ]}
               >
                 <Input disabled={disabled} />
               </Form.Item>
@@ -116,13 +177,26 @@ export default function HospitalDetail({
               <Form.Item
                 name="subdistrict"
                 label="ตำบล/แขวง :"
+                rules={[
+                  {
+                    required: true,
+                    message: "กรุณาระบุตำบล/แขวง",
+                  },
+                ]}
               >
                 <Input disabled={disabled} />
               </Form.Item>
 
               <Form.Item
-                name="zipcode"
+                name="postalcode"
                 label="รหัสไปรษณีย์ :"
+                rules={[
+                  {
+                    required: true,
+                    message:
+                      "กรุณาระบุรหัสไปรษณี",
+                  },
+                ]}
               >
                 <Input disabled={disabled} />
               </Form.Item>
@@ -130,7 +204,20 @@ export default function HospitalDetail({
           </div>
         </div>
       </Form>
-      <Button type="primary">ลงทะเบียน</Button>
+      {!disabled ? (
+        <div className={styles.submitButton}>
+          <Button
+            type="primary"
+            onClick={() => form.submit()}
+          >
+            ลงทะเบียน
+          </Button>
+        </div>
+      ) : (
+        <div
+          className={styles.submitButton}
+        ></div>
+      )}
     </div>
   );
 }

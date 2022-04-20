@@ -1,6 +1,10 @@
-import React from "react";
+import React, {
+  useEffect,
+  useState,
+} from "react";
 import styles from "./AccountDetail.module.css";
-
+import { useAuthContext } from "../../context/AuthContext";
+import moment from "moment";
 import { InboxOutlined } from "@ant-design/icons";
 
 import {
@@ -10,8 +14,11 @@ import {
   Radio,
   Select,
   Upload,
+  DatePicker,
 } from "antd";
 import axios from "axios";
+import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const { Dragger } = Upload;
 const { Option } = Select;
@@ -57,10 +64,25 @@ export default function AccountDetail({
   patientinfo,
   setPatientinfo,
   disabled,
+  onSubmit,
 }) {
+  const { auth, authLoaded, roleCheck, login } =
+    useAuthContext();
+  const navigate = useNavigate();
   const [form] = Form.useForm();
 
-  form.setFieldsValue(patientinfo);
+  useEffect(() => {
+    if (patientinfo) {
+      let tempBirthday = moment(
+        patientinfo.birthday
+      );
+      form.setFieldsValue({
+        ...patientinfo,
+        birthday: tempBirthday,
+      });
+    }
+  }, [patientinfo]);
+
   return (
     <div className={styles.body}>
       <Form
@@ -69,17 +91,35 @@ export default function AccountDetail({
         form={form}
         onFinish={async () => {
           if (patientinfo?.id) {
-            const { data } = await axios.put(
+            const registerData =
+              form.getFieldValue();
+            registerData.user_id = auth.user_id;
+            const data = await axios.put(
               `https://bed-service-provider.herokuapp.com/api/patient/${patientinfo.id}`,
-              form.getFieldsValue()
+              registerData
             );
             console.log(data);
+
+            onSubmit();
           } else {
-            const { data } = await axios.post(
-              `https://bed-service-provider.herokuapp.com/api/patient/`,
-              form.getFieldsValue()
-            );
+            const registerData =
+              form.getFieldValue();
+            registerData.user_id = auth.user_id;
+            const data = await axios
+              .post(
+                `https://bed-service-provider.herokuapp.com/api/patient/`,
+                registerData
+              )
+              .then((response) => {
+                console.log(
+                  "response: ",
+                  response.data
+                );
+                login(response.data);
+              });
+            // console.log(registerData);
             console.log(data);
+            navigate("/registersuccess");
           }
         }}
       >
@@ -97,7 +137,7 @@ export default function AccountDetail({
                 {
                   required: true,
                   message:
-                    "Please input your idcard",
+                    "กรุณาระบุข้อมูลบัตรประชาชน",
                 },
               ]}
             >
@@ -109,6 +149,13 @@ export default function AccountDetail({
             <Form.Item
               name="title"
               label="คำนำหน้า :"
+              rules={[
+                {
+                  required: true,
+                  message:
+                    "กรุณาเลือกคำนำหน้าชื่อ",
+                },
+              ]}
             >
               <Select
                 placeholder=""
@@ -123,24 +170,44 @@ export default function AccountDetail({
             <Form.Item
               name="firstname"
               label="ชื่อ :"
+              rules={[
+                {
+                  required: true,
+                  message: "กรุณาระบุชื่อ",
+                },
+              ]}
             >
               <Input
                 disabled={disabled}
                 className={styles.inputinfo}
               />
             </Form.Item>
+
             <Form.Item
-              name="email"
-              label="อีเมล :"
+              name="height"
+              label="ส่วนสูง :"
+              rules={[
+                {
+                  required: true,
+                  message: "กรุณาระบุส่วนสูง",
+                },
+              ]}
             >
               <Input
-                disabled={disabled}
                 className={styles.inputinfo}
+                suffix="cm"
+                disabled={disabled}
               />
             </Form.Item>
             <Form.Item
               name="weight"
               label="น้ำหนัก :"
+              rules={[
+                {
+                  required: true,
+                  message: "กรุณาระบุน้ำหนัก",
+                },
+              ]}
             >
               <Input
                 disabled={disabled}
@@ -151,15 +218,29 @@ export default function AccountDetail({
           </div>
           <div className={styles.wrapinfo2}>
             <Form.Item
-              name="bdate"
+              name="birthday"
               label="วัน/เดือน/ปีเกิด :"
             >
-              <Input
+              {/* <Input
                 disabled={disabled}
                 className={styles.inputinfo}
+              /> */}
+              <DatePicker
+                disabled={disabled}
+                className={styles.inputinfo}
+                format="DD/MM/YYYY"
               />
             </Form.Item>
-            <Form.Item name="gender" label="เพศ">
+            <Form.Item
+              name="gender"
+              label="เพศ"
+              rules={[
+                {
+                  required: true,
+                  message: "กรุณาระบุเพศ",
+                },
+              ]}
+            >
               <Radio.Group
                 disabled={disabled}
                 // value={form.getFieldValue([
@@ -173,6 +254,12 @@ export default function AccountDetail({
             <Form.Item
               name="lastname"
               label="นามสกุล :"
+              rules={[
+                {
+                  required: true,
+                  message: "กรุณาระบุนามสกุล",
+                },
+              ]}
             >
               <Input
                 disabled={disabled}
@@ -180,8 +267,14 @@ export default function AccountDetail({
               />
             </Form.Item>
             <Form.Item
-              name="phone"
+              name="tel"
               label="เบอร์โทรศัพท์ :"
+              rules={[
+                {
+                  required: true,
+                  message: "กรุณาระบุเบอร์โทรศัพ",
+                },
+              ]}
             >
               <Input
                 disabled={disabled}
@@ -189,65 +282,76 @@ export default function AccountDetail({
               />
             </Form.Item>
             <Form.Item
-              name="heigth"
-              label="ส่วนสูง :"
+              name="email"
+              label="อีเมล :"
+              // rules={[
+              //   {
+              //     type: "email",
+              //     message:
+              //       "The input is not valid idcard",
+              //   },
+              //   {
+              //     required: true,
+              //     message: "กรุณาระบุอีเมล",
+              //   },
+              // ]}
             >
               <Input
+                disabled={true}
                 className={styles.inputinfo}
-                suffix="cm"
-                disabled={disabled}
+                defaultValue={auth.email}
               />
             </Form.Item>
           </div>
         </div>
         <Form.Item
-          name="covid-evidence"
+          name="is_covid_test"
           label="คุณมีหลักฐานการตรวจโควิด-19 :"
+          rules={[
+            {
+              required: true,
+              message: "กรุณาระบุการตรวจโควิด-19",
+            },
+          ]}
         >
           <Radio.Group
             disabled={disabled}
             className={styles.radioGroup}
           >
-            <Radio value="covid-evidence-yes">
-              มี
-            </Radio>
-            <Radio value="covid-evidence-no">
-              ไม่มี
-            </Radio>
+            <Radio value={true}>มี</Radio>
+            <Radio value={false}>ไม่มี</Radio>
           </Radio.Group>
         </Form.Item>
         <Form.Item
-          name="type-prove"
+          name="proof_type"
           label="ตรวจโควิด-19 ด้วยวิธีการใด :"
         >
           <Radio.Group
             disabled={disabled}
             className={styles.radioGroup}
           >
-            <Radio value="atk">ATK</Radio>
-            <Radio value="rt-pcr">
+            <Radio value={1}>ATK</Radio>
+            <Radio value={2}>
               RT-PCR(ใบรับรองแพทย์)
             </Radio>
           </Radio.Group>
         </Form.Item>
         <Form.Item
-          name="resultform"
+          name="is_detected"
           label="ผลตรวจที่ได้ :"
         >
           <Radio.Group
             disabled={disabled}
             className={styles.radioGroup}
           >
-            <Radio value="resultform-yes">
-              ติดเชื้อ
-            </Radio>
-            <Radio value="resultform-no">
+            <Radio value={true}>ติดเชื้อ</Radio>
+            <Radio value={false}>
               ไม่ติดเชื้่อ
             </Radio>
           </Radio.Group>
         </Form.Item>
         <Form.Item
-          name="prove-result"
+          name="proof_url"
           label="รูปภาพหลักฐาน :"
         >
           <Dragger className={styles.provepic}>
@@ -274,6 +378,12 @@ export default function AccountDetail({
               {...tailFormItemLayout}
               name="address"
               label="ที่อยู่ :"
+              rules={[
+                {
+                  required: true,
+                  message: "กรุณาระบุที่อยู่",
+                },
+              ]}
             >
               <Input disabled={disabled} />
             </Form.Item>
@@ -283,6 +393,12 @@ export default function AccountDetail({
               <Form.Item
                 name="province"
                 label="จังหวัด :"
+                rules={[
+                  {
+                    required: true,
+                    message: "กรุณาระบุจังหวัด",
+                  },
+                ]}
               >
                 <Input disabled={disabled} />
               </Form.Item>
@@ -290,6 +406,12 @@ export default function AccountDetail({
               <Form.Item
                 name="district"
                 label="อำเภอ/เขต :"
+                rules={[
+                  {
+                    required: true,
+                    message: "กรุณาระบุอำเภอ/เขต",
+                  },
+                ]}
               >
                 <Input disabled={disabled} />
               </Form.Item>
@@ -298,13 +420,26 @@ export default function AccountDetail({
               <Form.Item
                 name="subdistrict"
                 label="ตำบล/แขวง :"
+                rules={[
+                  {
+                    required: true,
+                    message: "กรุณาระบุตำบล/แขวง",
+                  },
+                ]}
               >
                 <Input disabled={disabled} />
               </Form.Item>
 
               <Form.Item
-                name="zipcode"
+                name="postalcode"
                 label="รหัสไปรษณีย์ :"
+                rules={[
+                  {
+                    required: true,
+                    message:
+                      "กรุณาระบุรหัสไปรษณี",
+                  },
+                ]}
               >
                 <Input disabled={disabled} />
               </Form.Item>
@@ -312,9 +447,32 @@ export default function AccountDetail({
           </div>
         </div>
       </Form>
-      <Button onClick={() => form.submit()}>
-        asdfasdf
-      </Button>
+      {!disabled ? (
+        <div className={styles.submitButton}>
+          {patientinfo?.id ? (
+            <Button
+              type="primary"
+              className={styles.buttonEdit}
+              onClick={() => form.submit()}
+              // style="backgrond-color:#0B9780;"
+            >
+              ยืนยันการแก้ไข
+            </Button>
+          ) : (
+            <Button
+              type="primary"
+              onClick={() => form.submit()}
+              // style="backgrond-color:#0B9780;"
+            >
+              ลงทะเบียน
+            </Button>
+          )}
+        </div>
+      ) : (
+        <div
+          className={styles.submitButton}
+        ></div>
+      )}
     </div>
   );
 }

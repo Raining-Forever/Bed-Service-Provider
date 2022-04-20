@@ -1,6 +1,10 @@
 import React from "react";
 import styles from "./DoctorAppoint.module.css";
 import { Button, Table, Tag, Space } from "antd";
+import {
+  Navigate,
+  useNavigate,
+} from "react-router-dom";
 
 export default function DoctorAppoint() {
   const columns = [
@@ -27,7 +31,10 @@ export default function DoctorAppoint() {
       render: (status) => (
         <>
           {status.map((tag) => {
-            let color = tag.length > 9 ? "green" : "geekblue";
+            let color =
+              tag.length > 9
+                ? "green"
+                : "geekblue";
             if (tag === "ยกเลิกนัด") {
               color = "volcano";
             } else if (tag == "ปรึกษาสำเร็จ") {
@@ -93,7 +100,17 @@ export default function DoctorAppoint() {
       dataIndex: "button",
       render: (text, record) => (
         <Space size="middle">
-          <a>ปรึกษา</a>
+          <div className={styles.wrapappointbut}>
+            <Button
+              type="primary"
+              onClick={() =>
+                alert("นัดปรึกษาแพทย์")
+              }
+              className={styles.appointbutton}
+            >
+              ปรึกษาแพทย์
+            </Button>
+          </div>
         </Space>
       ),
     },
@@ -108,10 +125,45 @@ export default function DoctorAppoint() {
       status: ["รอให้คำปรึกษา"],
     },
     {
-      id: "2",
+      id: "21",
       date: "3/9/2564",
       period: "14.00 - 14.30",
       docname: "นพ.สมชาย เก่งมาก",
+      status: ["รอให้คำปรึกษา"],
+    },
+    {
+      id: "141",
+      date: "2/9/2564",
+      period: "17.00 - 17.30",
+      docname: "นพ.สมชาย เก่งมาก",
+      status: ["รอให้คำปรึกษา"],
+    },
+    {
+      id: "212341234",
+      date: "3/9/2564",
+      period: "14.00 - 14.30",
+      docname: "นพ.สมชาย เก่งมาก",
+      status: ["รอให้คำปรึกษา"],
+    },
+    {
+      id: "1123412341",
+      date: "2/9/2564",
+      period: "17.00 - 17.30",
+      docname: "นพ.สมชาย เก่งมาก",
+      status: ["รอให้คำปรึกษา"],
+    },
+    {
+      id: "212341234",
+      date: "3/9/2564",
+      period: "14.00 - 14.30",
+      docname: "นพ.สมชาย เก่งมาก",
+      status: ["รอให้คำปรึกษา"],
+    },
+    {
+      id: "2123412344",
+      date: "3/9/2564",
+      period: "14.00 - 14.30",
+      docname: "TESTESTESETE",
       status: ["รอให้คำปรึกษา"],
     },
   ];
@@ -133,16 +185,36 @@ export default function DoctorAppoint() {
     },
   ];
 
+  const navigate = useNavigate();
   return (
     <div className={styles.container}>
       <div className={styles.body}>
-        <h2 className={styles.header}>รายการปรึกษาแพทย์ของฉัน</h2>
+        <h2 className={styles.header}>
+          รายการปรึกษาแพทย์ของฉัน
+        </h2>
         <div className={styles.box}>
-          <Table columns={columns} dataSource={data} />
+          <Table
+            columns={columns}
+            dataSource={data}
+            onRow={(record, rowIndex) => {
+              return {
+                onClick: (e) => {
+                  navigate(
+                    `/appoint/${record.id}`
+                  );
+                },
+              };
+            }}
+          />
         </div>
-        <h2 className={styles.header}>นัดปรึกษาแพทย์</h2>
+        <h2 className={styles.header}>
+          นัดปรึกษาแพทย์
+        </h2>
         <div className={styles.box}>
-          <Table columns={columns2} dataSource={data2} />
+          <Table
+            columns={columns2}
+            dataSource={data2}
+          />
         </div>
       </div>
     </div>

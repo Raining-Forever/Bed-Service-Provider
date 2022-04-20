@@ -1,4 +1,9 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+} from "react";
 import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext({
@@ -18,29 +23,59 @@ export const AuthProvider = ({ children }) => {
     loggedIn: false,
   });
 
-  const [authLoaded, setAuthLoaded] = useState(false);
+  const [authLoaded, setAuthLoaded] =
+    useState(false);
+
   const navigate = useNavigate();
 
   const login = (data) => {
-    localStorage.setItem("auth", JSON.stringify(data));
+    localStorage.setItem(
+      "auth",
+      JSON.stringify(data)
+    );
     setAuth(data);
   };
 
   const logout = () => {
     localStorage.removeItem("auth");
+    localStorage.setItem(
+      "auth",
+      JSON.stringify({
+        user_id: 0,
+        email: "",
+        role: "none",
+        googleAccount: "",
+        loggedIn: false,
+      })
+    );
     setAuth({
       user_id: 0,
       email: "",
-      role: "",
+      role: "none",
       googleAccount: "",
       loggedIn: false,
     });
   };
 
-  const roleCheck = (roles = []) => {
+  const registerCheck = () => {
+    console.log("registerCheck");
+    if (auth.loggedIn) {
+      console.log(
+        "registerCheck loggedIn : true"
+      );
+      if (auth.role === "none") {
+        navigate("/register");
+      }
+    }
+  };
+
+  const roleCheck = (
+    roles = [],
+    redicrecto = "/accessdenied"
+  ) => {
     if (authLoaded) {
       if (!roles.includes(auth.role)) {
-        navigate("/");
+        navigate(redicrecto);
       }
     }
   };
@@ -52,7 +87,14 @@ export const AuthProvider = ({ children }) => {
   }, []);
   return (
     <AuthContext.Provider
-      value={{ auth, login, logout, authLoaded, roleCheck }}
+      value={{
+        auth,
+        login,
+        logout,
+        authLoaded,
+        roleCheck,
+        registerCheck,
+      }}
     >
       {children}
     </AuthContext.Provider>

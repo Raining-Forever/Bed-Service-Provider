@@ -40,3 +40,8 @@
 .imgaccessdeined{
     width: 256px;
 }
+.detail{
+  font-size: 16px;
+  font-weight: lighter;
+    margin-bottom: 20px;
+}

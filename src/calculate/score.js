@@ -73,4 +73,22 @@ function final_score(score1, score2, score3) {
   }
 }
 
-console.log(final_score(process_symptom1(5), process_symptom2(0)));
+function ProcessResult(total_score) {
+  if (total_score < 0) {
+    return 99;
+  }
+  if (total_score <= 10) {
+    return 1; // green
+  } else if (total_score < 20) {
+    return 2; //yellow
+  } else if (total_score > 30) {
+    return 3; //red
+  }
+}
+
+console.log(
+  final_score(
+    process_symptom1(5),
+    process_symptom2(0)
+  )
+);

@@ -27,7 +27,7 @@
 
 .body {
   width: calc(100vw - 256px);
-  background: #f8fbff;
+  background: #F6FBFF;
   min-height: 100vh;
 }
 
@@ -44,4 +44,19 @@
   margin-top: 30px;
   margin-bottom: 50px;
   padding: 30px;
+}
+.appointbutton{
+  border-radius: 5px;
+  height: 30px;
+  display:flex ;
+  justify-content: center;
+  align-items:center ;
+  font-size: 12px;
+  font-weight: 400;
+}
+.wrapappointbut{
+  display: flex;
+  /* flex-direction: row; */
+  justify-content: end;
+  width: 100%;
 }

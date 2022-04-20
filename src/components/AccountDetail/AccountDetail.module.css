@@ -11,6 +11,8 @@
 .wrapinfo1 {
   display: flex;
   flex-direction: column;
+  justify-content: left;
+  text-align: left;
   /* width: 40%; */
 }
 
@@ -62,6 +64,10 @@
 
   /* color: gray; */
 }
+.submitButton{
+  display: flex;
+  justify-content: flex-end; 
+}
 
 Input:disabled {
   background-color: transparent!important;
@@ -69,6 +75,8 @@ Input:disabled {
   border: none!important;
   cursor: default!important;
 }
+
+
 
 .ant-select-disabled.ant-select:not(.ant-select-customize-input) .ant-select-selector {
   background: transparent !important;
@@ -82,4 +90,14 @@ Input:disabled {
   color: black!important;
   border: none!important;
   cursor: default!important;
+}
+
+.buttonEdit{
+  background-color: #0B9780;
+  border-color: transparent;
+}
+
+.buttonEdit:hover {
+  background: rgb(82, 175, 160);
+  border-color: transparent;
 }
