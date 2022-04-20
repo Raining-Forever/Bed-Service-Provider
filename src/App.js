@@ -7,6 +7,12 @@ import Symtom from "./pages/Symptom";
 //import Register from "./pages/Register";
 import DoctorAppoint from "./pages/DoctorAppoint";
 import HistoryAppoint from "./pages/DoctorAppoint/HistoryAppoint";
+import AppointManage from "./pages/DoctorAppoint/AppointDoc/AppointManage";
+import Reserve from "./pages/Reserve/ReserveUser";
+import HistoryReserve from "./pages/Reserve/ReserveUser/HistoryReserve";
+import WaitReserve from "./pages/Reserve/ReserveUser/WaitReserve";
+import ReserveHospital from "./pages/Reserve/ReserveHospital";
+import HistoryPatient from "./pages/Reserve/ReserveHospital/HistoryPatient";
 import Result from "./components/Symptom/Result";
 import SelectRegister from "./pages/Register/SelectRegister";
 import Patientregister from "./pages/Register/Patientregister";
@@ -144,6 +150,12 @@ function App() {
               path="/appoint/:appointId"
               element={<AppointmentDetail />}
             />
+            <Route path="/reserve" element={<Reserve />} />
+            <Route path="/historyreserve" element={<HistoryReserve />} />
+            <Route path="/reservehospital" element={<ReserveHospital />} />
+            <Route path="/historypatient" element={<HistoryPatient />} />
+            <Route path="/appointmanage" element={<AppointManage />} />
+            <Route path="/waitreserve" element={<WaitReserve />} />
           </Routes>
         </div>
       </div>
