@@ -30,11 +30,11 @@ export default function AccountPatient() {
       const result = await axios.get(
         `https://bed-service-provider.herokuapp.com/api/patient/${auth.user_info.id}`
       );
-      setPatientinfo(result.data[0]);
+      // setPatientinfo(result.data[0]);
       setisLoading(false);
-      console.log(result);
+      // console.log(result);
       setPatientinfo({
-        ...patientinfo,
+        ...result.data[0],
         email: auth.email,
       });
     } else console.log("no user_info.id");
@@ -50,6 +50,7 @@ export default function AccountPatient() {
     }
   }, [authLoaded, isEdit]);
 
+  // console.log("patientinfo", patientinfo);
   return (
     <div className={styles.container}>
       <div className={styles.body}>

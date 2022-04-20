@@ -172,6 +172,11 @@ export default function AccountDetail({
               label="ชื่อ :"
               rules={[
                 {
+                  pattern: /^[ก-๏\s]+$/,
+                  message:
+                    "The input is not valid idcard",
+                },
+                {
                   required: true,
                   message: "กรุณาระบุชื่อ",
                 },
