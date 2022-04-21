@@ -19,9 +19,14 @@ export default function Navbar_doctor() {
       style={{ width: 256 }}
       defaultSelectedKeys={["0"]}
       className={styles.menu}
-      // defaultOpenKeys={["sub1"]}
+      defaultOpenKeys={["sub1"]}
       mode="inline"
     >
+      <img
+        src="https://www.img.in.th/images/0b3eaa71820a71070cebca48dacc9ad7.png"
+        alt="0b3eaa71820a71070cebca48dacc9ad7.png"
+        border="0"
+      />
       <Menu.Item key="0">
         <NavLink
           to="/"

@@ -1,9 +1,18 @@
+
 .container {
   display: flex;
 }
 
 .header {
-  margin-top: 50px;
+  font-size: 24px;
+  font-weight: medium;
+  display: flex;
+  flex-direction: row;
+  min-width: 400px;
+  width: 80%;
+  max-width: 900px;
+  justify-content: space-between;
+  margin: 10px auto;
 }
 
 .body {
@@ -23,8 +32,9 @@
   display: flex;
   align-content: space-around;
   margin: auto;
-  margin-top: 30px;
+  /* margin-top: 30px; */
   margin-bottom: 50px;
   padding: 30px;
+  justify-content: center;
 }
 

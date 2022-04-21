@@ -45,6 +45,7 @@ import { MyRoute } from "./MyRoute";
 import AccountDoctor from "./pages/Account/AccountDoctor";
 import RegisterSuccess from "./components/ShowStatus/RegisterSuccess";
 import AppointmentDetail from "./components/AppointmentDetail";
+import Subnavbar from "./components/Subnavbar";
 
 function App() {
   return (
@@ -58,6 +59,7 @@ function App() {
               "/register" && "layout"
           }
         >
+          <Subnavbar />
           <Routes>
             <Route
               exact
@@ -150,12 +152,30 @@ function App() {
               path="/appoint/:appointId"
               element={<AppointmentDetail />}
             />
-            <Route path="/reserve" element={<Reserve />} />
-            <Route path="/historyreserve" element={<HistoryReserve />} />
-            <Route path="/reservehospital" element={<ReserveHospital />} />
-            <Route path="/historypatient" element={<HistoryPatient />} />
-            <Route path="/appointmanage" element={<AppointManage />} />
-            <Route path="/waitreserve" element={<WaitReserve />} />
+            <Route
+              path="/reserve"
+              element={<Reserve />}
+            />
+            <Route
+              path="/historyreserve"
+              element={<HistoryReserve />}
+            />
+            <Route
+              path="/reservehospital"
+              element={<ReserveHospital />}
+            />
+            <Route
+              path="/historypatient"
+              element={<HistoryPatient />}
+            />
+            <Route
+              path="/appointmanage"
+              element={<AppointManage />}
+            />
+            <Route
+              path="/waitreserve"
+              element={<WaitReserve />}
+            />
           </Routes>
         </div>
       </div>

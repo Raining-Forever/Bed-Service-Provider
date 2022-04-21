@@ -45,7 +45,7 @@ export default function Login() {
   };
 
   return (
-    <div>
+    <div className={styles.wrapprofile}>
       <GoogleLogin
         className={styles.googleButton}
         clientId={clientId}

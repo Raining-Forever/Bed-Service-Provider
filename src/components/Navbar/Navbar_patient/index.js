@@ -20,6 +20,11 @@ export default function Navbar_patient() {
       defaultOpenKeys={["sub1", "sub2"]}
       mode="inline"
     >
+      <img
+        src="https://www.img.in.th/images/0b3eaa71820a71070cebca48dacc9ad7.png"
+        alt="0b3eaa71820a71070cebca48dacc9ad7.png"
+        border="0"
+      />
       <Menu.Item key="0" icon={<HomeOutlined />}>
         <NavLink
           to="/"
