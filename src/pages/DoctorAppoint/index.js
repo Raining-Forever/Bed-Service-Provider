@@ -1,12 +1,19 @@
 import React from "react";
 import styles from "./DoctorAppoint.module.css";
 import { Button, Table, Tag, Space } from "antd";
-import {
-  Navigate,
-  useNavigate,
-} from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useAuthContext } from "../../context/AuthContext";
+import { useEffect, useState } from "react";
 
 export default function DoctorAppoint() {
+  const { auth, authLoaded, roleCheck } = useAuthContext();
+  useEffect(() => {
+    roleCheck(["patient"], "/accessdenied");
+  }, [authLoaded]);
+  const [appoint, setAppoint] = useState({});
+  const [isLoading, setisLoading] = useState(true);
+
   const columns = [
     {
       title: "วันที่",
@@ -31,10 +38,7 @@ export default function DoctorAppoint() {
       render: (status) => (
         <>
           {status.map((tag) => {
-            let color =
-              tag.length > 9
-                ? "green"
-                : "geekblue";
+            let color = tag.length > 9 ? "green" : "geekblue";
             if (tag === "ยกเลิกนัด") {
               color = "volcano";
             } else if (tag == "ปรึกษาสำเร็จ") {
@@ -103,9 +107,7 @@ export default function DoctorAppoint() {
           <div className={styles.wrapappointbut}>
             <Button
               type="primary"
-              onClick={() =>
-                alert("นัดปรึกษาแพทย์")
-              }
+              onClick={() => alert("นัดปรึกษาแพทย์")}
               className={styles.appointbutton}
             >
               ปรึกษาแพทย์
@@ -184,14 +186,32 @@ export default function DoctorAppoint() {
       sex: ["หญิง"],
     },
   ];
+  console.log("appoint: ", appoint);
+  async function fetchAppoint() {
+    if (auth.user_info?.id) {
+      const getAppointBody = {};
+      console.log(auth.user_info.id);
+      const result = await axios.put(
+        `https://bed-service-provider.herokuapp.com/api/appointment/`,
+        { patient_id: 38 }
+      );
+      setisLoading(false);
+      console.log("result ", result.data);
+      setAppoint(result.data);
+      console.log("fetch success");
+    } else console.log("no user_info.id");
+  }
+  useEffect(() => {
+    if (authLoaded) {
+      fetchAppoint();
+    }
+  }, [authLoaded]);
 
   const navigate = useNavigate();
   return (
     <div className={styles.container}>
       <div className={styles.body}>
-        <h2 className={styles.header}>
-          รายการปรึกษาแพทย์ของฉัน
-        </h2>
+        <h2 className={styles.header}>รายการปรึกษาแพทย์ของฉัน</h2>
         <div className={styles.box}>
           <Table
             columns={columns}
@@ -204,22 +224,15 @@ export default function DoctorAppoint() {
             onRow={(record, rowIndex) => {
               return {
                 onClick: (e) => {
-                  navigate(
-                    `/appoint/${record.id}`
-                  );
+                  navigate(`/appoint/${record.id}`);
                 },
               };
             }}
           />
         </div>
-        <h2 className={styles.header}>
-          นัดปรึกษาแพทย์
-        </h2>
+        <h2 className={styles.header}>นัดปรึกษาแพทย์</h2>
         <div className={styles.box}>
-          <Table
-            columns={columns2}
-            dataSource={data2}
-          />
+          <Table columns={columns2} dataSource={data2} />
         </div>
       </div>
     </div>
