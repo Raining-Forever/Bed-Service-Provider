@@ -5,11 +5,9 @@ import Form0 from "./Form0";
 import Form1 from "./Form1";
 import Form2 from "./Form2";
 
-import Result from "../../components/Symptom/Result";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useAuthContext } from "../../context/AuthContext";
-import { Oval } from "react-loader-spinner";
 
 export default function Symtom(props) {
   const [page, setPage] = useState(0);
@@ -33,6 +31,9 @@ export default function Symtom(props) {
       // console.log("fetchsymptom", symptomScore);
     } else console.log("no user_info.id");
   }
+  useEffect(() => {
+    roleCheck(["patient"], "/accessdenied");
+  }, [authLoaded]);
   //when open this path
   useEffect(() => {
     if (authLoaded) {

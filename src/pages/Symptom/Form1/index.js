@@ -94,9 +94,9 @@ export default function Form1(props) {
   return (
     <div className={styles.container}>
       <div className={styles.body}>
-        <h2 className={styles.header}>
+        <div className={styles.header}>
           ประเมินความรุนแรงของอาการ
-        </h2>
+        </div>
         <div className={styles.box}>
           <Form name="Q1_Q2" onFinish={onFinish}>
             <div className={styles.first}>
@@ -299,7 +299,7 @@ export default function Form1(props) {
                     }
                     value="2_2"
                   >
-                    โรคเบาหวาน
+                    โรคหัวใจและหลอดเลือด
                   </Checkbox>
                   <Form.Item name="Q2_2_radio">
                     <Radio.Group
@@ -314,7 +314,7 @@ export default function Form1(props) {
                         }
                         value="2_2_1"
                       >
-                        มีอาการแทรกซ้อน
+                        มีภาวะหัวใจล้มเหลว
                       </Radio>
                       <Radio
                         className={
@@ -322,7 +322,7 @@ export default function Form1(props) {
                         }
                         value="2_2_2"
                       >
-                        ไม่มีอาการแทรกซ้อน
+                        ไม่มีภาวะหัวใจล้มเหลว
                       </Radio>
                     </Radio.Group>
                   </Form.Item>
@@ -336,7 +336,7 @@ export default function Form1(props) {
                     }
                     value="2_3"
                   >
-                    โรคหัวใจและหลอดเลือด
+                    โรคปอด
                   </Checkbox>
                   <Form.Item name="Q2_3_radio">
                     <Radio.Group
@@ -351,7 +351,7 @@ export default function Form1(props) {
                         }
                         value="2_3_1"
                       >
-                        มีภาวะหัวใจล้มเหลว
+                        โรคหอบหืด
                       </Radio>
                       <Radio
                         className={
@@ -359,7 +359,7 @@ export default function Form1(props) {
                         }
                         value="2_3_2"
                       >
-                        ไม่มีภาวะหัวใจล้มเหลว
+                        โรคปอดเรื้อรังแต่ไม่หอบหืด
                       </Radio>
                     </Radio.Group>
                   </Form.Item>
@@ -373,7 +373,7 @@ export default function Form1(props) {
                     }
                     value="2_4"
                   >
-                    โรคปอด
+                    เนื้องอกร้าย
                   </Checkbox>
                   <Form.Item name="Q2_4_radio">
                     <Radio.Group
@@ -388,7 +388,7 @@ export default function Form1(props) {
                         }
                         value="2_4_1"
                       >
-                        โรคหอบหืด
+                        มีตรวจพบมะเร็ง
                       </Radio>
                       <Radio
                         className={
@@ -396,7 +396,7 @@ export default function Form1(props) {
                         }
                         value="2_4_2"
                       >
-                        โรคปอดเรื้อรังแต่ไม่หอบหืด
+                        ไม่มีตรวจพบมะเร็ง
                       </Radio>
                     </Radio.Group>
                   </Form.Item>
@@ -410,7 +410,7 @@ export default function Form1(props) {
                     }
                     value="2_5"
                   >
-                    เนื้องอกร้าย
+                    โรคไตเรื้อรัง
                   </Checkbox>
                   <Form.Item name="Q2_5_radio">
                     <Radio.Group
@@ -425,7 +425,7 @@ export default function Form1(props) {
                         }
                         value="2_5_1"
                       >
-                        มีตรวจพบมะเร็ง
+                        CKD 3 หรือ 4
                       </Radio>
                       <Radio
                         className={
@@ -433,7 +433,8 @@ export default function Form1(props) {
                         }
                         value="2_5_2"
                       >
-                        ไม่มีตรวจพบมะเร็ง
+                        ไตวายเรื้อรัง หรือ
+                        มีการปลูกถ่าย
                       </Radio>
                     </Radio.Group>
                   </Form.Item>

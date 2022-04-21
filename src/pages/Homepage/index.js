@@ -7,51 +7,98 @@ import styles from "./Homepage.module.css";
 import Navbar_patient from "../../components/Navbar/Navbar_patient";
 import { Button } from "antd";
 import { useAuthContext } from "../../context/AuthContext";
-import Logout from "../../components/AuthButton/Logout";
-import Login from "../../components/AuthButton/Login";
+import { NavLink } from "react-router-dom";
+import Subnavbar from "../../components/Subnavbar";
 
 export default function Homepage() {
   const { auth, authLoaded, registerCheck } =
     useAuthContext();
-  const [isLogin, setIsLogin] = useState(false);
+  // const [isLogin, setIsLogin] = useState(false);
 
-  useEffect(() => {
-    if (authLoaded) {
-      setIsLogin(auth.loggedIn);
-    }
-    // registerCheck();
-  }, [auth]);
+  // useEffect(() => {
+  //   if (authLoaded) {
+  //     setIsLogin(auth.loggedIn);
+  //   }
+  //   // registerCheck();
+  // }, [auth]);
 
   // console.log(isLogin);
   return (
     <div className={styles.container}>
       <div className={styles.body}>
-        <div className={styles.subnav}>
+        {/* <div className={styles.subnav}>
           {isLogin ? <Logout /> : <Login />}
-        </div>
+        </div> */}
+        {/* <Subnavbar /> */}
         <div className={styles.box1}>
           <div className={styles.img1}>
             <img src="https://www.img.in.th/images/5da81e0bb15358c4f11f42f31f3ac0cd.png" />
           </div>
           <div className={styles.box1_body}>
             <div className={styles.top}>
-              <p>
+              <div
+                className={styles.headerbanner}
+              >
                 รายงานผู้ป่วยโควิด-19 ประจำวันนี้
-              </p>
+              </div>
             </div>
             <div className={styles.box1_row}>
               <div className={styles.left}>
-                <p>ผู้ป่วยโควิดในปัจจุบัน</p>
-                <p>185,515</p>
+                <div
+                  className={styles.patienttoday}
+                >
+                  ผู้ป่วยโควิดในปัจจุบัน
+                </div>
+                <div
+                  className={styles.patienttoday}
+                >
+                  <img
+                    src="https://cdn-icons-png.flaticon.com/512/2659/2659980.png"
+                    className={styles.iconcovid}
+                  />
+                  185,515
+                </div>
               </div>
               <div className={styles.right}>
                 <div className={styles.item1}>
-                  <p>หายแล้ววันนี้</p>
-                  <p>13,527</p>
+                  <div
+                    className={
+                      styles.patienttoday
+                    }
+                  >
+                    <img
+                      src="https://cdn-icons-png.flaticon.com/512/2966/2966486.png"
+                      className={styles.iconcovid}
+                    />
+                    หายแล้ววันนี้
+                  </div>
+                  <div
+                    className={
+                      styles.patienttoday
+                    }
+                  >
+                    13,527
+                  </div>
                 </div>
                 <div className={styles.item2}>
-                  <p>ผู้ป่วยรายใหม่</p>
-                  <p>13,897</p>
+                  <div
+                    className={
+                      styles.patienttoday
+                    }
+                  >
+                    <img
+                      src="https://cdn-icons-png.flaticon.com/512/3782/3782099.png"
+                      className={styles.iconcovid}
+                    />
+                    ผู้ป่วยรายใหม่
+                  </div>
+                  <div
+                    className={
+                      styles.patienttoday
+                    }
+                  >
+                    13,897
+                  </div>
                 </div>
               </div>
             </div>
@@ -64,40 +111,55 @@ export default function Homepage() {
           </div>
           <div className={styles.box2_bottom}>
             <div className={styles.box2_items}>
-              <div
-                className={styles.box2_items_text}
-              >
-                ประเมินอาการป่วย
-              </div>
-              <img
-                src="https://www.img.in.th/images/318b4d6279ff8c57cf7e382ede2a9c92.png"
-                alt="318b4d6279ff8c57cf7e382ede2a9c92.png"
-                border="0"
-              />
+              <NavLink to="/form">
+                <div
+                  className={
+                    styles.box2_items_text
+                  }
+                >
+                  1. ประเมินอาการป่วย
+                </div>
+
+                <img
+                  src="https://www.img.in.th/images/318b4d6279ff8c57cf7e382ede2a9c92.png"
+                  alt="318b4d6279ff8c57cf7e382ede2a9c92.png"
+                  border="0"
+                />
+              </NavLink>
             </div>
             <div className={styles.box2_items}>
-              <div
-                className={styles.box2_items_text}
-              >
-                รับคำปรึกษาจากแพทย์
-              </div>
-              <img
-                src="https://www.img.in.th/images/3e4f390eae68fa69a73a4694aec4d16e.png"
-                alt="3e4f390eae68fa69a73a4694aec4d16e.png"
-                border="0"
-              />
+              <NavLink to="/appoint">
+                <div
+                  className={
+                    styles.box2_items_text
+                  }
+                >
+                  2. รับคำปรึกษาจากแพทย์
+                </div>
+
+                <img
+                  src="https://www.img.in.th/images/3e4f390eae68fa69a73a4694aec4d16e.png"
+                  alt="3e4f390eae68fa69a73a4694aec4d16e.png"
+                  border="0"
+                />
+              </NavLink>
             </div>
             <div className={styles.box2_items}>
-              <div
-                className={styles.box2_items_text}
-              >
-                ค้นหาและจองเตียง
-              </div>
-              <img
-                src="https://www.img.in.th/images/f12fd9c2289aa5ae7cd18b14dc5cd2f9.png"
-                alt="f12fd9c2289aa5ae7cd18b14dc5cd2f9.png"
-                border="0"
-              />
+              <NavLink to="/reserve">
+                <div
+                  className={
+                    styles.box2_items_text
+                  }
+                >
+                  3. ค้นหาและจองเตียง
+                </div>
+
+                <img
+                  src="https://www.img.in.th/images/f12fd9c2289aa5ae7cd18b14dc5cd2f9.png"
+                  alt="f12fd9c2289aa5ae7cd18b14dc5cd2f9.png"
+                  border="0"
+                />
+              </NavLink>
             </div>
           </div>
         </div>
