@@ -5,6 +5,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAuthContext } from "../../context/AuthContext";
 import { useEffect, useState } from "react";
+import { Oval } from "react-loader-spinner";
 
 export default function DoctorAppoint() {
   const { auth, authLoaded, roleCheck } = useAuthContext();
@@ -13,6 +14,7 @@ export default function DoctorAppoint() {
   }, [authLoaded]);
   const [appoint, setAppoint] = useState({});
   const [isLoading, setisLoading] = useState(true);
+  const [newArray, setNewArray] = useState([]);
 
   const columns = [
     {
@@ -118,6 +120,13 @@ export default function DoctorAppoint() {
     },
   ];
 
+  const statusArray = [
+    "รอลงทะเบียน",
+    "รอให้คำปรึกษา",
+    "ปรึกษาสำเร็จ",
+    "ยกเลิกนัด",
+  ];
+
   const data = [
     {
       id: "1",
@@ -186,18 +195,54 @@ export default function DoctorAppoint() {
       sex: ["หญิง"],
     },
   ];
+  // {
+  //   id: "1",
+  //   date: "2/9/2564",
+  //   period: "17.00 - 17.30",
+  //   docname: "นพ.สมชาย เก่งมาก",
+  //   status: ["รอให้คำปรึกษา"],
+  // }
+  let nArray = [];
+
   console.log("appoint: ", appoint);
   async function fetchAppoint() {
     if (auth.user_info?.id) {
-      const getAppointBody = {};
       console.log(auth.user_info.id);
       const result = await axios.put(
         `https://bed-service-provider.herokuapp.com/api/appointment/`,
-        { patient_id: 38 }
+        { patient_id: 38, status: 2 }
       );
-      setisLoading(false);
-      console.log("result ", result.data);
+
+      nArray = result.data.map((v) => ({
+        id: v.id,
+        date: v.starttime.split("T")[0].split("-").reverse().join("/"),
+        period:
+          v.starttime
+            .split("T")[1]
+            .split("Z")[0]
+            .split(".")[0]
+            .split(":")
+            .slice(0, -1)
+            .join(".") +
+          " - " +
+          v.endtime
+            .split("T")[1]
+            .split("Z")[0]
+            .split(".")[0]
+            .split(":")
+            .slice(0, -1)
+            .join("."),
+        docname:
+          v.doctorinfo.title +
+          v.doctorinfo.firstname +
+          " " +
+          v.doctorinfo.lastname,
+        status: [statusArray[v.status - 1]],
+      }));
+      console.log("nArray ", nArray);
       setAppoint(result.data);
+      setisLoading(false);
+      setNewArray(nArray);
       console.log("fetch success");
     } else console.log("no user_info.id");
   }
@@ -213,22 +258,34 @@ export default function DoctorAppoint() {
       <div className={styles.body}>
         <h2 className={styles.header}>รายการปรึกษาแพทย์ของฉัน</h2>
         <div className={styles.box}>
-          <Table
-            columns={columns}
-            dataSource={data}
-            pagination={{
-              defaultPageSize: 5,
-              showSizeChanger: true,
-              pageSizeOptions: ["5", "10", "20"],
-            }}
-            onRow={(record, rowIndex) => {
-              return {
-                onClick: (e) => {
-                  navigate(`/appoint/${record.id}`);
-                },
-              };
-            }}
-          />
+          {isLoading ? (
+            <div className={styles.loadcontainer}>
+              <Oval
+                height="100"
+                width="100"
+                color="#1890ff"
+                secondaryColor="gray"
+              />
+              Loading
+            </div>
+          ) : (
+            <Table
+              columns={columns}
+              dataSource={newArray}
+              pagination={{
+                defaultPageSize: 5,
+                showSizeChanger: true,
+                pageSizeOptions: ["5", "10", "20"],
+              }}
+              onRow={(record, rowIndex) => {
+                return {
+                  onClick: (e) => {
+                    navigate(`/appoint/${record.id}`);
+                  },
+                };
+              }}
+            />
+          )}
         </div>
         <h2 className={styles.header}>นัดปรึกษาแพทย์</h2>
         <div className={styles.box}>
