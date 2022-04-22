@@ -1,7 +1,4 @@
-import React, {
-  useEffect,
-  useState,
-} from "react";
+import React, { useEffect } from "react";
 import styles from "./AccountDetail.module.css";
 import { useAuthContext } from "../../context/AuthContext";
 import moment from "moment";
@@ -17,7 +14,7 @@ import {
   DatePicker,
 } from "antd";
 import axios from "axios";
-import { Navigate } from "react-router-dom";
+// import { Navigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 const { Dragger } = Upload;
@@ -66,8 +63,7 @@ export default function AccountDetail({
   disabled,
   onSubmit,
 }) {
-  const { auth, authLoaded, roleCheck, login } =
-    useAuthContext();
+  const { auth, login } = useAuthContext();
   const navigate = useNavigate();
   const [form] = Form.useForm();
 

@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "../Account.module.css";
 
-import Navbar_patient from "../../../components/Navbar/Navbar_patient";
+// import Navbar_patient from "../../../components/Navbar/Navbar_patient";
 import AccountDetail from "../../../components/AccountDetail";
 import { useState, useEffect } from "react";
 

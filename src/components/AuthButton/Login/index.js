@@ -8,8 +8,7 @@ const clientId =
   "998136068404-6n8uj2nhv01eevcrq0751cqq11bgn81i.apps.googleusercontent.com";
 
 export default function Login() {
-  const { login, registerCheck } =
-    useAuthContext();
+  const { login } = useAuthContext();
   const navigate = useNavigate();
 
   const onSuccess = (res) => {

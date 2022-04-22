@@ -1,6 +1,6 @@
 import React from "react";
-import styles from "../../DoctorAppoint.module.css";
-import { Button, Table, Tag, Space } from "antd";
+import styles from "../../DoctorAppoint/DoctorAppoint.module.css";
+import { Button, Table, Tag } from "antd";
 
 export default function ManageAppoint() {
   const columns = [
@@ -8,7 +8,7 @@ export default function ManageAppoint() {
       title: "วันที่",
       dataIndex: "date",
       key: "date",
-      render: (text) => <a>{text}</a>,
+      render: (text) => <div>{text}</div>,
     },
     {
       title: "ช่วงเวลา",
@@ -27,10 +27,13 @@ export default function ManageAppoint() {
       render: (status) => (
         <>
           {status.map((tag) => {
-            let color = tag.length > 9 ? "green" : "geekblue";
+            let color =
+              tag.length > 9
+                ? "green"
+                : "geekblue";
             if (tag === "ยกเลิกนัด") {
               color = "volcano";
-            } else if (tag == "ปรึกษาสำเร็จ") {
+            } else if (tag === "ปรึกษาสำเร็จ") {
               color = "green";
             } else {
               color = "geekblue";
@@ -51,7 +54,7 @@ export default function ManageAppoint() {
       title: "วันที่",
       dataIndex: "date",
       key: "date",
-      render: (text) => <a>{text}</a>,
+      render: (text) => <div>{text}</div>,
     },
     {
       title: "ช่วงเวลา",
@@ -70,7 +73,10 @@ export default function ManageAppoint() {
       render: (status) => (
         <>
           {status.map((tag) => {
-            let color = tag.length > 9 ? "green" : "geekblue";
+            let color =
+              tag.length > 9
+                ? "green"
+                : "geekblue";
             if (tag === "ยกเลิกนัด") {
               color = "volcano";
             } else if (tag == "ปรึกษาสำเร็จ") {
@@ -127,15 +133,27 @@ export default function ManageAppoint() {
     <div className={styles.container}>
       <div className={styles.body}>
         <div className={styles.wrapheader}>
-          <h2 className={styles.header}>รายการที่ต้องให้คำปรึกษา</h2>
-          <Button type="primary">ลงทะเบียนให้คำปรึกษา</Button>
+          <h2 className={styles.header}>
+            รายการที่ต้องให้คำปรึกษา
+          </h2>
+          <Button type="primary">
+            ลงทะเบียนให้คำปรึกษา
+          </Button>
         </div>
         <div className={styles.box}>
-          <Table columns={columns} dataSource={data} />
+          <Table
+            columns={columns}
+            dataSource={data}
+          />
         </div>
-        <h2 className={styles.header}>ประวัติการให้คำปรึกษาผู้ป่วย</h2>
+        <h2 className={styles.header}>
+          ประวัติการให้คำปรึกษาผู้ป่วย
+        </h2>
         <div className={styles.box}>
-          <Table columns={columns2} dataSource={data2} />
+          <Table
+            columns={columns2}
+            dataSource={data2}
+          />
         </div>
       </div>
     </div>

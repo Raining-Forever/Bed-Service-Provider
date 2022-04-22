@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./AppointmentDetail.module.css";
 import { Button } from "antd";
-import { NavLink } from "react-router-dom";
+// import { NavLink } from "react-router-dom";
 
 export default function AppointmentDetail() {
   return (

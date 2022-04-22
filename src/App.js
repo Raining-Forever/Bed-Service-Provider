@@ -7,7 +7,7 @@ import Symtom from "./pages/Symptom";
 //import Register from "./pages/Register";
 import DoctorAppoint from "./pages/DoctorAppoint";
 import HistoryAppoint from "./pages/DoctorAppoint/HistoryAppoint";
-import AppointManage from "./pages/DoctorAppoint/AppointDoc/AppointManage";
+import AppointManage from "./pages/Doctor/AppointManage";
 import Reserve from "./pages/Reserve/ReserveUser";
 import HistoryReserve from "./pages/Reserve/ReserveUser/HistoryReserve";
 import WaitReserve from "./pages/Reserve/ReserveUser/WaitReserve";
@@ -19,8 +19,10 @@ import Patientregister from "./pages/Register/Patientregister";
 import Agency from "./pages/Register/Agency";
 import Doctor from "./pages/Register/Agency/Doctor";
 import Hospital from "./pages/Register/Agency/Hospital";
-
 import Accessdenied from "./components/ShowStatus/AccessDenied";
+
+//imort Doctor
+import AppointRegister from "./pages/Doctor/AppointRegister";
 
 //import Admin from "./pages/Admin";
 import ManagePatient from "./pages/Admin/ManagePatient";
@@ -175,6 +177,10 @@ function App() {
             <Route
               path="/waitreserve"
               element={<WaitReserve />}
+            />
+            <Route
+              path="/appointregister"
+              element={<AppointRegister />}
             />
           </Routes>
         </div>
