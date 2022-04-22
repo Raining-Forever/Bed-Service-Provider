@@ -15,6 +15,7 @@ export default function DoctorAppoint() {
   const [appoint, setAppoint] = useState({});
   const [isLoading, setisLoading] = useState(true);
   const [newArray, setNewArray] = useState([]);
+  const [freeDoctor, setFreeDoctor] = useState([]);
 
   const columns = [
     {
@@ -109,7 +110,7 @@ export default function DoctorAppoint() {
           <div className={styles.wrapappointbut}>
             <Button
               type="primary"
-              onClick={() => alert("นัดปรึกษาแพทย์")}
+              onClick={async () => alert(record.id)}
               className={styles.appointbutton}
             >
               ปรึกษาแพทย์
@@ -195,22 +196,15 @@ export default function DoctorAppoint() {
       sex: ["หญิง"],
     },
   ];
-  // {
-  //   id: "1",
-  //   date: "2/9/2564",
-  //   period: "17.00 - 17.30",
-  //   docname: "นพ.สมชาย เก่งมาก",
-  //   status: ["รอให้คำปรึกษา"],
-  // }
-  let nArray = [];
 
-  console.log("appoint: ", appoint);
+  let nArray = [];
+  let freeDocArray = [];
+
   async function fetchAppoint() {
     if (auth.user_info?.id) {
-      console.log(auth.user_info.id);
       const result = await axios.put(
         `https://bed-service-provider.herokuapp.com/api/appointment/`,
-        { patient_id: 38, status: 2 }
+        { patient_id: auth.user_info.id, status: 2 }
       );
 
       nArray = result.data.map((v) => ({
@@ -239,13 +233,49 @@ export default function DoctorAppoint() {
           v.doctorinfo.lastname,
         status: [statusArray[v.status - 1]],
       }));
-      console.log("nArray ", nArray);
+
+      const freeDoctorData = await axios.put(
+        `https://bed-service-provider.herokuapp.com/api/appointment/`,
+        {
+          status: 1,
+        }
+      );
+      freeDocArray = freeDoctorData.data.map((v) => ({
+        id: v.id,
+        date: v.starttime.split("T")[0].split("-").reverse().join("/"),
+        period:
+          v.starttime
+            .split("T")[1]
+            .split("Z")[0]
+            .split(".")[0]
+            .split(":")
+            .slice(0, -1)
+            .join(".") +
+          " - " +
+          v.endtime
+            .split("T")[1]
+            .split("Z")[0]
+            .split(".")[0]
+            .split(":")
+            .slice(0, -1)
+            .join("."),
+        docname:
+          v.doctorinfo.title +
+          v.doctorinfo.firstname +
+          " " +
+          v.doctorinfo.lastname,
+        sex: [v.doctorinfo.gender],
+      }));
+
+      console.log(nArray);
+
       setAppoint(result.data);
-      setisLoading(false);
       setNewArray(nArray);
-      console.log("fetch success");
+      setFreeDoctor(freeDocArray);
+      setisLoading(false);
     } else console.log("no user_info.id");
   }
+
   useEffect(() => {
     if (authLoaded) {
       fetchAppoint();
@@ -289,7 +319,13 @@ export default function DoctorAppoint() {
         </div>
         <h2 className={styles.header}>นัดปรึกษาแพทย์</h2>
         <div className={styles.box}>
-          <Table columns={columns2} dataSource={data2} />
+          <Table
+            columns={columns2}
+            dataSource={freeDoctor}
+            pagination={{
+              defaultPageSize: 5,
+            }}
+          />
         </div>
       </div>
     </div>
