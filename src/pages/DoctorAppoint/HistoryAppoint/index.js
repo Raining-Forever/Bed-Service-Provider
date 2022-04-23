@@ -1,8 +1,20 @@
 import React from "react";
 import styles from "./HistoryAppoint.module.css";
 import { Button, Table, Tag, Space } from "antd";
+import axios from "axios";
+import { useAuthContext } from "../../../context/AuthContext";
+import { useEffect, useState } from "react";
+import { Oval } from "react-loader-spinner";
 
 export default function HistoryAppoint() {
+  const { auth, authLoaded, roleCheck } = useAuthContext();
+  useEffect(() => {
+    roleCheck(["patient"], "/accessdenied");
+  }, [authLoaded]);
+
+  const [isLoading, setisLoading] = useState(true);
+  const [dataArray, setDataArray] = useState([]);
+
   const columns = [
     {
       title: "วันที่",
@@ -59,12 +71,77 @@ export default function HistoryAppoint() {
     },
   ];
 
+  const statusArray = [
+    "รอลงทะเบียน",
+    "รอให้คำปรึกษา",
+    "ปรึกษาสำเร็จ",
+    "ยกเลิกนัด",
+  ];
+  let nArray = [];
+  async function fetchHistory() {
+    if (auth.user_info?.id) {
+      const result = await axios.put(
+        `https://bed-service-provider.herokuapp.com/api/appointment/`,
+        { patient_id: auth.user_info.id }
+      );
+
+      nArray = result.data.map((v) => ({
+        id: v.id,
+        date: v.starttime.split("T")[0].split("-").reverse().join("/"),
+        period:
+          v.starttime
+            .split("T")[1]
+            .split("Z")[0]
+            .split(".")[0]
+            .split(":")
+            .slice(0, -1)
+            .join(".") +
+          " - " +
+          v.endtime
+            .split("T")[1]
+            .split("Z")[0]
+            .split(".")[0]
+            .split(":")
+            .slice(0, -1)
+            .join("."),
+        docname:
+          v.doctorinfo.title +
+          v.doctorinfo.firstname +
+          " " +
+          v.doctorinfo.lastname,
+        status: [statusArray[v.status - 1]],
+      }));
+
+      console.log(nArray);
+      setDataArray(nArray);
+      setisLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    if (authLoaded) {
+      fetchHistory();
+    }
+  }, [authLoaded]);
+
   return (
     <div className={styles.container}>
       <div className={styles.body}>
         <h2 className={styles.header}>ประวัติการปรึกษาแพทย์</h2>
         <div className={styles.box}>
-          <Table columns={columns} dataSource={data} />
+          {isLoading ? (
+            <div className={styles.loadcontainer}>
+              <Oval
+                height="100"
+                width="100"
+                color="#1890ff"
+                secondaryColor="gray"
+              />
+              Loading
+            </div>
+          ) : (
+            <Table columns={columns} dataSource={dataArray} />
+          )}
         </div>
       </div>
     </div>

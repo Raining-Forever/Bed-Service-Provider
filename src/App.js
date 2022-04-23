@@ -104,6 +104,7 @@ function App() {
               element={<Hospital />}
             />
             <Route
+              exact
               path="/appoint"
               element={<DoctorAppoint />}
             />
@@ -152,7 +153,8 @@ function App() {
               element={<CheckEvid />}
             />
             <Route
-              path="/appoint/:appointId"
+              exact
+              path="/appoint/:id"
               element={<AppointmentDetail />}
             />
             <Route
