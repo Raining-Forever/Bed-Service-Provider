@@ -35,7 +35,7 @@ export default function Navbar_doctor() {
           หน้าหลัก
         </NavLink>
       </Menu.Item>
-
+      {/* /appointregister */}
       <SubMenu
         key="sub1"
         icon={<MailOutlined />}
@@ -46,10 +46,20 @@ export default function Navbar_doctor() {
           title="ปรึกษาแพทย์"
         >
           <Menu.Item key="1">
-            ลงทะเบียนให้คำปรึกษา
+            <NavLink
+              to="/appointregister"
+              activeclassname="selectedLink"
+            >
+              ลงทะเบียนให้คำปรึกษา
+            </NavLink>
           </Menu.Item>
           <Menu.Item key="2">
-            รายการการให้คำปรึกษา
+            <NavLink
+              to="/historyappoint"
+              activeclassname="selectedLink"
+            >
+              รายการการให้คำปรึกษา
+            </NavLink>
           </Menu.Item>
         </Menu.ItemGroup>
       </SubMenu>

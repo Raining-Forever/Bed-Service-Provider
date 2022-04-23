@@ -8,21 +8,11 @@ import Navbar_patient from "../../components/Navbar/Navbar_patient";
 import { Button } from "antd";
 import { useAuthContext } from "../../context/AuthContext";
 import { NavLink } from "react-router-dom";
-import Subnavbar from "../../components/Subnavbar";
+// import Subnavbar from "../../components/Subnavbar";
 
 export default function Homepage() {
-  const { auth, authLoaded, registerCheck } =
-    useAuthContext();
-  // const [isLogin, setIsLogin] = useState(false);
-
-  // useEffect(() => {
-  //   if (authLoaded) {
-  //     setIsLogin(auth.loggedIn);
-  //   }
-  //   // registerCheck();
-  // }, [auth]);
-
-  // console.log(isLogin);
+  // const { auth, authLoaded, registerCheck } =
+  //   useAuthContext();
   return (
     <div className={styles.container}>
       <div className={styles.body}>
