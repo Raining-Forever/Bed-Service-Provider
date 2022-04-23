@@ -290,7 +290,6 @@ export default function DoctorAppoint() {
     }
   }, [authLoaded, submitUpdate]);
 
-
   const navigate = useNavigate();
   return (
     <div className={styles.container}>
@@ -326,17 +325,27 @@ export default function DoctorAppoint() {
             />
           )}
         </div>
-        <h2 className={styles.header}>
-          นัดปรึกษาแพทย์
-        </h2>
+        <h2 className={styles.header}>นัดปรึกษาแพทย์</h2>
         <div className={styles.box}>
-          <Table
-            columns={columns2}
-            dataSource={freeDoctor}
-            pagination={{
-              defaultPageSize: 5,
-            }}
-          />
+          {isLoading ? (
+            <div className={styles.loadcontainer}>
+              <Oval
+                height="100"
+                width="100"
+                color="#1890ff"
+                secondaryColor="gray"
+              />
+              Loading
+            </div>
+          ) : (
+            <Table
+              columns={columns2}
+              dataSource={freeDoctor}
+              pagination={{
+                defaultPageSize: 5,
+              }}
+            />
+          )}
         </div>
       </div>
     </div>
