@@ -15,6 +15,7 @@ const { SubMenu } = Menu;
 
 export default function Navbar_doctor() {
   return (
+    // /accountdoctor
     <Menu
       style={{ width: 256 }}
       defaultSelectedKeys={["0"]}
@@ -35,7 +36,14 @@ export default function Navbar_doctor() {
           หน้าหลัก
         </NavLink>
       </Menu.Item>
-      {/* /appointregister */}
+      <Menu.Item key="1">
+        <NavLink
+          to="/accountdoctor"
+          activeclassname="selectedLink"
+        >
+          ข้อมูลแพทย์
+        </NavLink>
+      </Menu.Item>
       <SubMenu
         key="sub1"
         icon={<MailOutlined />}
@@ -45,7 +53,7 @@ export default function Navbar_doctor() {
           key="g1"
           title="ปรึกษาแพทย์"
         >
-          <Menu.Item key="1">
+          <Menu.Item key="2">
             <NavLink
               to="/appointregister"
               activeclassname="selectedLink"
@@ -53,7 +61,7 @@ export default function Navbar_doctor() {
               ลงทะเบียนให้คำปรึกษา
             </NavLink>
           </Menu.Item>
-          <Menu.Item key="2">
+          <Menu.Item key="3">
             <NavLink
               to="/historyappoint"
               activeclassname="selectedLink"
@@ -69,10 +77,10 @@ export default function Navbar_doctor() {
         icon={<AppstoreOutlined />}
         title="ข้อมูลเกี่ยวกับโควิด-19"
       >
-        <Menu.Item key="3">
+        <Menu.Item key="4">
           ข้อควรปฏิบัติเมื่อติด โควิด-19
         </Menu.Item>
-        <Menu.Item key="4">
+        <Menu.Item key="5">
           ข้อมูลติดต่อหน่วยงานอื่น
         </Menu.Item>
       </SubMenu>
