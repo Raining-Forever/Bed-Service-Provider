@@ -23,7 +23,7 @@ export default function DoctorAppoint() {
       title: "วันที่",
       dataIndex: "date",
       key: "date",
-      render: (text) => <a>{text}</a>,
+      render: (text) => <div>{text}</div>,
     },
     {
       title: "ช่วงเวลา",
@@ -45,7 +45,7 @@ export default function DoctorAppoint() {
             let color = tag.length > 9 ? "green" : "geekblue";
             if (tag === "ยกเลิกนัด") {
               color = "volcano";
-            } else if (tag == "ปรึกษาสำเร็จ") {
+            } else if (tag === "ปรึกษาสำเร็จ") {
               color = "green";
             } else {
               color = "geekblue";
@@ -66,7 +66,7 @@ export default function DoctorAppoint() {
       title: "วันที่",
       dataIndex: "date",
       key: "date",
-      render: (text) => <a>{text}</a>,
+      render: (text) => <div>{text}</div>,
     },
     {
       title: "ช่วงเวลา",
@@ -88,7 +88,7 @@ export default function DoctorAppoint() {
             let color = tag.length;
             if (tag === "ชาย") {
               color = "geekblue";
-            } else if (tag == "หญิง") {
+            } else if (tag === "หญิง") {
               color = "volcano";
             } else {
               color = "green";
@@ -326,7 +326,9 @@ export default function DoctorAppoint() {
             />
           )}
         </div>
-        <h2 className={styles.header}>นัดปรึกษาแพทย์</h2>
+        <h2 className={styles.header}>
+          นัดปรึกษาแพทย์
+        </h2>
         <div className={styles.box}>
           <Table
             columns={columns2}

@@ -116,7 +116,7 @@ export default function DoctorDetail({
         <div className={styles.wrapaddress}>
           <div className={styles.topaddress}>
             <Form.Item
-              name="doctor_id"
+              name="licensenumber"
               label="เลขที่ใบประกอบวิชาชีพ :"
               rules={[
                 {
@@ -138,7 +138,7 @@ export default function DoctorDetail({
           <div className={styles.botaddress}>
             <div className={styles.couple}>
               <Form.Item
-                name="doctor_fname"
+                name="firstname"
                 label="ชื่อ :"
                 rules={[
                   {
@@ -151,7 +151,7 @@ export default function DoctorDetail({
                 <Input />
               </Form.Item>
               <Form.Item
-                name="doctor_gender"
+                name="gender"
                 label="เพศ"
                 rules={[
                   {
@@ -169,7 +169,7 @@ export default function DoctorDetail({
             </div>
             <div className={styles.couple}>
               <Form.Item
-                name="doctor_lname"
+                name="lastname"
                 label="นามสกุล :"
                 rules={[
                   {
@@ -181,7 +181,7 @@ export default function DoctorDetail({
               </Form.Item>
 
               <Form.Item
-                name="doctor_phone"
+                name="tel"
                 label="เบอร์โทรศัพท์ :"
                 rules={[
                   {
@@ -275,12 +275,24 @@ export default function DoctorDetail({
       </Form>
       {!disabled ? (
         <div className={styles.submitButton}>
-          <Button
-            type="primary"
-            onClick={() => form.submit()}
-          >
-            ลงทะเบียน
-          </Button>
+          {doctorinfo?.id ? (
+            <Button
+              type="primary"
+              className={styles.buttonEdit}
+              onClick={() => form.submit()}
+              // style="backgrond-color:#0B9780;"
+            >
+              ยืนยันการแก้ไข
+            </Button>
+          ) : (
+            <Button
+              type="primary"
+              onClick={() => form.submit()}
+              // style="backgrond-color:#0B9780;"
+            >
+              ลงทะเบียน
+            </Button>
+          )}
         </div>
       ) : (
         <div

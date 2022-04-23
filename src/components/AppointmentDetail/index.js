@@ -7,6 +7,7 @@ import { Oval } from "react-loader-spinner";
 import axios from "axios";
 import { useAuthContext } from "../../context/AuthContext";
 
+
 export default function AppointmentDetail(props) {
   const { auth, authLoaded, roleCheck } = useAuthContext();
   const [appointdetail, setAppointdetail] = useState({});
