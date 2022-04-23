@@ -48,6 +48,7 @@ import AccountDoctor from "./pages/Account/AccountDoctor";
 import RegisterSuccess from "./components/ShowStatus/RegisterSuccess";
 import AppointmentDetail from "./components/AppointmentDetail";
 import Subnavbar from "./components/Subnavbar";
+import AgencyHomepage from "./pages/Homepage/AgencyHomepage";
 
 function App() {
   return (
@@ -103,6 +104,7 @@ function App() {
               element={<Hospital />}
             />
             <Route
+              exact
               path="/appoint"
               element={<DoctorAppoint />}
             />
@@ -151,7 +153,8 @@ function App() {
               element={<CheckEvid />}
             />
             <Route
-              path="/appoint/:appointId"
+              exact
+              path="/appoint/:id"
               element={<AppointmentDetail />}
             />
             <Route
@@ -181,6 +184,10 @@ function App() {
             <Route
               path="/appointregister"
               element={<AppointRegister />}
+            />
+            <Route
+              path="/agencyhomepage"
+              element={<AgencyHomepage />}
             />
           </Routes>
         </div>

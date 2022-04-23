@@ -49,27 +49,29 @@ export default function AppointRegister() {
               {...formItemLayout}
               form={form}
               onFinish={
-                () => {
-                  const data =
-                    form.getFieldValue();
-                  console.log(
-                    console.log("success"),
-                    data
-                  );
-                }
-                // async () => {
-                //        if (auth.user_info?.id) {
-                //          const registerData =
-                //            form.getFieldValue();
-                //          registerData.doctor_id =
-                //            auth.user_info.id;
-                //          const data = await axios.post(
-                //            `https://bed-service-provider.herokuapp.com/api/appointment/`,
-                //            registerData
-                //          );
-                //          console.log(data);
-                //        }
+                // () => {
+                //   const data =
+                //     form.getFieldValue();
+                //   console.log(
+                //     console.log("success"),
+                //     data
+                //   );
                 // }
+                async () => {
+                  if (auth.user_info?.id) {
+                    const registerData =
+                      form.getFieldValue();
+                    registerData.doctor_id =
+                      auth.user_info.id;
+                    registerData.status = 1;
+                    const data = await axios.post(
+                      `https://bed-service-provider.herokuapp.com/api/appointment/`,
+                      registerData
+                    );
+                    alert("ลงทะเบียนสำเร็จ");
+                    console.log(data);
+                  }
+                }
               }
             >
               <Form.Item
