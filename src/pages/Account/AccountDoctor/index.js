@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "../Account.module.css";
 import { Oval } from "react-loader-spinner";
-import { Button } from "antd/lib/radio";
+import { Button } from "antd";
 import { useEffect, useState } from "react";
 import DoctorDetail from "../../../components/DoctorDetail";
 import axios from "axios";
@@ -50,16 +50,16 @@ export default function AccountDoctor() {
             <Button
               type="primary"
               onClick={ToggleEditform}
+              danger
             >
-              แก้ไขข้อมูล
+              ยกเลิกแก้ไข
             </Button>
           ) : (
             <Button
               type="primary"
               onClick={ToggleEditform}
-              danger
             >
-              ยกเลิกแก้ไข
+              แก้ไขข้อมูล
             </Button>
           )}
         </div>
