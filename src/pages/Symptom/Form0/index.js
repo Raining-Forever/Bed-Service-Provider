@@ -23,9 +23,9 @@ export default function Form0(props) {
   return (
     <div className={styles.container}>
       <div className={styles.body}>
-        <h2 className={styles.header}>
+        <div className={styles.header}>
           ความรุนแรงของอาการของคุณ
-        </h2>
+        </div>
         <div className={styles.box}>
           {props.isLoading ? (
             <div className={styles.loadcontainer}>

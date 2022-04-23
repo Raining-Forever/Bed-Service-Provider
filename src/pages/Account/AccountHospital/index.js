@@ -12,7 +12,7 @@ export default function AccountHospital() {
     useAuthContext();
 
   useEffect(() => {
-    roleCheck(["hospital"]);
+    roleCheck(["hospital"], "/accessdenied");
   }, [authLoaded]);
 
   const [isEdit, setIsEdit] = useState(false);

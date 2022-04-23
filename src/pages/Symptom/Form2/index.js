@@ -78,9 +78,9 @@ export default function Form2(props) {
   return (
     <div className={styles.container}>
       <div className={styles.body}>
-        <h2 className={styles.header}>
+        <div className={styles.header}>
           ประเมินความรุนแรงของอาการ
-        </h2>
+        </div>
         <div className={styles.box}>
           <Form name="Q3" onFinish={onFinish}>
             <h3>

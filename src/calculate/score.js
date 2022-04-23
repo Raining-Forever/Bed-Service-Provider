@@ -1,3 +1,4 @@
+
 function process_symptom1(symptom1) {
   let risk_score1 = 0;
   if (symptom1 < 0) {
