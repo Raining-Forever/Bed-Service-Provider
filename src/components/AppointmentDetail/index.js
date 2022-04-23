@@ -1,20 +1,16 @@
 import React from "react";
 import styles from "./AppointmentDetail.module.css";
 import { Button } from "antd";
-import {
-  NavLink,
-  useParams,
-} from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Oval } from "react-loader-spinner";
 import axios from "axios";
 import { useAuthContext } from "../../context/AuthContext";
 
 export default function AppointmentDetail(props) {
-  const { auth, authLoaded, roleCheck } =
-    useAuthContext();
-  const [appointdetail, setAppointdetail] =
-    useState({});
+  const { auth, authLoaded, roleCheck } = useAuthContext();
+  const [appointdetail, setAppointdetail] = useState({});
+  const [isLoading, setisLoading] = useState(true);
 
   useEffect(() => {
     roleCheck(["patient"], "/accessdenied");
@@ -22,13 +18,43 @@ export default function AppointmentDetail(props) {
 
   let { id } = useParams();
 
+  let nArray = [];
   async function fetchDetail() {
     if (auth.user_info?.id) {
       const result = await axios.get(
         `https://bed-service-provider.herokuapp.com/api/appointment/${id}`
       );
-      setAppointdetail(result.data[0]);
-      console.log(result);
+
+      nArray = result.data.map((v) => ({
+        id: v.id,
+        date: v.starttime.split("T")[0].split("-").reverse().join("/"),
+        period:
+          v.starttime
+            .split("T")[1]
+            .split("Z")[0]
+            .split(".")[0]
+            .split(":")
+            .slice(0, -1)
+            .join(".") +
+          " - " +
+          v.endtime
+            .split("T")[1]
+            .split("Z")[0]
+            .split(".")[0]
+            .split(":")
+            .slice(0, -1)
+            .join("."),
+        docname:
+          v.doctorinfo.title +
+          v.doctorinfo.firstname +
+          " " +
+          v.doctorinfo.lastname,
+        url: v.url,
+      }));
+
+      setAppointdetail(nArray[0]);
+      setisLoading(false);
+      console.log("appoint", appointdetail);
     }
   }
 
@@ -40,9 +66,7 @@ export default function AppointmentDetail(props) {
   return (
     <div className={styles.container}>
       <div className={styles.body}>
-        <div className={styles.header}>
-          รายละเอียดการปรึกษาแพทย์
-        </div>
+        <div className={styles.header}>รายละเอียดการปรึกษาแพทย์</div>
         <div className={styles.box}>
           <div className={styles.description}>
             <img
@@ -57,18 +81,22 @@ export default function AppointmentDetail(props) {
           <div className={styles.appdetail}>
             <div className={styles.wraptext}>
               <div className={styles.text}>
-                แพทย์ผู้ให้คำปรึกษา :
-                {"  นพ. ขยัน เก่งมาก"}
+                แพทย์ผู้ให้คำปรึกษา :{appointdetail.docname}
               </div>
               <div className={styles.text}>
-                วันที่ปรึกษา : {"1/9/2564"}
+                วันที่ปรึกษา : {appointdetail.date}
               </div>
               <div className={styles.text}>
-                ช่วงเวลาปรึกษา :{"15.00-15.30"}
+                ช่วงเวลาปรึกษา :{appointdetail.period}
               </div>
             </div>
             <div>
-              <Button type="primary">
+              <Button
+                type="primary"
+                onClick={() => {
+                  window.open(appointdetail.url);
+                }}
+              >
                 เข้าห้องประชุม
               </Button>
             </div>

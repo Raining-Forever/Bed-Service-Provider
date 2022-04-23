@@ -290,6 +290,7 @@ export default function DoctorAppoint() {
     }
   }, [authLoaded, submitUpdate]);
 
+
   const navigate = useNavigate();
   return (
     <div className={styles.container}>
