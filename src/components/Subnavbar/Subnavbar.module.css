@@ -1,0 +1,8 @@
+.subnav {
+ /* height: 72px; */
+ display: flex;
+ flex-direction: row;
+ justify-content: end;
+ background-color: #F6FBFF;
+ align-items: center;
+}

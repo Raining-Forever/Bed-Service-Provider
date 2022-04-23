@@ -1,0 +1,103 @@
+.body {
+    margin: 60px 0px;
+}
+.containerinfo {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  /* margin: 0px 20px; */
+}
+.wrapinfo1 {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  text-align: left;
+  /* width: 40%; */
+}
+
+.wrapinfo2 {
+  display: flex;
+  flex-direction: column;
+  /* width: 40%; */
+}
+.radioGroup {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+}
+.adresstitle {
+  font-size: 18px;
+  font-weight: normal;
+  text-align: left;
+  /* margin-left: 10%; */
+}
+.wrapaddress{
+  display: flex;
+  flex-direction: column;
+}
+/* .topaddress{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+} */
+.botaddress {
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+  /* align-items: center; */
+}
+/* .provepic {
+  max-width: 360px;
+} */
+.couple {
+  display: flex;
+  flex-direction: column;
+}
+
+.loadcontainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  /* color: gray; */
+}
+.submitButton{
+  display: flex;
+  justify-content: flex-end; 
+}
+
+Input:disabled {
+  background-color: transparent!important;
+  color: black!important;
+  border: none!important;
+  cursor: default!important;
+}
+
+
+
+.ant-select-disabled.ant-select:not(.ant-select-customize-input) .ant-select-selector {
+  background: transparent !important;
+  color: black!important;
+  border: none!important;
+  cursor: default!important;
+}
+
+.ant-input-affix-wrapper-disabled{
+  background-color: transparent!important;
+  color: black!important;
+  border: none!important;
+  cursor: default!important;
+}
+
+.buttonEdit{
+  background-color: #0B9780;
+  border-color: transparent;
+}
+
+.buttonEdit:hover {
+  background: rgb(82, 175, 160);
+  border-color: transparent;
+}

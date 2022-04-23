@@ -1,0 +1,132 @@
+@import "~antd/dist/antd.css";
+
+.container {
+  display: flex;
+}
+
+.navbar {
+  width: 256px;
+}
+
+.header {
+  font-size: 24px;
+  font-weight: medium;
+  display: flex;
+  flex-direction: row;
+  min-width: 400px;
+  width: 80%;
+  max-width: 900px;
+  justify-content: space-between;
+  margin: 10px auto;
+}
+
+.body {
+  width: calc(100vw - 256px);
+  background: #f8fbff;
+  min-height: 100vh;
+}
+
+/* .box {
+  background: #ffffff;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  min-width: 400px;
+  min-height: 300px;
+  max-width: 800px;
+  width: 80%;
+  margin: auto;
+  margin-top: 30px;
+  margin-bottom: 50px;
+  padding: 30px;
+} */
+.box {
+  background: #ffffff;
+  min-width: 400px;
+  min-height: 300px;
+  width: 80%;
+  max-width: 900px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  display: flex;
+  align-content: space-around;
+  margin: auto;
+  /* margin-top: 30px; */
+  margin-bottom: 50px;
+  padding: 30px;
+  justify-content: center;
+}
+
+.first h3 {
+  text-align: left;
+  font-size: 20px;
+}
+
+.second h3 {
+  text-align: left;
+  font-size: 20px;
+}
+
+.first_checkbox {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin: 20px 0px;
+}
+
+.first_checkbox div {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  padding-left: 50px;
+}
+
+.first_checkbox .checkbox {
+  margin-left: 8px;
+  font-size: 16px;
+  text-align: left;
+}
+
+.first .date {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  font-size: 16px;
+  margin-left: 20px;
+}
+
+.second {
+  margin: 20px 0px;
+  width: 100%;
+  text-align: left;
+}
+
+.second div {
+  width: 100%;
+}
+
+.subcheckbox_group {
+  display: flex;
+  flex-direction: row;
+  margin-left: 30px;
+}
+
+.second div .main_checkbox {
+  display: flex;
+  margin-left: 8px;
+  margin-top: 10px;
+}
+.second div .sub_checkbox {
+  display: flex;
+  margin-left: 28px;
+  margin-top: 10px;
+  width: 50%;
+}
+
+.subsecond {
+  margin-left: 50px;
+}
+
+.warpbutton {
+  display: flex;
+  justify-content: right;
+}

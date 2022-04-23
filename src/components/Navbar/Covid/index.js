@@ -1,19 +1,8 @@
 import React from "react";
-import {
-  NavLink,
-  Route,
-  BrowserRouter as Router,
-  Switch,
-  Link,
-} from "react-router-dom";
 import "./index.css";
 
 import { Menu } from "antd";
-import {
-  AppstoreOutlined,
-  MailOutlined,
-  SettingOutlined,
-} from "@ant-design/icons";
+import { AppstoreOutlined } from "@ant-design/icons";
 
 const { SubMenu } = Menu;
 
