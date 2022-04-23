@@ -16,6 +16,7 @@ export default function DoctorAppoint() {
   const [isLoading, setisLoading] = useState(true);
   const [newArray, setNewArray] = useState([]);
   const [freeDoctor, setFreeDoctor] = useState([]);
+  const [submitUpdate, setSubmitUpdate] = useState(false);
 
   const columns = [
     {
@@ -110,7 +111,14 @@ export default function DoctorAppoint() {
           <div className={styles.wrapappointbut}>
             <Button
               type="primary"
-              onClick={async () => alert(record.id)}
+              onClick={async () => {
+                await axios.put(
+                  `https://bed-service-provider.herokuapp.com/api/appointment/${record.id}`,
+                  { patient_id: auth.user_info.id, status: 2 }
+                );
+                alert("จองสำเร็จ");
+                setSubmitUpdate(!submitUpdate);
+              }}
               className={styles.appointbutton}
             >
               ปรึกษาแพทย์
@@ -280,7 +288,7 @@ export default function DoctorAppoint() {
     if (authLoaded) {
       fetchAppoint();
     }
-  }, [authLoaded]);
+  }, [authLoaded, submitUpdate]);
 
   const navigate = useNavigate();
   return (
