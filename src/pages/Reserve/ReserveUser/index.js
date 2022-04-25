@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "../Reserve.module.css";
 import { Button, Table, Tag, Space } from "antd";
+import { useAuthContext } from "../../../context/AuthContext";
+import axios from "axios";
 
 export default function Reserve() {
+  const { auth } = useAuthContext();
   const columns = [
     {
       title: "ชื่อสถานพยาบาล",
@@ -27,7 +30,10 @@ export default function Reserve() {
       render: (status) => (
         <>
           {status.map((tag) => {
-            let color = tag.length > 9 ? "green" : "geekblue";
+            let color =
+              tag.length > 9
+                ? "green"
+                : "geekblue";
             if (tag === "ยกเลิกนัด") {
               color = "volcano";
             } else if (tag == "สำเร็จ") {
@@ -79,7 +85,32 @@ export default function Reserve() {
       ),
     },
   ];
+  const [reserve, setReserve] = useState({});
+  const [freeHospital, setFreeHospital] =
+    useState({});
+  const [isLoading, setisLoading] =
+    useState(true);
 
+  async function fetchReserve() {
+    if (auth.user_info?.id) {
+      const myHospitalQueue = await axios.put(
+        `https://bed-service-provider.herokuapp.com/api/reservation/`,
+        {
+          patient_id: auth.user_info.id,
+          status: 2,
+        }
+      );
+      const freeHospitalData = await axios.put(
+        `https://bed-service-provider.herokuapp.com/api/reservation/`,
+        {
+          status: 1,
+        }
+      );
+      setReserve(myHospitalQueue.data[0]);
+      setFreeHospital(freeHospitalData.data[0]);
+      setisLoading(false);
+    } else console.log("no user_info.id");
+  }
   const data = [
     {
       id: "1",
@@ -110,13 +141,23 @@ export default function Reserve() {
   return (
     <div className={styles.container}>
       <div className={styles.body}>
-        <h2 className={styles.header}>รายการจองเตียงของฉัน</h2>
+        <h2 className={styles.header}>
+          รายการจองเตียงของฉัน
+        </h2>
         <div className={styles.box}>
-          <Table columns={columns} dataSource={data} />
+          <Table
+            columns={columns}
+            dataSource={data}
+          />
         </div>
-        <h2 className={styles.header}>ค้นหาและจองเตียง</h2>
+        <h2 className={styles.header}>
+          ค้นหาและจองเตียง
+        </h2>
         <div className={styles.box}>
-          <Table columns={columns2} dataSource={data2} />
+          <Table
+            columns={columns2}
+            dataSource={data2}
+          />
         </div>
       </div>
     </div>

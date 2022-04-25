@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useState } from "react";
+import React from "react";
 import AccountPatient from "./pages/Account/AccountPatient";
 import AccountHospital from "./pages/Account/AccountHospital";
 import Homepage from "./pages/Homepage";
@@ -31,7 +31,7 @@ import ManageDoctor from "./pages/Admin/ManageDoctor";
 import ManageHospital from "./pages/Admin/ManageHospital";
 import ManageAppoint from "./pages/Admin/ManageAppoint";
 import ManageReserve from "./pages/Admin/ManageReserve";
-import Navbar_patient from "./components/Navbar/Navbar_patient";
+// import Navbar_patient from "./components/Navbar/Navbar_patient";
 
 import {
   BrowserRouter as Router,
@@ -43,7 +43,7 @@ import {
 
 import { Navbar } from "./components/Navbar";
 
-import { MyRoute } from "./MyRoute";
+// import { MyRoute } from "./MyRoute";
 import AccountDoctor from "./pages/Account/AccountDoctor";
 import RegisterSuccess from "./components/ShowStatus/RegisterSuccess";
 import AppointmentDetail from "./components/AppointmentDetail";
