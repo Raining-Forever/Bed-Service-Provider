@@ -49,6 +49,7 @@ import RegisterSuccess from "./components/ShowStatus/RegisterSuccess";
 import AppointmentDetail from "./components/AppointmentDetail";
 import Subnavbar from "./components/Subnavbar";
 import AgencyHomepage from "./pages/Homepage/AgencyHomepage";
+import DoctorHistoryAppoint from "./pages/Doctor/HistoryAppoint";
 
 function App() {
   return (
@@ -188,6 +189,10 @@ function App() {
             <Route
               path="/agencyhomepage"
               element={<AgencyHomepage />}
+            />
+            <Route
+              path="/doctor/historyappoint"
+              element={<DoctorHistoryAppoint />}
             />
           </Routes>
         </div>

@@ -80,10 +80,20 @@ export default function Navbar_patient() {
           title="การค้นหาและจองเตียง"
         >
           <Menu.Item key="5">
-            การค้นหาและจองเตียง
+            <NavLink
+              to="/reserve"
+              activeclassname="selectedLink"
+            >
+              การค้นหาและจองเตียง
+            </NavLink>
           </Menu.Item>
           <Menu.Item key="6">
-            ประวัติการจองเตียง
+            <NavLink
+              to="/historyreserve"
+              activeclassname="selectedLink"
+            >
+              ประวัติการจองเตียง
+            </NavLink>
           </Menu.Item>
         </Menu.ItemGroup>
       </SubMenu>

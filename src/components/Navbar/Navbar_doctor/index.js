@@ -63,7 +63,7 @@ export default function Navbar_doctor() {
           </Menu.Item>
           <Menu.Item key="3">
             <NavLink
-              to="/historyappoint"
+              to="/doctor/historyappoint"
               activeclassname="selectedLink"
             >
               รายการการให้คำปรึกษา
