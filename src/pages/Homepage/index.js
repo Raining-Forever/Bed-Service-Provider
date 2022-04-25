@@ -1,4 +1,6 @@
-import React from "react";
+
+import React, { useEffect, useState } from "react";
+
 
 import styles from "./Homepage.module.css";
 import { Button } from "antd";
@@ -6,6 +8,8 @@ import { NavLink } from "react-router-dom";
 // import Subnavbar from "../../components/Subnavbar";
 
 export default function Homepage() {
+
+
   // const { auth, authLoaded, registerCheck } =
   //   useAuthContext();
   return (
@@ -15,17 +19,20 @@ export default function Homepage() {
           {isLogin ? <Logout /> : <Login />}
         </div> */}
         {/* <Subnavbar /> */}
+
         <div className={styles.box1}>
           <div className={styles.img1}>
             <img src="https://www.img.in.th/images/5da81e0bb15358c4f11f42f31f3ac0cd.png" />
           </div>
           <div className={styles.box1_body}>
             <div className={styles.top}>
+
               <div
                 className={styles.headerbanner}
               >
                 รายงานผู้ป่วยโควิด-19 ประจำวันนี้
               </div>
+
             </div>
             <div className={styles.box1_row}>
               <div className={styles.left}>
@@ -96,6 +103,7 @@ export default function Homepage() {
           </div>
           <div className={styles.box2_bottom}>
             <div className={styles.box2_items}>
+
               <NavLink to="/form">
                 <div
                   className={
@@ -145,6 +153,7 @@ export default function Homepage() {
                   border="0"
                 />
               </NavLink>
+
             </div>
           </div>
         </div>
@@ -169,9 +178,7 @@ export default function Homepage() {
               </p>
             </div>
             <div className={styles.box_button}>
-              <Button type="primary">
-                ทำแบบประเมิน
-              </Button>
+              <Button type="primary">ทำแบบประเมิน</Button>
             </div>
           </div>
         </div>
@@ -179,19 +186,14 @@ export default function Homepage() {
         <div className={styles.box4}>
           <div className={styles.box4_left}>
             <div className={styles.box4_text}>
-              <div className={styles.header}>
-                นัดรับปรึกษาจากแพทย์
-              </div>
+              <div className={styles.header}>นัดรับปรึกษาจากแพทย์</div>
               <p>
-                พบแพทย์เพื่อประเมินอาการ
-                และให้คำปรึกษาตาม
+                พบแพทย์เพื่อประเมินอาการ และให้คำปรึกษาตาม
                 อาการความรุนแรงของผู้ป่วย
               </p>
             </div>
             <div className={styles.box_button}>
-              <Button type="primary">
-                นัดพบแพทย์
-              </Button>
+              <Button type="primary">นัดพบแพทย์</Button>
             </div>
           </div>
           <div className={styles.box4_right}>
@@ -213,17 +215,11 @@ export default function Homepage() {
           </div>
           <div className={styles.box5_right}>
             <div className={styles.box5_text}>
-              <div className={styles.header}>
-                ค้นหาและจองคิวเพื่อรับเตียง
-              </div>
-              <p>
-                ค้นหาสถานที่ที่ต้องการจองเตียงและจองเตียง
-              </p>
+              <div className={styles.header}>ค้นหาและจองคิวเพื่อรับเตียง</div>
+              <p>ค้นหาสถานที่ที่ต้องการจองเตียงและจองเตียง</p>
             </div>
             <div className={styles.box_button}>
-              <Button type="primary">
-                ค้นหาและจองคิว
-              </Button>
+              <Button type="primary">ค้นหาและจองคิว</Button>
             </div>
           </div>
         </div>

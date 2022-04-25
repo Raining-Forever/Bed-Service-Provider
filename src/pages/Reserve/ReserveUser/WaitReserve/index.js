@@ -7,6 +7,9 @@ export default function WaitReserve() {
     <div className={styles.container}>
       <div className={styles.body}>
         <div className={styles.box}>
+          <div className={styles.img1}>
+            <img src="https://i.imgur.com/djcV4qw.png" />
+          </div>
           <h2 className={styles.text}>
             บัญชีของท่านกำลังอยู่ระหว่างการตรวจสอบกรุณารอการตรวจสอบจากเจ้าหน้าที่
           </h2>
