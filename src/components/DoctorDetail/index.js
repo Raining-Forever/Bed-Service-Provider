@@ -160,10 +160,8 @@ export default function DoctorDetail({
                 ]}
               >
                 <Radio.Group>
-                  <Radio value="male">ชาย</Radio>
-                  <Radio value="female">
-                    หญิง
-                  </Radio>
+                  <Radio value="ชาย">ชาย</Radio>
+                  <Radio value="หญิง">หญิง</Radio>
                 </Radio.Group>
               </Form.Item>
             </div>

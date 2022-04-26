@@ -10,7 +10,7 @@ export default function DoctorHistoryAppoint() {
   const { auth, authLoaded, roleCheck } =
     useAuthContext();
   useEffect(() => {
-    roleCheck(["patient"], "/accessdenied");
+    roleCheck(["doctor"], "/accessdenied");
   }, [authLoaded]);
 
   const [isLoading, setisLoading] =

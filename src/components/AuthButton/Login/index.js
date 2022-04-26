@@ -48,7 +48,7 @@ export default function Login() {
       <GoogleLogin
         className={styles.googleButton}
         clientId={clientId}
-        buttonText="เข้าสู่ระบบ"
+        buttonText="ลงทะเบียน/เข้าสู่ระบบ"
         onSuccess={onSuccess}
         onFailure={onFailure}
         cookiePolicy={"single_host_origin"}

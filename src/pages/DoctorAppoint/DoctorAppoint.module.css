@@ -44,6 +44,7 @@
   margin-top: 30px;
   margin-bottom: 50px;
   padding: 30px;
+  justify-content: center;
 }
 .appointbutton{
   border-radius: 5px;
@@ -59,4 +60,10 @@
   /* flex-direction: row; */
   justify-content: end;
   width: 100%;
+}
+.loadcontainer{
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ align-items: center;
 }

@@ -1,11 +1,15 @@
-import React, { useState } from "react";
+import React, {
+  useEffect,
+  useState,
+} from "react";
 import styles from "../Reserve.module.css";
 import { Button, Table, Tag, Space } from "antd";
 import { useAuthContext } from "../../../context/AuthContext";
 import axios from "axios";
+import { Oval } from "react-loader-spinner";
 
 export default function Reserve() {
-  const { auth } = useAuthContext();
+  const { auth, authLoaded } = useAuthContext();
   const columns = [
     {
       title: "ชื่อสถานพยาบาล",
@@ -80,7 +84,23 @@ export default function Reserve() {
       dataIndex: "button",
       render: (text, record) => (
         <Space size="middle">
-          <Button type="primary">จองเตียง</Button>
+          <Button
+            type="primary"
+            onClick={async () => {
+              await axios.post(
+                "https://bed-service-provider.herokuapp.com/api/phr",
+                {
+                  patient_id: auth.user_info.id,
+                  hospital_id: record.hospital_id,
+                  reservation_id: record.id,
+                  status: 2,
+                }
+              );
+              alert("จองเตียงสำเร็จ");
+            }}
+          >
+            จองเตียง
+          </Button>
         </Space>
       ),
     },
@@ -90,11 +110,18 @@ export default function Reserve() {
     useState({});
   const [isLoading, setisLoading] =
     useState(true);
-
+  let newformatfreehos = [];
+  let newformatmyHospital = [];
+  const statusArray = [
+    "รอลงทะเบียน",
+    "รอให้คำปรึกษา",
+    "ปรึกษาสำเร็จ",
+    "ยกเลิกนัด",
+  ];
   async function fetchReserve() {
     if (auth.user_info?.id) {
       const myHospitalQueue = await axios.put(
-        `https://bed-service-provider.herokuapp.com/api/reservation/`,
+        `https://bed-service-provider.herokuapp.com/api/phr/`,
         {
           patient_id: auth.user_info.id,
           status: 2,
@@ -106,11 +133,60 @@ export default function Reserve() {
           status: 1,
         }
       );
-      setReserve(myHospitalQueue.data[0]);
-      setFreeHospital(freeHospitalData.data[0]);
+      console.log(
+        "myHospitalQueue.data[0]",
+        myHospitalQueue.data[0]
+      );
+      console.log(
+        "freeHospitalData.data[0]",
+        freeHospitalData.data[0]
+      );
+      newformatmyHospital =
+        myHospitalQueue.data.map((v) => ({
+          //     id: "1",
+          // hosname: "โรงพยาบาลพระจอมเกล้าเจ้าคุณทหาร",
+          // date: "22/9/2564",
+          // time: "17.00.53",
+          // status: ["อยู่ระหว่างดำเนินการ"],
+          id: v.id,
+          hosname: v.hospitalinfo.hospital_name,
+          date: v.created_at
+            .split("T")[0]
+            .split("-")
+            .reverse()
+            .join("/"),
+          time: v.created_at
+            .split("T")[1]
+            .split("Z")[0]
+            .split(".")[0]
+            .split(":")
+            .slice(0, -1)
+            .join("."),
+          status: [statusArray[v.status - 1]],
+        }));
+      newformatfreehos =
+        freeHospitalData.data.map((v) => ({
+          id: v.id,
+          hosname: v.hospitalinfo.hospital_name,
+          numOfbed:
+            v.hospitalinfo.bed_occupied +
+            "/" +
+            v.hospitalinfo.bed_total,
+          province: v.hospitalinfo.province,
+          tel: v.hospitalinfo.tel,
+          hospital_id: v.hospitalinfo.id,
+        }));
+      setReserve(newformatmyHospital);
+      setFreeHospital(newformatfreehos);
       setisLoading(false);
     } else console.log("no user_info.id");
   }
+  console.log("FreeHospital", freeHospital);
+  useEffect(() => {
+    if (authLoaded) {
+      fetchReserve();
+    }
+  }, [authLoaded]);
   const data = [
     {
       id: "1",
@@ -145,19 +221,43 @@ export default function Reserve() {
           รายการจองเตียงของฉัน
         </h2>
         <div className={styles.box}>
-          <Table
-            columns={columns}
-            dataSource={data}
-          />
+          {isLoading ? (
+            <div className={styles.loadcontainer}>
+              <Oval
+                height="100"
+                width="100"
+                color="#1890ff"
+                secondaryColor="gray"
+              />
+              Loading
+            </div>
+          ) : (
+            <Table
+              columns={columns}
+              dataSource={reserve}
+            />
+          )}
         </div>
         <h2 className={styles.header}>
           ค้นหาและจองเตียง
         </h2>
         <div className={styles.box}>
-          <Table
-            columns={columns2}
-            dataSource={data2}
-          />
+          {isLoading ? (
+            <div className={styles.loadcontainer}>
+              <Oval
+                height="100"
+                width="100"
+                color="#1890ff"
+                secondaryColor="gray"
+              />
+              Loading
+            </div>
+          ) : (
+            <Table
+              columns={columns2}
+              dataSource={freeHospital}
+            />
+          )}
         </div>
       </div>
     </div>

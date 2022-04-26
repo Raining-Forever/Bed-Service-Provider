@@ -7,7 +7,7 @@
 }
 
 .header {
-  margin-top: 50px;
+  margin-top: 20px;
 }
 
 .box {
@@ -32,12 +32,15 @@
 .card {
   display: flex;
   width: 100%;
+  flex-direction: column;
+  padding: 20px;
 }
 .image {
   width: 35%;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 10px 10px;
 }
 .text {
   width: 65%;
@@ -46,15 +49,17 @@
   justify-content: center;
 }
 
-.text .header {
-  font-weight: 500;
+.header {
+  /* font-weight: 500; */
   font-size: 24px;
-  line-height: 36px;
-  height: 27.5%;
+  /* line-height: 36px; */
+  /* height: 27.5%; */
   text-align: left;
   display: flex;
   align-items: center;
   justify-content: left;
+  margin-bottom: 10px;
+  font-weight: 400;
 }
 
 .text p {
@@ -63,4 +68,33 @@
   text-align: left;
   padding-right: 50px;
   top: 0;
+}
+
+.container1{
+  display: flex;
+  width: 100%;
+}
+
+.container2{
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}
+.descripsion{
+  display: flex;
+  width: 100%;
+
+}
+.destext{
+  font-size: 16px;
+  text-align: left;
+}
+.wrapdes{
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+}
+.buttonapp{
+  display: flex;
+  justify-content: end;
 }
