@@ -29,9 +29,19 @@
 
 .header {
   font-size: 24px;
-  font-weight: medium;
+  font-weight: 400;
+  cursor: pointer;
 }
-
+.headeronclick{
+  font-size: 24px;
+  font-weight: 400;
+  cursor: pointer;
+  color: #3293FE;
+}
+.space{
+  font-size: 24px;
+  font-weight: 400;
+}
 .wrapheader {
   display: flex;
   flex-direction: row;
@@ -40,4 +50,25 @@
   max-width: 900px;
   justify-content: space-between;
   margin: 10px auto;
+}
+.wrapbutton{
+  display: flex;
+  flex-direction: row;
+  width: 25%;
+  justify-content: space-between;
+}
+.buttonEdit{
+  background-color: #0B9780;
+  border-color: transparent;
+}
+
+.buttonEdit:hover {
+  background: rgb(82, 175, 160);
+  border-color: transparent;
+}
+.wraptitle{
+  display: flex;
+  flex-direction: row;
+  width: 40%;
+  justify-content: space-between;
 }

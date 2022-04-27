@@ -2,80 +2,98 @@ import React from "react";
 import styles from "./PatientReview.module.css";
 
 // import Navbar_patient from "../../../components/Navbar/Navbar_patient";
-import AccountDetail from "../../../Account/AccountPatient";
+import AccountDetail from "../../../../components/AccountDetail";
 import { useState, useEffect } from "react";
-
-import { Button } from "antd";
+import { useParams } from "react-router-dom";
+import { Button, Form } from "antd";
 import axios from "axios";
 import { Oval } from "react-loader-spinner";
 import { useAuthContext } from "../../../../context/AuthContext";
+import { result } from "lodash";
+import Form0 from "../../../Symptom/Form0";
+import SelectSymptom from "../../../../components/SelectSymptom";
 
 export default function PatientReview() {
   const { auth, authLoaded, roleCheck } =
     useAuthContext();
-  console.log(
-    "asdl,.kfjnl;asdjfkl;asjdl;fkjal;skdfjl;asdjfl;kasdjfl;aksdjfl;kj"
-  );
+
   useEffect(() => {
     roleCheck(["hospital"], "/accessdenied");
   }, [authLoaded]);
 
-  const [isEdit, setIsEdit] = useState(false);
+  const isEdit = false;
   const [patientinfo, setPatientinfo] = useState(
+    {}
+  );
+  const [symptominfo, setSymptominfo] = useState(
     {}
   );
   const [isLoading, setisLoading] =
     useState(true);
+  const [onInfo, setOnInfo] = useState(true);
+  let { id } = useParams();
 
   async function fetchPatientData() {
-    if (auth.user_info?.id) {
+    if (auth.role === "hospital") {
       const result = await axios.get(
-        `https://bed-service-provider.herokuapp.com/api/patient/${auth.user_info.id}`
+        `https://bed-service-provider.herokuapp.com/api/patient/${id}`
       );
-      // setPatientinfo(result.data[0]);
+      const symptomdata = await axios.get(
+        `https://bed-service-provider.herokuapp.com/api/symtom/${id}`
+      );
+      setSymptominfo(symptomdata.data[0]);
+      setPatientinfo(result.data[0]);
       setisLoading(false);
-      // console.log(result);
-      setPatientinfo({
-        ...result.data[0],
-        email: auth.email,
-      });
-    } else console.log("no user_info.id");
+    }
   }
 
-  function ToggleEditform() {
-    setIsEdit(!isEdit);
-  }
+  // function ToggleEditform() {
+  //   setIsEdit(!isEdit);
+  // }
 
   useEffect(() => {
-    if (authLoaded) {
-      fetchPatientData();
-    }
-  }, [authLoaded, isEdit]);
+    fetchPatientData();
+  }, [authLoaded]);
 
-  // console.log("patientinfo", patientinfo);
   return (
     <div className={styles.container}>
       <div className={styles.body}>
         <div className={styles.wrapheader}>
-          <div className={styles.header}>
-            ข้อมูลผู้ป่วย
+          <div className={styles.wraptitle}>
+            <div
+              className={
+                onInfo
+                  ? styles.headeronclick
+                  : styles.header
+              }
+              onClick={() => setOnInfo(true)}
+            >
+              ข้อมูลผู้ป่วย
+            </div>
+            <div className={styles.space}>|</div>
+            <div
+              className={
+                !onInfo
+                  ? styles.headeronclick
+                  : styles.header
+              }
+              onClick={() => setOnInfo(false)}
+            >
+              อาการและความรุนแรง
+            </div>
           </div>
-          {isEdit ? (
+
+          <div className={styles.wrapbutton}>
             <Button
               type="primary"
-              onClick={ToggleEditform}
-              danger
+              className={styles.buttonEdit}
             >
-              ยกเลิกแก้ไข
+              ยืนยันผู้ป่วย
             </Button>
-          ) : (
-            <Button
-              type="primary"
-              onClick={ToggleEditform}
-            >
-              แก้ไขข้อมูล
+            <Button type="primary" danger>
+              ยกเลิกผู้ป่วย
             </Button>
-          )}
+          </div>
         </div>
         <div className={styles.box}>
           {isLoading ? (
@@ -88,12 +106,16 @@ export default function PatientReview() {
               />
               Loading
             </div>
-          ) : (
+          ) : onInfo ? (
             <AccountDetail
               patientinfo={patientinfo}
               setPatientinfo={setPatientinfo}
               disabled={!isEdit}
-              onSubmit={() => setIsEdit(false)}
+            />
+          ) : (
+            <SelectSymptom
+              symptomScore={symptominfo.score}
+              onsuggest={false}
             />
           )}
         </div>
