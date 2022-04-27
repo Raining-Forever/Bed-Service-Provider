@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./ManageAppoint.module.css";
-import { Button, Table, Tag, Space } from "antd";
+import { Table, Tag, Space } from "antd";
+import axios from "axios";
 
 export default function ManageAppoint() {
+  const [appoints, setAppoints] = useState([]);
   const columns = [
     {
       title: "ชื่อแพทย์",
@@ -60,7 +62,7 @@ export default function ManageAppoint() {
     },
   ];
 
-  const data = [
+  let data = [
     {
       id: "1",
       docname: "นพ.สมหมาย เก่งมาก",
@@ -79,12 +81,61 @@ export default function ManageAppoint() {
     },
   ];
 
+  const statusArray = [
+    "รอลงทะเบียน",
+    "รอให้คำปรึกษา",
+    "ปรึกษาสำเร็จ",
+    "ยกเลิกนัด",
+  ];
+
+  let temp = [];
+  async function fetchData() {
+    const appoint = await axios.put(
+      `https://bed-service-provider.herokuapp.com/api/appointment/`
+    );
+    console.log(appoint.data);
+    temp = appoint.data.map((v) => ({
+      id: v.id,
+      docname:
+        v.doctorinfo.title +
+        v.doctorinfo.firstname +
+        " " +
+        v.doctorinfo.lastname,
+      patname:
+        v.patientinfo.title +
+        v.patientinfo.firstname +
+        " " +
+        v.patientinfo.lastname,
+      date: v.created_at.split("T")[0].split("-").reverse().join("-"),
+      time: v.created_at
+        .split("T")[1]
+        .split("Z")[0]
+        .split(".")[0]
+        .split(":")
+        .slice(0, -1)
+        .join("."),
+      status: [statusArray[v.status - 1]],
+    }));
+    console.log(temp);
+    setAppoints(temp);
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <div className={styles.container}>
       <div className={styles.body}>
         <h2 className={styles.header}>รายการให้คำปรึกษากับผู้ป่วย</h2>
         <div className={styles.box}>
-          <Table columns={columns} dataSource={data} />
+          <Table
+            columns={columns}
+            dataSource={appoints}
+            pagination={{
+              defaultPageSize: 8,
+            }}
+          />
         </div>
       </div>
     </div>
