@@ -93,7 +93,7 @@ export default function HospitalDetail({
         }}
       >
         <Form.Item
-          name="hospital_id"
+          name="hospital_number"
           label="รหัสสถานพยาบาล :"
           rules={[
             {
@@ -116,7 +116,7 @@ export default function HospitalDetail({
           <Input disabled={disabled} />
         </Form.Item>
         <Form.Item
-          name="hospital_tel"
+          name="tel"
           label="เบอร์โทรศัพท์ :"
           rules={[
             {
@@ -206,12 +206,24 @@ export default function HospitalDetail({
       </Form>
       {!disabled ? (
         <div className={styles.submitButton}>
-          <Button
-            type="primary"
-            onClick={() => form.submit()}
-          >
-            ลงทะเบียน
-          </Button>
+          {hospitalinfo?.id ? (
+            <Button
+              type="primary"
+              className={styles.buttonEdit}
+              onClick={() => form.submit()}
+              // style="backgrond-color:#0B9780;"
+            >
+              ยืนยันการแก้ไข
+            </Button>
+          ) : (
+            <Button
+              type="primary"
+              onClick={() => form.submit()}
+              // style="backgrond-color:#0B9780;"
+            >
+              ลงทะเบียน
+            </Button>
+          )}
         </div>
       ) : (
         <div

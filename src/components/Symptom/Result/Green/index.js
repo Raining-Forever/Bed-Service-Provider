@@ -26,6 +26,8 @@ export default function Green() {
             ตาแดง ผื่นขึ้น ไม่มีโรคร่วม
             พักรักษาที่โรงพยาบาลสนาม หรือฮอสพิเทล
             (Hospitel)
+            หรือการรักษาตัวเองจากที่บ้าน(Home
+            Isolation)
           </p>
         </div>
       </div>

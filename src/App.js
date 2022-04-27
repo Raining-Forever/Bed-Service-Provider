@@ -50,6 +50,7 @@ import AppointmentDetail from "./components/AppointmentDetail";
 import Subnavbar from "./components/Subnavbar";
 import AgencyHomepage from "./pages/Homepage/AgencyHomepage";
 import DoctorHistoryAppoint from "./pages/Doctor/HistoryAppoint";
+import Chatbot from "./components/ShowStatus/Chatbot";
 
 function App() {
   return (
@@ -193,6 +194,10 @@ function App() {
             <Route
               path="/doctor/historyappoint"
               element={<DoctorHistoryAppoint />}
+            />
+            <Route
+              path="/chatbot"
+              element={<Chatbot />}
             />
           </Routes>
         </div>
