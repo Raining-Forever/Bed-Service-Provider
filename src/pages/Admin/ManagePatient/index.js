@@ -69,7 +69,6 @@ export default function ManagePatient() {
       email: v.email,
     }));
     setPatients(temp);
-    console.log(temp);
   }
 
   useEffect(() => {
