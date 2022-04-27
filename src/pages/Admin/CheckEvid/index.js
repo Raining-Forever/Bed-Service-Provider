@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./CheckEvid.module.css";
-import { Button, Table, Tag, Space } from "antd";
+import { Table, Space } from "antd";
 
 export default function CheckEvid() {
   const columns = [
