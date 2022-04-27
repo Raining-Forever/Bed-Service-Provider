@@ -181,7 +181,6 @@ export default function Reserve() {
       setisLoading(false);
     } else console.log("no user_info.id");
   }
-  console.log("FreeHospital", freeHospital);
   useEffect(() => {
     if (authLoaded) {
       fetchReserve();

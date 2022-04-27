@@ -1,7 +1,14 @@
-import React from "react";
 import styles from "./HistoryReserve.module.css";
-import { Button, Table, Tag, Space } from "antd";
 
+import { Button, Table, Tag, Space } from "antd";
+import React, {
+  useEffect,
+  useState,
+} from "react";
+
+import axios from "axios";
+import { useAuthContext } from "../../../../context/AuthContext";
+import { Oval } from "react-loader-spinner";
 export default function HistoryReserve() {
   const columns = [
     {
@@ -26,7 +33,10 @@ export default function HistoryReserve() {
       render: (status) => (
         <>
           {status.map((tag) => {
-            let color = tag.length > 9 ? "green" : "geekblue";
+            let color =
+              tag.length > 9
+                ? "green"
+                : "geekblue";
             if (tag === "ยกเลิกนัด") {
               color = "volcano";
             } else if (tag == "สำเร็จ") {
@@ -60,13 +70,82 @@ export default function HistoryReserve() {
       status: ["อยู่ระหว่างดำเนินการ"],
     },
   ];
+  const { auth, authLoaded } = useAuthContext();
+  const [historyReserve, SetHistoryReserve] =
+    useState({});
+  const [isLoading, setisLoading] =
+    useState(true);
+  let newformatMyHistory = [];
+  const statusArray = [
+    "รอลงทะเบียน",
+    "รอให้คำปรึกษา",
+    "ปรึกษาสำเร็จ",
+    "ยกเลิกนัด",
+  ];
 
+  async function fetchHistoryReserve() {
+    if (auth.user_info?.id) {
+      const myHistory = await axios.put(
+        `https://bed-service-provider.herokuapp.com/api/phr/`,
+        {
+          patient_id: auth.user_info.id,
+        }
+      );
+      newformatMyHistory = myHistory.data.map(
+        (v) => ({
+          id: v.id,
+          hosname: v.hospitalinfo.hospital_name,
+          date: v.created_at
+            .split("T")[0]
+            .split("-")
+            .reverse()
+            .join("/"),
+          time: v.created_at
+            .split("T")[1]
+            .split("Z")[0]
+            .split(".")[0]
+            .split(":")
+            .slice(0, -1)
+            .join("."),
+          status: [statusArray[v.status - 1]],
+        })
+      );
+      SetHistoryReserve(newformatMyHistory);
+      console.log(
+        "myHistory.data",
+        myHistory.data
+      );
+      setisLoading(false);
+    }
+  }
+  useEffect(() => {
+    if (authLoaded) {
+      fetchHistoryReserve();
+    }
+  }, [authLoaded]);
   return (
     <div className={styles.container}>
       <div className={styles.body}>
-        <h2 className={styles.header}>ประวัติการจองเตียงของฉัน</h2>
+        <h2 className={styles.header}>
+          ประวัติการจองเตียงของฉัน
+        </h2>
         <div className={styles.box}>
-          <Table columns={columns} dataSource={data} />
+          {isLoading ? (
+            <div className={styles.loadcontainer}>
+              <Oval
+                height="100"
+                width="100"
+                color="#1890ff"
+                secondaryColor="gray"
+              />
+              Loading
+            </div>
+          ) : (
+            <Table
+              columns={columns}
+              dataSource={historyReserve}
+            />
+          )}
         </div>
       </div>
     </div>

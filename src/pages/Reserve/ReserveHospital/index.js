@@ -1,7 +1,10 @@
-import React from "react";
+import React, {
+  useEffect,
+  useState,
+} from "react";
 import styles from "../Reserve.module.css";
-import { Button, Table, Tag, Space } from "antd";
 
+import { Button, Table, Tag, Space } from "antd";
 export default function ReserveHospital() {
   const columns = [
     {
@@ -49,9 +52,14 @@ export default function ReserveHospital() {
   return (
     <div className={styles.container}>
       <div className={styles.body}>
-        <h2 className={styles.header}>รายชื่อผู้เข้ารับการรักษา</h2>
+        <h2 className={styles.header}>
+          รายชื่อผู้เข้ารับการรักษา
+        </h2>
         <div className={styles.box}>
-          <Table columns={columns} dataSource={data} />
+          <Table
+            columns={columns}
+            dataSource={data}
+          />
         </div>
       </div>
     </div>
