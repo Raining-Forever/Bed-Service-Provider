@@ -75,6 +75,12 @@ export const AuthProvider = ({ children }) => {
   ) => {
     if (authLoaded) {
       if (!roles.includes(auth.role)) {
+        console.log(
+          "checkroles",
+          roles,
+          "rolenow",
+          auth.role
+        );
         navigate(redicrecto);
       }
     }

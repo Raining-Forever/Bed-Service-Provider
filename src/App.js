@@ -51,6 +51,7 @@ import Subnavbar from "./components/Subnavbar";
 import AgencyHomepage from "./pages/Homepage/AgencyHomepage";
 import DoctorHistoryAppoint from "./pages/Doctor/HistoryAppoint";
 import Chatbot from "./components/ShowStatus/Chatbot";
+import PatientReview from "./pages/Reserve/ReserveHospital/PatientReview";
 
 function App() {
   return (
@@ -198,6 +199,10 @@ function App() {
             <Route
               path="/chatbot"
               element={<Chatbot />}
+            />
+            <Route
+              path="/patientreview/:id"
+              element={<PatientReview />}
             />
           </Routes>
         </div>

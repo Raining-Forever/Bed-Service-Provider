@@ -56,6 +56,7 @@ export default function ReserveHospital() {
       );
       newformatPatientReserve =
         myPatientQueue.data.map((v) => ({
+          ...v,
           id: v.id,
           patname:
             v.patientinfo.firstname +
@@ -114,7 +115,7 @@ export default function ReserveHospital() {
                 return {
                   onClick: (e) => {
                     navigate(
-                      `/appoint/${record.id}`
+                      `/patientreview/${record.patientinfo.id}`
                     );
                   },
                 };
