@@ -115,7 +115,7 @@ export default function ReserveHospital() {
                 return {
                   onClick: (e) => {
                     navigate(
-                      `/patientreview/${record.patientinfo.id}`
+                      `/patientreview/${record.id}`
                     );
                   },
                 };

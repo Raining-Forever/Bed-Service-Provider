@@ -4,7 +4,10 @@ import styles from "./PatientReview.module.css";
 // import Navbar_patient from "../../../components/Navbar/Navbar_patient";
 import AccountDetail from "../../../../components/AccountDetail";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import {
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 import { Button, Form } from "antd";
 import axios from "axios";
 import { Oval } from "react-loader-spinner";
@@ -32,18 +35,22 @@ export default function PatientReview() {
     useState(true);
   const [onInfo, setOnInfo] = useState(true);
   let { id } = useParams();
-
+  const navigate = useNavigate();
   async function fetchPatientData() {
     if (auth.role === "hospital") {
+      const phrid = await axios.get(
+        `https://bed-service-provider.herokuapp.com/api/phr/${id}`
+      );
       const result = await axios.get(
-        `https://bed-service-provider.herokuapp.com/api/patient/${id}`
+        `https://bed-service-provider.herokuapp.com/api/patient/${phrid.data[0].patient_id}`
       );
       const symptomdata = await axios.get(
-        `https://bed-service-provider.herokuapp.com/api/symtom/${id}`
+        `https://bed-service-provider.herokuapp.com/api/symtom/${phrid.data[0].patient_id}`
       );
       setSymptominfo(symptomdata.data[0]);
       setPatientinfo(result.data[0]);
       setisLoading(false);
+      console.log(phrid.data[0]);
     }
   }
 
@@ -87,10 +94,31 @@ export default function PatientReview() {
             <Button
               type="primary"
               className={styles.buttonEdit}
+              onClick={async () => {
+                await axios.put(
+                  `https://bed-service-provider.herokuapp.com/api/phr/${id}`,
+                  {
+                    status: 3,
+                  }
+                );
+              }}
             >
               ยืนยันผู้ป่วย
             </Button>
-            <Button type="primary" danger>
+            <Button
+              type="primary"
+              danger
+              onClick={async () => {
+                await axios.put(
+                  `https://bed-service-provider.herokuapp.com/api/phr/${id}`,
+                  {
+                    status: 4,
+                  }
+                );
+                alert("ปฏิเสธการของรับการรักษา");
+                navigate("/reservehospital");
+              }}
+            >
               ยกเลิกผู้ป่วย
             </Button>
           </div>
