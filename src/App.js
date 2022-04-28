@@ -52,6 +52,7 @@ import AgencyHomepage from "./pages/Homepage/AgencyHomepage";
 import DoctorHistoryAppoint from "./pages/Doctor/HistoryAppoint";
 import Chatbot from "./components/ShowStatus/Chatbot";
 import PatientReview from "./pages/Reserve/ReserveHospital/PatientReview";
+import ConfirmationPage from "./pages/Reserve/ReserveHospital/ConfirmationPage";
 
 function App() {
   return (
@@ -203,6 +204,10 @@ function App() {
             <Route
               path="/patientreview/:id"
               element={<PatientReview />}
+            />
+            <Route
+              path="/confirmationpage/:id"
+              element={<ConfirmationPage />}
             />
           </Routes>
         </div>

@@ -51,7 +51,7 @@ export default function ReserveHospital() {
         `https://bed-service-provider.herokuapp.com/api/phr/`,
         {
           hospital_id: auth.user_info.id,
-          status: 1,
+          status: 2,
         }
       );
       newformatPatientReserve =

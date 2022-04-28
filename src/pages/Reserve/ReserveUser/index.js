@@ -10,6 +10,8 @@ import { Oval } from "react-loader-spinner";
 
 export default function Reserve() {
   const { auth, authLoaded } = useAuthContext();
+  const [submitUpdate, setSubmitUpdate] =
+    useState(false);
   const columns = [
     {
       title: "ชื่อสถานพยาบาล",
@@ -97,6 +99,7 @@ export default function Reserve() {
                 }
               );
               alert("จองเตียงสำเร็จ");
+              setSubmitUpdate(!submitUpdate);
             }}
           >
             จองเตียง
@@ -185,7 +188,7 @@ export default function Reserve() {
     if (authLoaded) {
       fetchReserve();
     }
-  }, [authLoaded]);
+  }, [authLoaded, submitUpdate]);
   const data = [
     {
       id: "1",
@@ -234,6 +237,9 @@ export default function Reserve() {
             <Table
               columns={columns}
               dataSource={reserve}
+              pagination={{
+                defaultPageSize: 5,
+              }}
             />
           )}
         </div>
@@ -255,6 +261,9 @@ export default function Reserve() {
             <Table
               columns={columns2}
               dataSource={freeHospital}
+              pagination={{
+                defaultPageSize: 5,
+              }}
             />
           )}
         </div>

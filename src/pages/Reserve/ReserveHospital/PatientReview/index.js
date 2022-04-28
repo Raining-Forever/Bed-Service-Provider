@@ -94,14 +94,11 @@ export default function PatientReview() {
             <Button
               type="primary"
               className={styles.buttonEdit}
-              onClick={async () => {
-                await axios.put(
-                  `https://bed-service-provider.herokuapp.com/api/phr/${id}`,
-                  {
-                    status: 3,
-                  }
-                );
-              }}
+              onClick={() =>
+                navigate(
+                  `/confirmationpage/${id}`
+                )
+              }
             >
               ยืนยันผู้ป่วย
             </Button>
