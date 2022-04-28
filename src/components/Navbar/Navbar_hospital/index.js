@@ -35,6 +35,14 @@ export default function Navbar_hospital() {
           หน้าหลัก
         </NavLink>
       </Menu.Item>
+      <Menu.Item key="1">
+        <NavLink
+          to="/accounthospital"
+          activeclassname="selectedLink"
+        >
+          ข้อมูลโรงพยาบาล
+        </NavLink>
+      </Menu.Item>
       <SubMenu
         key="sub1"
         icon={<MailOutlined />}
@@ -44,11 +52,21 @@ export default function Navbar_hospital() {
           key="g2"
           title="การให้การรักษาผู้ป่วย"
         >
-          <Menu.Item key="1">
-            รายชื่อผู้ต้องเข้ารับการรักษา
-          </Menu.Item>
           <Menu.Item key="2">
-            ประวัติรายชื่อผู้รับการรักษา
+            <NavLink
+              to="/reservehospital"
+              activeclassname="selectedLink"
+            >
+              รายชื่อผู้ต้องเข้ารับการรักษา
+            </NavLink>
+          </Menu.Item>
+          <Menu.Item key="3">
+            <NavLink
+              to="/historypatient"
+              activeclassname="selectedLink"
+            >
+              ประวัติรายชื่อผู้รับการรักษา
+            </NavLink>
           </Menu.Item>
         </Menu.ItemGroup>
       </SubMenu>

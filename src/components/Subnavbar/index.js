@@ -11,11 +11,12 @@ export default function Subnavbar() {
     if (authLoaded) {
       setIsLogin(auth.loggedIn);
     }
-    // registerCheck();
   }, [auth]);
+  
+  // console.log(googleAccountInfo.email);
   return (
     <div className={styles.subnav}>
-      <div>{auth.email}</div>
+      {/* <div>{googleAccountInfo.email}</div> */}
       {isLogin ? <Logout /> : <Login />}
     </div>
   );

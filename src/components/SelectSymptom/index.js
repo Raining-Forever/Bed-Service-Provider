@@ -20,12 +20,12 @@ export default function SelectSymptom(props) {
     props.symptomScore
   );
   if (selectComponent === 1) {
-    return <Green />;
+    return <Green onsuggest={props.onsuggest} />;
   }
   if (selectComponent === 2) {
-    return <Yello />;
+    return <Yello onsuggest={props.onsuggest} />;
   }
   if (selectComponent === 3) {
-    return <Red />;
+    return <Red onsuggest={props.onsuggest} />;
   } else return <>Error</>;
 }

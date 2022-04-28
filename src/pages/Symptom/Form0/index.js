@@ -15,7 +15,7 @@ import SelectSymptom from "../../../components/SelectSymptom";
 
 export default function Form0(props) {
   const [score, setScore] = useScoreContext();
-  
+
   useEffect(() => {
     console.log("page0", score);
   }, []);
@@ -42,6 +42,7 @@ export default function Form0(props) {
               symptomScore={
                 props.symptomScore.score
               }
+              onsuggest={true}
             />
           ) : (
             <Empty />

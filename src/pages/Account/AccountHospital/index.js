@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styles from "../Account.module.css";
-import { Button } from "antd/lib/radio";
+import { Button } from "antd";
 import { Oval } from "react-loader-spinner";
 import HospitalDetail from "../../../components/HospitalDetail";
 import axios from "axios";
@@ -35,7 +35,7 @@ export default function AccountHospital() {
       const result = await axios.get(
         `https://bed-service-provider.herokuapp.com/api/hospital/${auth.user_info.id}`
       );
-      setHospitalinfo(result.data);
+      setHospitalinfo(result.data[0]);
       setisLoading(false);
       console.log(result);
     } else console.log("no user_info.id");
@@ -56,16 +56,16 @@ export default function AccountHospital() {
             <Button
               type="primary"
               onClick={ToggleEditform}
+              danger
             >
-              แก้ไขข้อมูล
+              ยกเลิกแก้ไข
             </Button>
           ) : (
             <Button
               type="primary"
               onClick={ToggleEditform}
-              danger
             >
-              ยกเลิกแก้ไข
+              แก้ไขข้อมูล
             </Button>
           )}
         </div>

@@ -31,7 +31,7 @@ export default function Logout() {
       setDisplayIcon(defaultIcondoctor);
     if (auth.role === "hospital")
       setDisplayIcon(defaultIconhospital);
-  }, [authLoad]);
+  }, [auth]);
 
   const responseGoogle = (response) => {
     console.log(response);
@@ -41,8 +41,14 @@ export default function Logout() {
     console.log("log out Success");
     logout();
   };
+  let googleAccountInfo = JSON.parse(
+    localStorage.getItem("googleAccount")
+  );
   return (
     <div className={styles.wrapprofile}>
+      <div className={styles.emailnav}>
+        {googleAccountInfo.email}
+      </div>
       <Dropdown
         className={styles.profiledropdown}
         overlay={

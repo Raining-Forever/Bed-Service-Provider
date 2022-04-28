@@ -39,4 +39,16 @@
   
     /* color: gray; */
   }
+  .buttonEdit{
+    background-color: #0B9780;
+    border-color: transparent;
+  }
   
+  .buttonEdit:hover {
+    background: rgb(82, 175, 160);
+    border-color: transparent;
+  }
+  .submitButton{
+    display: flex;
+    justify-content: flex-end; 
+  }  

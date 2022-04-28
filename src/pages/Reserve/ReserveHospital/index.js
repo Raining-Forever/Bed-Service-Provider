@@ -1,6 +1,13 @@
-import React from "react";
+import React, {
+  useEffect,
+  useState,
+} from "react";
 import styles from "../Reserve.module.css";
 import { Button, Table, Tag, Space } from "antd";
+import { useAuthContext } from "../../../context/AuthContext";
+import axios from "axios";
+import { Oval } from "react-loader-spinner";
+import { useNavigate } from "react-router-dom";
 
 export default function ReserveHospital() {
   const columns = [
@@ -31,7 +38,44 @@ export default function ReserveHospital() {
       ),
     },
   ];
-
+  const { auth, authLoaded } = useAuthContext();
+  const [patientReserve, SetPatientReserve] =
+    useState({});
+  const [isLoading, setisLoading] =
+    useState(true);
+  const navigate = useNavigate();
+  let newformatPatientReserve = [];
+  async function fetchPatientReserve() {
+    if (auth.user_info?.id) {
+      const myPatientQueue = await axios.put(
+        `https://bed-service-provider.herokuapp.com/api/phr/`,
+        {
+          hospital_id: auth.user_info.id,
+          status: 2,
+        }
+      );
+      newformatPatientReserve =
+        myPatientQueue.data.map((v) => ({
+          ...v,
+          id: v.id,
+          patname:
+            v.patientinfo.firstname +
+            " " +
+            v.patientinfo.lastname,
+          province: v.patientinfo.province,
+          tel: v.patientinfo.tel,
+        }));
+      console.log(myPatientQueue.data);
+      SetPatientReserve(newformatPatientReserve);
+      setisLoading(false);
+    }
+  }
+  // console.log("reserve");
+  useEffect(() => {
+    if (authLoaded) {
+      fetchPatientReserve();
+    }
+  }, [authLoaded]);
   const data = [
     {
       id: "1",
@@ -49,9 +93,35 @@ export default function ReserveHospital() {
   return (
     <div className={styles.container}>
       <div className={styles.body}>
-        <h2 className={styles.header}>รายชื่อผู้เข้ารับการรักษา</h2>
+        <h2 className={styles.header}>
+          รายชื่อผู้เข้ารับการรักษา
+        </h2>
         <div className={styles.box}>
-          <Table columns={columns} dataSource={data} />
+          {isLoading ? (
+            <div className={styles.loadcontainer}>
+              <Oval
+                height="100"
+                width="100"
+                color="#1890ff"
+                secondaryColor="gray"
+              />
+              Loading
+            </div>
+          ) : (
+            <Table
+              columns={columns}
+              dataSource={patientReserve}
+              onRow={(record, rowIndex) => {
+                return {
+                  onClick: (e) => {
+                    navigate(
+                      `/patientreview/${record.id}`
+                    );
+                  },
+                };
+              }}
+            />
+          )}
         </div>
       </div>
     </div>
