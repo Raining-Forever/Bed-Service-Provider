@@ -1,10 +1,7 @@
 import React from "react";
 import styles from "./DoctorAppoint.module.css";
 import { Button, Table, Tag, Space } from "antd";
-import {
-  Navigate,
-  useNavigate,
-} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAuthContext } from "../../context/AuthContext";
 import { useEffect, useState } from "react";
@@ -12,20 +9,15 @@ import { Oval } from "react-loader-spinner";
 import Swal from "sweetalert2";
 
 export default function DoctorAppoint() {
-  const { auth, authLoaded, roleCheck } =
-    useAuthContext();
+  const { auth, authLoaded, roleCheck } = useAuthContext();
   useEffect(() => {
     roleCheck(["patient"], "/accessdenied");
   }, [authLoaded]);
   const [appoint, setAppoint] = useState({});
-  const [isLoading, setisLoading] =
-    useState(true);
+  const [isLoading, setisLoading] = useState(true);
   const [newArray, setNewArray] = useState([]);
-  const [freeDoctor, setFreeDoctor] = useState(
-    []
-  );
-  const [submitUpdate, setSubmitUpdate] =
-    useState(false);
+  const [freeDoctor, setFreeDoctor] = useState([]);
+  const [submitUpdate, setSubmitUpdate] = useState(false);
 
   const columns = [
     {
@@ -51,10 +43,7 @@ export default function DoctorAppoint() {
       render: (status) => (
         <>
           {status.map((tag) => {
-            let color =
-              tag.length > 9
-                ? "green"
-                : "geekblue";
+            let color = tag.length > 9 ? "green" : "geekblue";
             if (tag === "ยกเลิกนัด") {
               color = "volcano";
             } else if (tag === "ปรึกษาสำเร็จ") {
@@ -207,11 +196,7 @@ export default function DoctorAppoint() {
 
       nArray = result.data.map((v) => ({
         id: v.id,
-        date: v.starttime
-          .split("T")[0]
-          .split("-")
-          .reverse()
-          .join("/"),
+        date: v.starttime.split("T")[0].split("-").reverse().join("/"),
         period:
           v.starttime
             .split("T")[1]
@@ -242,38 +227,32 @@ export default function DoctorAppoint() {
           status: 1,
         }
       );
-      freeDocArray = freeDoctorData.data.map(
-        (v) => ({
-          id: v.id,
-          date: v.starttime
-            .split("T")[0]
-            .split("-")
-            .reverse()
-            .join("/"),
-          period:
-            v.starttime
-              .split("T")[1]
-              .split("Z")[0]
-              .split(".")[0]
-              .split(":")
-              .slice(0, -1)
-              .join(".") +
-            " - " +
-            v.endtime
-              .split("T")[1]
-              .split("Z")[0]
-              .split(".")[0]
-              .split(":")
-              .slice(0, -1)
-              .join("."),
-          docname:
-            v.doctorinfo.title +
-            v.doctorinfo.firstname +
-            " " +
-            v.doctorinfo.lastname,
-          sex: [v.doctorinfo.gender],
-        })
-      );
+      freeDocArray = freeDoctorData.data.map((v) => ({
+        id: v.id,
+        date: v.starttime.split("T")[0].split("-").reverse().join("/"),
+        period:
+          v.starttime
+            .split("T")[1]
+            .split("Z")[0]
+            .split(".")[0]
+            .split(":")
+            .slice(0, -1)
+            .join(".") +
+          " - " +
+          v.endtime
+            .split("T")[1]
+            .split("Z")[0]
+            .split(".")[0]
+            .split(":")
+            .slice(0, -1)
+            .join("."),
+        docname:
+          v.doctorinfo.title +
+          v.doctorinfo.firstname +
+          " " +
+          v.doctorinfo.lastname,
+        sex: [v.doctorinfo.gender],
+      }));
 
       console.log(nArray);
 
@@ -294,9 +273,7 @@ export default function DoctorAppoint() {
   return (
     <div className={styles.container}>
       <div className={styles.body}>
-        <h2 className={styles.header}>
-          รายการปรึกษาแพทย์ของฉัน
-        </h2>
+        <h2 className={styles.header}>รายการปรึกษาแพทย์ของฉัน</h2>
         <div className={styles.box}>
           {isLoading ? (
             <div className={styles.loadcontainer}>
@@ -315,27 +292,19 @@ export default function DoctorAppoint() {
               pagination={{
                 defaultPageSize: 5,
                 showSizeChanger: true,
-                pageSizeOptions: [
-                  "5",
-                  "10",
-                  "20",
-                ],
+                pageSizeOptions: ["5", "10", "20"],
               }}
               onRow={(record, rowIndex) => {
                 return {
                   onClick: (e) => {
-                    navigate(
-                      `/appoint/${record.id}`
-                    );
+                    navigate(`/appoint/${record.id}`);
                   },
                 };
               }}
             />
           )}
         </div>
-        <h2 className={styles.header}>
-          นัดปรึกษาแพทย์
-        </h2>
+        <h2 className={styles.header}>นัดปรึกษาแพทย์</h2>
         <div className={styles.box}>
           <Table
             columns={columns2}
