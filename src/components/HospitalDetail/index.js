@@ -83,19 +83,33 @@ export default function HospitalDetail({
             const registerData =
               form.getFieldValue();
             registerData.user_id = auth.user_id;
+            registerData.bed_occupied = 100;
+            registerData.bed_total = 120;
             const data = await axios
               .post(
                 `https://bed-service-provider.herokuapp.com/api/hospital`,
                 registerData
               )
-              .then((response) => {
+              .then(async (response) => {
                 console.log(
                   "response: ",
                   response.data
                 );
-                login(response.data);
+                await login(response.data);
+                const result = await axios.post(
+                  `https://bed-service-provider.herokuapp.com/api/reservation/`,
+                  {
+                    hospital_id:
+                      response.data.user_info.id,
+                    status: 1,
+                  }
+                );
               });
-            console.log(data);
+
+            console.log(
+              "hospital_id",
+              auth.user_info.id
+            );
             navigate("/registersuccess");
           }
         }}

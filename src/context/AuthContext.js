@@ -55,6 +55,7 @@ export const AuthProvider = ({ children }) => {
       googleAccount: "",
       loggedIn: false,
     });
+    navigate("/");
   };
 
   const registerCheck = () => {

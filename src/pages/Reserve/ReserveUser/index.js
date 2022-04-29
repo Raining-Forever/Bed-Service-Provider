@@ -66,7 +66,7 @@ export default function Reserve() {
       key: "hosname",
     },
     {
-      title: "จำนวนเตียง",
+      title: "จำนวนเตียงคงเหลือ",
       dataIndex: "numOfbed",
       key: "numOfbed",
       render: (text) => <a>{text}</a>,
@@ -90,23 +90,58 @@ export default function Reserve() {
           <Button
             type="primary"
             onClick={async () => {
-              await axios.post(
-                "https://bed-service-provider.herokuapp.com/api/phr",
-                {
-                  patient_id: auth.user_info.id,
-                  hospital_id: record.hospital_id,
-                  reservation_id: record.id,
-                  status: 2,
+              await Swal.fire({
+                title: "ท่านต้องการจองเตียง",
+                icon: "warning",
+                html: "ท่านต้องการจองเตียง",
+                showCloseButton: true,
+                showCancelButton: true,
+                focusConfirm: false,
+                confirmButtonText: " ยืนยัน",
+                confirmButtonAriaLabel:
+                  "ปฏิเสธการของรับการรักษาสำเร็จ",
+                cancelButtonText: "ยกเลิก",
+                cancelButtonAriaLabel:
+                  "ยกเลิกการปฏิเสธการของรับการรักษาสำเร็จ",
+              }).then(async (result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                  await axios.post(
+                    "https://bed-service-provider.herokuapp.com/api/phr",
+                    {
+                      patient_id:
+                        auth.user_info.id,
+                      hospital_id:
+                        record.hospital_id,
+                      reservation_id: record.id,
+                      status: 2,
+                    }
+                  );
+                  const test1 = await axios.put(
+                    `https://bed-service-provider.herokuapp.com/api/hospital/${record.hospital_id}`,
+                    {
+                      bed_occupied:
+                        record.bed_occupied - 1,
+                    }
+                  );
+                  Swal.fire({
+                    position: "center",
+                    icon: "success",
+                    title: "จองเตียงสำเร็จ",
+                    showConfirmButton: false,
+                    timer: 1500,
+                  });
+                  setSubmitUpdate(!submitUpdate);
+                } else {
+                  Swal.fire({
+                    position: "center",
+                    icon: "error",
+                    title: "ยกเลิกการจองเตียง",
+                    showConfirmButton: false,
+                    timer: 1500,
+                  });
                 }
-              );
-              Swal.fire({
-                position: "center",
-                icon: "success",
-                title: "จองเตียงสำเร็จ",
-                showConfirmButton: false,
-                timer: 1500,
               });
-              setSubmitUpdate(!submitUpdate);
             }}
           >
             จองเตียง
@@ -185,6 +220,8 @@ export default function Reserve() {
           province: v.hospitalinfo.province,
           tel: v.hospitalinfo.tel,
           hospital_id: v.hospitalinfo.id,
+          bed_occupied:
+            v.hospitalinfo.bed_occupied,
         }));
       setReserve(newformatmyHospital);
       setFreeHospital(newformatfreehos);
