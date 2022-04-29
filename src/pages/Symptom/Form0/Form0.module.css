@@ -12,9 +12,19 @@
   width: 80%;
   max-width: 900px;
   justify-content: space-between;
+  text-align: left;
+  margin: 10px 0px;
+}
+.wrapheader {
+  display: flex;
+  flex-direction: row;
+  min-width: 400px;
+  width: 80%;
+  max-width: 900px;
+  justify-content: space-between;
+  align-items: center;
   margin: 10px auto;
 }
-
 .body {
   width: calc(100vw - 256px);
   background: #f8fbff;

@@ -16,6 +16,7 @@ import {
 import axios from "axios";
 
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const { Dragger } = Upload;
 const { Option } = Select;
@@ -95,7 +96,13 @@ export default function AccountDetail({
               registerData
             );
             console.log(data);
-
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: "แก้ไขข้อมูลสำเร็จ",
+              showConfirmButton: false,
+              timer: 1500,
+            });
             onSubmit();
           } else {
             const registerData =

@@ -23,9 +23,18 @@ export default function Form0(props) {
   return (
     <div className={styles.container}>
       <div className={styles.body}>
-        <div className={styles.header}>
-          ความรุนแรงของอาการของคุณ
+        <div className={styles.wrapheader}>
+          <div className={styles.header}>
+            ความรุนแรงของอาการของคุณ
+          </div>
+          <Button
+            onClick={() => props.setPage(1)}
+            type="primary"
+          >
+            ทำแบบประเมิน
+          </Button>
         </div>
+
         <div className={styles.box}>
           {props.isLoading ? (
             <div className={styles.loadcontainer}>
@@ -48,13 +57,6 @@ export default function Form0(props) {
             <Empty />
           )}
         </div>
-
-        <Button
-          onClick={() => props.setPage(1)}
-          type="primary"
-        >
-          ทำแบบประเมิน
-        </Button>
       </div>
     </div>
   );

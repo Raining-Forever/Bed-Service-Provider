@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../../context/AuthContext";
 import styles from "./AppointRegister.module.css";
 import React, { useEffect } from "react";
+import Swal from "sweetalert2";
 const formItemLayout = {
   labelCol: {
     xs: {
@@ -68,7 +69,15 @@ export default function AppointRegister() {
                       `https://bed-service-provider.herokuapp.com/api/appointment/`,
                       registerData
                     );
-                    alert("ลงทะเบียนสำเร็จ");
+                    Swal.fire({
+                      position: "center",
+                      icon: "success",
+                      title:
+                        "ลงทะเบียนให้คำปรึกษาสำเร็จ",
+                      showConfirmButton: false,
+                      timer: 1500,
+                    });
+                    form.resetFields();
                     console.log(data);
                   }
                 }

@@ -5,6 +5,7 @@ import { Button, Form, Input } from "antd";
 import axios from "axios";
 import { useAuthContext } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const formItemLayout = {
   labelCol: {
@@ -70,6 +71,13 @@ export default function HospitalDetail({
               form.getFieldValue()
             );
             console.log(data);
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: "แก้ไขข้อมูลสำเร็จ",
+              showConfirmButton: false,
+              timer: 1500,
+            });
             onSubmit();
           } else {
             const registerData =

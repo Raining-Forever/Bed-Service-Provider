@@ -9,6 +9,7 @@ import axios from "axios";
 import { useAuthContext } from "../../context/AuthContext";
 import { useEffect, useState } from "react";
 import { Oval } from "react-loader-spinner";
+import Swal from "sweetalert2";
 
 export default function DoctorAppoint() {
   const { auth, authLoaded, roleCheck } =
@@ -130,7 +131,13 @@ export default function DoctorAppoint() {
                     status: 2,
                   }
                 );
-                alert("จองสำเร็จ");
+                Swal.fire({
+                  position: "center",
+                  icon: "success",
+                  title: "จองคิวสำเร็จ",
+                  showConfirmButton: false,
+                  timer: 1500,
+                });
                 setSubmitUpdate(!submitUpdate);
               }}
               className={styles.appointbutton}
@@ -150,74 +157,40 @@ export default function DoctorAppoint() {
     "ยกเลิกนัด",
   ];
 
-  const data = [
-    {
-      id: "1",
-      date: "2/9/2564",
-      period: "17.00 - 17.30",
-      docname: "นพ.สมชาย เก่งมาก",
-      status: ["รอให้คำปรึกษา"],
-    },
-    {
-      id: "21",
-      date: "3/9/2564",
-      period: "14.00 - 14.30",
-      docname: "นพ.สมชาย เก่งมาก",
-      status: ["รอให้คำปรึกษา"],
-    },
-    {
-      id: "141",
-      date: "2/9/2564",
-      period: "17.00 - 17.30",
-      docname: "นพ.สมชาย เก่งมาก",
-      status: ["รอให้คำปรึกษา"],
-    },
-    {
-      id: "212341234",
-      date: "3/9/2564",
-      period: "14.00 - 14.30",
-      docname: "นพ.สมชาย เก่งมาก",
-      status: ["รอให้คำปรึกษา"],
-    },
-    {
-      id: "1123412341",
-      date: "2/9/2564",
-      period: "17.00 - 17.30",
-      docname: "นพ.สมชาย เก่งมาก",
-      status: ["รอให้คำปรึกษา"],
-    },
-    {
-      id: "212341234",
-      date: "3/9/2564",
-      period: "14.00 - 14.30",
-      docname: "นพ.สมชาย เก่งมาก",
-      status: ["รอให้คำปรึกษา"],
-    },
-    {
-      id: "2123412344",
-      date: "3/9/2564",
-      period: "14.00 - 14.30",
-      docname: "TESTESTESETE",
-      status: ["รอให้คำปรึกษา"],
-    },
-  ];
+  // const data = [
+  //   {
+  //     id: "1",
+  //     date: "2/9/2564",
+  //     period: "17.00 - 17.30",
+  //     docname: "นพ.สมชาย เก่งมาก",
+  //     status: ["รอให้คำปรึกษา"],
+  //   },
+  //   {
+  //     id: "21",
+  //     date: "3/9/2564",
+  //     period: "14.00 - 14.30",
+  //     docname: "นพ.สมชาย เก่งมาก",
+  //     status: ["รอให้คำปรึกษา"],
+  //   },
 
-  const data2 = [
-    {
-      id: "1",
-      date: "2/9/2564",
-      period: "17.00 - 17.30",
-      docname: "นพ.สมชาย เก่งมาก",
-      sex: ["ชาย"],
-    },
-    {
-      id: "2",
-      date: "3/9/2564",
-      period: "14.00 - 14.30",
-      docname: "นพ.สมชาย เก่งมาก",
-      sex: ["หญิง"],
-    },
-  ];
+  // ];
+
+  // const data2 = [
+  //   {
+  //     id: "1",
+  //     date: "2/9/2564",
+  //     period: "17.00 - 17.30",
+  //     docname: "นพ.สมชาย เก่งมาก",
+  //     sex: ["ชาย"],
+  //   },
+  //   {
+  //     id: "2",
+  //     date: "3/9/2564",
+  //     period: "14.00 - 14.30",
+  //     docname: "นพ.สมชาย เก่งมาก",
+  //     sex: ["หญิง"],
+  //   },
+  // ];
 
   let nArray = [];
   let freeDocArray = [];
