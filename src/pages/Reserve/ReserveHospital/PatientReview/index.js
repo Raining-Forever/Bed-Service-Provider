@@ -15,6 +15,7 @@ import { useAuthContext } from "../../../../context/AuthContext";
 import { result } from "lodash";
 import Form0 from "../../../Symptom/Form0";
 import SelectSymptom from "../../../../components/SelectSymptom";
+import Swal from "sweetalert2";
 
 export default function PatientReview() {
   const { auth, authLoaded, roleCheck } =
@@ -106,14 +107,40 @@ export default function PatientReview() {
               type="primary"
               danger
               onClick={async () => {
-                await axios.put(
-                  `https://bed-service-provider.herokuapp.com/api/phr/${id}`,
-                  {
-                    status: 4,
+                await Swal.fire({
+                  title:
+                    "ปฏิเสธการของรับการรักษา",
+                  icon: "warning",
+                  html: "ท่านต้องการปฏิเสธการของรับการรักษาของผู้ป่วย",
+                  showCloseButton: true,
+                  showCancelButton: true,
+                  focusConfirm: false,
+                  confirmButtonText: " ยืนยัน",
+                  confirmButtonAriaLabel:
+                    "ปฏิเสธการของรับการรักษาสำเร็จ",
+                  cancelButtonText: "ยกเลิก",
+                  cancelButtonAriaLabel:
+                    "ยกเลิกการปฏิเสธการของรับการรักษาสำเร็จ",
+                }).then(async (result) => {
+                  /* Read more about isConfirmed, isDenied below */
+                  if (result.isConfirmed) {
+                    await axios.put(
+                      `https://bed-service-provider.herokuapp.com/api/phr/${id}`,
+                      {
+                        status: 4,
+                      }
+                    );
+                    navigate("/reservehospital");
+                  } else {
+                    Swal.fire({
+                      position: "center",
+                      icon: "error",
+                      title: "ยกเลิกการปฏิเสธ",
+                      showConfirmButton: false,
+                      timer: 1500,
+                    });
                   }
-                );
-                alert("ปฏิเสธการของรับการรักษา");
-                navigate("/reservehospital");
+                });
               }}
             >
               ยกเลิกผู้ป่วย

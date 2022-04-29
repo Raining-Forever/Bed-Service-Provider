@@ -7,6 +7,7 @@ import { Button, Table, Tag, Space } from "antd";
 import { useAuthContext } from "../../../context/AuthContext";
 import axios from "axios";
 import { Oval } from "react-loader-spinner";
+import Swal from "sweetalert2";
 
 export default function Reserve() {
   const { auth, authLoaded } = useAuthContext();
@@ -98,7 +99,13 @@ export default function Reserve() {
                   status: 2,
                 }
               );
-              alert("จองเตียงสำเร็จ");
+              Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "จองเตียงสำเร็จ",
+                showConfirmButton: false,
+                timer: 1500,
+              });
               setSubmitUpdate(!submitUpdate);
             }}
           >

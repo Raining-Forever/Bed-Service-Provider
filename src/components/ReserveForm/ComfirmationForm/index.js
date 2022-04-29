@@ -9,6 +9,7 @@ import axios from "axios";
 import { set } from "lodash";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import styles from "./ComfirmationForm.module.css";
 
 export default function ComfirmationForm(props) {
@@ -59,8 +60,14 @@ export default function ComfirmationForm(props) {
                 status: 3,
               }
             );
-            alert("รับผู้ป่วยเข้ารับรักษาสำเร็จ");
-            navigate("/reservehospital");
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title:
+                "รับผู้ป่วยเข้ารับรักษาสำเร็จ",
+              showConfirmButton: false,
+              timer: 1500,
+            });
             console.log(FormData);
           } else {
             await axios.put(
@@ -69,10 +76,16 @@ export default function ComfirmationForm(props) {
                 status: 4,
               }
             );
-            alert("ปฏิเสธการของรับการรักษา");
-            navigate("/reservehospital");
+            Swal.fire({
+              position: "center",
+              icon: "error",
+              title:
+                "ผู้ป่วยปฏิเสธการของรับการรักษา",
+              showConfirmButton: false,
+              timer: 1500,
+            });
           }
-          // alert("test");
+          navigate("/reservehospital");
         }}
       >
         <div className={styles.patientInfo}>
@@ -185,7 +198,36 @@ export default function ComfirmationForm(props) {
       <div className={styles.summitbutton}>
         <Button
           type="primary"
-          onClick={() => form.submit()}
+          onClick={async () => {
+            await Swal.fire({
+              title: "ส่งแบบฟอร์มยืนยันผู้ป่วย",
+              icon: "warning",
+              html: "ท่านต้องการส่งแบบฟอร์มยืนยันผู้ป่วย",
+              showCloseButton: true,
+              showCancelButton: true,
+              focusConfirm: false,
+              confirmButtonText: " ยืนยัน",
+              confirmButtonAriaLabel:
+                "ส่งแบบฟอร์มยืนยันผู้ป่วยสำเร็จ",
+              cancelButtonText: "ยกเลิก",
+              cancelButtonAriaLabel:
+                "ยกเลิกการส่งแบบฟอร์มยืนยันผู้ป่วยสำเร็จ",
+            }).then(async (result) => {
+              /* Read more about isConfirmed, isDenied below */
+              if (result.isConfirmed) {
+                form.submit();
+              } else {
+                Swal.fire({
+                  position: "center",
+                  icon: "error",
+                  title:
+                    "ยกเลิกการส่งแบบฟอร์มสำเร็จ",
+                  showConfirmButton: false,
+                  timer: 1500,
+                });
+              }
+            });
+          }}
         >
           ลงทะเบียน
         </Button>
