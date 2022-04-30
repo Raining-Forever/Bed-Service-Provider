@@ -7,9 +7,10 @@ import reportWebVitals from "./reportWebVitals";
 import { ScoreProvider } from "./context/ScoreContext";
 import { AuthProvider } from "./context/AuthContext";
 
-
+import moment from "moment-timezone";
 import { BrowserRouter as Router } from "react-router-dom";
 
+moment.tz.setDefault("UTC");
 ReactDOM.render(
   <Router>
     <ScoreProvider>

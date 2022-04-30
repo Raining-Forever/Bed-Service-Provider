@@ -76,11 +76,11 @@ export default function DoctorAppoint() {
     description: "Really great refreshments",
     start: {
       dateTime: "2020-06-28T09:00:00-07:00",
-      timeZone: "America/Los_Angeles",
+      timeZone: "UTC",
     },
     end: {
       dateTime: "2020-06-28T17:00:00-07:00",
-      timeZone: "America/Los_Angeles",
+      timeZone: "UTC",
     },
     conferenceData: {
       createRequest: {
@@ -159,6 +159,7 @@ export default function DoctorAppoint() {
                   url: e.hangoutLink,
                 }
               );
+              setSubmitUpdate(!submitUpdate);
               // window.open(e.htmlLink);
               window.open(e.hangoutLink);
             });
