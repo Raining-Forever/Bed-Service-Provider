@@ -7,6 +7,7 @@ import {
   AppstoreOutlined,
   UserOutlined,
   HomeOutlined,
+  WechatOutlined,
 } from "@ant-design/icons";
 
 const { SubMenu } = Menu;
@@ -110,6 +111,18 @@ export default function Navbar_patient() {
           ข้อมูลติดต่อหน่วยงานอื่น
         </Menu.Item>
       </SubMenu>
+
+      <Menu.Item
+        key="9"
+        icon={<WechatOutlined />}
+      >
+        <NavLink
+          to="/chatbot"
+          activeclassname="selectedLink"
+        >
+          บริการ chatbot
+        </NavLink>
+      </Menu.Item>
     </Menu>
   );
 }
