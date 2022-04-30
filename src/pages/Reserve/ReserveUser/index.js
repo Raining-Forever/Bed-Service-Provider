@@ -10,9 +10,13 @@ import { Oval } from "react-loader-spinner";
 import Swal from "sweetalert2";
 
 export default function Reserve() {
-  const { auth, authLoaded } = useAuthContext();
+  const { auth, authLoaded, roleCheck } =
+    useAuthContext();
   const [submitUpdate, setSubmitUpdate] =
     useState(false);
+  useEffect(() => {
+    roleCheck(["patient"], "/accessdenied");
+  }, [authLoaded]);
   const columns = [
     {
       title: "ชื่อสถานพยาบาล",
@@ -41,9 +45,9 @@ export default function Reserve() {
               tag.length > 9
                 ? "green"
                 : "geekblue";
-            if (tag === "ยกเลิกนัด") {
+            if (tag === "ยกเลิกการจอง") {
               color = "volcano";
-            } else if (tag == "สำเร็จ") {
+            } else if (tag === "จองเตียงสำเร็จ") {
               color = "green";
             } else {
               color = "geekblue";
@@ -159,9 +163,9 @@ export default function Reserve() {
   let newformatmyHospital = [];
   const statusArray = [
     "รอลงทะเบียน",
-    "รอให้คำปรึกษา",
-    "ปรึกษาสำเร็จ",
-    "ยกเลิกนัด",
+    "รอการยืนยัน",
+    "จองเตียงสำเร็จ",
+    "ยกเลิกการจอง",
   ];
   async function fetchReserve() {
     if (auth.user_info?.id) {
