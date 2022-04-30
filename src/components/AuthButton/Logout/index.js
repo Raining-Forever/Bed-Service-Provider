@@ -1,18 +1,13 @@
-import React, {
-  useEffect,
-  useState,
-} from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../../AuthButton/AuthButton.module.css";
 import { GoogleLogout } from "react-google-login";
 import { useAuthContext } from "../../../context/AuthContext";
 import { Menu, Dropdown } from "antd";
 
-const clientId =
-  "543267694047-6fpjeu5rjbcsc5s2podj86qvb4l3akel.apps.googleusercontent.com";
+const clientId = process.env.REACT_APP_CLIENT_ID;
 
 export default function Logout() {
-  const { logout, auth, authLoad } =
-    useAuthContext();
+  const { logout, auth } = useAuthContext();
   const defaultIconpatient =
     "https://cdn-icons-png.flaticon.com/512/2750/2750657.png";
   const defaultIcondoctor =
@@ -25,12 +20,9 @@ export default function Logout() {
   );
 
   useEffect(() => {
-    if (auth.role === "patient")
-      setDisplayIcon(defaultIconpatient);
-    if (auth.role === "doctor")
-      setDisplayIcon(defaultIcondoctor);
-    if (auth.role === "hospital")
-      setDisplayIcon(defaultIconhospital);
+    if (auth.role === "patient") setDisplayIcon(defaultIconpatient);
+    if (auth.role === "doctor") setDisplayIcon(defaultIcondoctor);
+    if (auth.role === "hospital") setDisplayIcon(defaultIconhospital);
   }, [auth]);
 
   const responseGoogle = (response) => {
@@ -41,14 +33,10 @@ export default function Logout() {
     console.log("log out Success");
     logout();
   };
-  let googleAccountInfo = JSON.parse(
-    localStorage.getItem("googleAccount")
-  );
+  let googleAccountInfo = JSON.parse(localStorage.getItem("googleAccount"));
   return (
     <div className={styles.wrapprofile}>
-      <div className={styles.emailnav}>
-        {googleAccountInfo.email}
-      </div>
+      <div className={styles.emailnav}>{googleAccountInfo.email}</div>
       <Dropdown
         className={styles.profiledropdown}
         overlay={
