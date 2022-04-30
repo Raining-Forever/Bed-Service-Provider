@@ -26,8 +26,7 @@ export default function Calendar() {
       await gapi.client.load("calendar", "v3", () => console.log("bam!"));
 
       var event = {
-        summary: "Awesome Event!",
-        location: "800 Howard St., San Francisco, CA 94103",
+        summary: "นัดหมายปรึกษาแพทย์",
         description: "Really great refreshments",
         start: {
           dateTime: "2020-06-28T09:00:00-07:00",
@@ -58,25 +57,23 @@ export default function Calendar() {
         },
       };
 
-      var request = gapi.client.calendar.events.insert({
-        calendarId: "primary",
-        resource: event,
-        conferenceDataVersion: 1,
-      });
-
-      request.execute((event) => {
-        console.log(event);
-        window.open(event.htmlLink);
-      });
+      await gapi.client.calendar.events
+        .insert({
+          calendarId: "primary",
+          resource: event,
+          conferenceDataVersion: 1,
+        })
+        .execute((event) => {
+          console.log(event);
+          window.open(event.htmlLink);
+          window.open(event.hangoutLink);
+        });
     });
   };
   return (
     <div className="App">
       <header className="App-header">
         <p>Click to add event to Google Calendar</p>
-        <p style={{ fontSize: 18 }}>
-          Uncomment the get events code to get events
-        </p>
         <p style={{ fontSize: 18 }}>
           Don't forget to add your Client Id and Api key
         </p>
