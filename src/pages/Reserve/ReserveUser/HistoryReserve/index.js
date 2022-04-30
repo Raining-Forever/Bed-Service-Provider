@@ -7,9 +7,18 @@ import React, {
 } from "react";
 
 import axios from "axios";
-import { useAuthContext } from "../../../../context/AuthContext";
+
 import { Oval } from "react-loader-spinner";
+import { useAuthContext } from "../../../../context/AuthContext";
+
 export default function HistoryReserve() {
+  const { auth, authLoaded, roleCheck } =
+    useAuthContext();
+
+  useEffect(() => {
+    roleCheck(["patient"], "/accessdenied");
+  }, [authLoaded]);
+
   const columns = [
     {
       title: "ชื่อสถานพยาบาล",
@@ -37,9 +46,9 @@ export default function HistoryReserve() {
               tag.length > 9
                 ? "green"
                 : "geekblue";
-            if (tag === "ยกเลิกนัด") {
+            if (tag === "ยกเลิกการจอง") {
               color = "volcano";
-            } else if (tag == "สำเร็จ") {
+            } else if (tag === "จองเตียงสำเร็จ") {
               color = "green";
             } else {
               color = "geekblue";
@@ -70,7 +79,6 @@ export default function HistoryReserve() {
       status: ["อยู่ระหว่างดำเนินการ"],
     },
   ];
-  const { auth, authLoaded } = useAuthContext();
   const [historyReserve, SetHistoryReserve] =
     useState({});
   const [isLoading, setisLoading] =
@@ -78,9 +86,9 @@ export default function HistoryReserve() {
   let newformatMyHistory = [];
   const statusArray = [
     "รอลงทะเบียน",
-    "รอให้คำปรึกษา",
-    "ปรึกษาสำเร็จ",
-    "ยกเลิกนัด",
+    "รอการยืนยัน",
+    "จองเตียงสำเร็จ",
+    "ยกเลิกการจอง",
   ];
 
   async function fetchHistoryReserve() {

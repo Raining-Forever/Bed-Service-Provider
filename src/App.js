@@ -43,6 +43,8 @@ import {
 
 import { Navbar } from "./components/Navbar";
 
+import Calendar from "./pages/DoctorAppoint/Calendar";
+
 // import { MyRoute } from "./MyRoute";
 import AccountDoctor from "./pages/Account/AccountDoctor";
 import RegisterSuccess from "./components/ShowStatus/RegisterSuccess";
@@ -53,6 +55,9 @@ import DoctorHistoryAppoint from "./pages/Doctor/HistoryAppoint";
 import Chatbot from "./components/ShowStatus/Chatbot";
 import PatientReview from "./pages/Reserve/ReserveHospital/PatientReview";
 import ConfirmationPage from "./pages/Reserve/ReserveHospital/ConfirmationPage";
+import Meeting from "./components/ShowStatus/Meeting/inedx";
+import AnotherContact from "./components/CovidInfo/AnotherContact";
+import AppointmentDetailPage from "./pages/DoctorAppoint/AppoinmentDetailPage";
 
 function App() {
   return (
@@ -159,7 +164,7 @@ function App() {
             <Route
               exact
               path="/appoint/:id"
-              element={<AppointmentDetail />}
+              element={<AppointmentDetailPage />}
             />
             <Route
               path="/reserve"
@@ -208,6 +213,14 @@ function App() {
             <Route
               path="/confirmationpage/:id"
               element={<ConfirmationPage />}
+            />
+            <Route
+              path="/calendar/"
+              element={<Calendar />}
+            />
+            <Route
+              path="/anothercontact"
+              element={<AnotherContact />}
             />
           </Routes>
         </div>

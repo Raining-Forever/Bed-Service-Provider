@@ -4,8 +4,7 @@ import { useAuthContext } from "../../../context/AuthContext";
 import styles from "../../AuthButton/AuthButton.module.css";
 import { useNavigate } from "react-router-dom";
 
-const clientId =
-  "998136068404-6n8uj2nhv01eevcrq0751cqq11bgn81i.apps.googleusercontent.com";
+const clientId = process.env.REACT_APP_CLIENT_ID;
 
 export default function Login() {
   const { login } = useAuthContext();
@@ -15,10 +14,9 @@ export default function Login() {
     const profile = res.profileObj;
     const email = profile.email;
     axios
-      .post(
-        "https://bed-service-provider.herokuapp.com/api/user",
-        { email: email }
-      )
+      .post("https://bed-service-provider.herokuapp.com/api/user", {
+        email: email,
+      })
       .then((response) => {
         console.log("response: ", response.data);
         // localStorage.setItem("email", response.data.email);
@@ -33,10 +31,7 @@ export default function Login() {
         }
       });
     console.log("Login success! user: ", profile);
-    localStorage.setItem(
-      "googleAccount",
-      JSON.stringify(profile)
-    );
+    localStorage.setItem("googleAccount", JSON.stringify(profile));
   };
 
   const onFailure = (res) => {
