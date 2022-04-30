@@ -10,9 +10,13 @@ import { Oval } from "react-loader-spinner";
 import Swal from "sweetalert2";
 
 export default function Reserve() {
-  const { auth, authLoaded } = useAuthContext();
+  const { auth, authLoaded, roleCheck } =
+    useAuthContext();
   const [submitUpdate, setSubmitUpdate] =
     useState(false);
+  useEffect(() => {
+    roleCheck(["patient"], "/accessdenied");
+  }, [authLoaded]);
   const columns = [
     {
       title: "ชื่อสถานพยาบาล",

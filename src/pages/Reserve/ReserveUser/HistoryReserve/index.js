@@ -9,7 +9,12 @@ import React, {
 import axios from "axios";
 import { useAuthContext } from "../../../../context/AuthContext";
 import { Oval } from "react-loader-spinner";
+
 export default function HistoryReserve() {
+  const { roleCheck } = useAuthContext();
+  useEffect(() => {
+    roleCheck(["patient"], "/accessdenied");
+  }, [authLoaded]);
   const columns = [
     {
       title: "ชื่อสถานพยาบาล",
