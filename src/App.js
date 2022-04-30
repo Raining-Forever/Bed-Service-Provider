@@ -53,6 +53,8 @@ import DoctorHistoryAppoint from "./pages/Doctor/HistoryAppoint";
 import Chatbot from "./components/ShowStatus/Chatbot";
 import PatientReview from "./pages/Reserve/ReserveHospital/PatientReview";
 import ConfirmationPage from "./pages/Reserve/ReserveHospital/ConfirmationPage";
+import Meeting from "./components/ShowStatus/Meeting/inedx";
+import AnotherContact from "./components/CovidInfo/AnotherContact";
 
 function App() {
   return (
@@ -208,6 +210,10 @@ function App() {
             <Route
               path="/confirmationpage/:id"
               element={<ConfirmationPage />}
+            />
+            <Route
+              path="/anothercontact"
+              element={<AnotherContact />}
             />
           </Routes>
         </div>

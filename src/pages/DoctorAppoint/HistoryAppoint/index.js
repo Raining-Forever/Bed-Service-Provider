@@ -7,12 +7,14 @@ import { useEffect, useState } from "react";
 import { Oval } from "react-loader-spinner";
 
 export default function HistoryAppoint() {
-  const { auth, authLoaded, roleCheck } = useAuthContext();
+  const { auth, authLoaded, roleCheck } =
+    useAuthContext();
   useEffect(() => {
     roleCheck(["patient"], "/accessdenied");
   }, [authLoaded]);
 
-  const [isLoading, setisLoading] = useState(true);
+  const [isLoading, setisLoading] =
+    useState(true);
   const [dataArray, setDataArray] = useState([]);
 
   const columns = [
@@ -39,9 +41,16 @@ export default function HistoryAppoint() {
       render: (status) => (
         <>
           {status.map((tag) => {
-            let color = tag.length > 9 ? "green" : "geekblue";
+            let color =
+              tag.length > 9
+                ? "green"
+                : "geekblue";
             if (tag === "ยกเลิกนัด") {
               color = "volcano";
+            } else if (tag === "ปรึกษาสำเร็จ") {
+              color = "green";
+            } else {
+              color = "geekblue";
             }
             return (
               <Tag color={color} key={tag}>
@@ -87,7 +96,11 @@ export default function HistoryAppoint() {
 
       nArray = result.data.map((v) => ({
         id: v.id,
-        date: v.starttime.split("T")[0].split("-").reverse().join("/"),
+        date: v.starttime
+          .split("T")[0]
+          .split("-")
+          .reverse()
+          .join("/"),
         period:
           v.starttime
             .split("T")[1]
@@ -127,7 +140,9 @@ export default function HistoryAppoint() {
   return (
     <div className={styles.container}>
       <div className={styles.body}>
-        <h2 className={styles.header}>ประวัติการปรึกษาแพทย์</h2>
+        <h2 className={styles.header}>
+          ประวัติการปรึกษาแพทย์
+        </h2>
         <div className={styles.box}>
           {isLoading ? (
             <div className={styles.loadcontainer}>
@@ -140,7 +155,10 @@ export default function HistoryAppoint() {
               Loading
             </div>
           ) : (
-            <Table columns={columns} dataSource={dataArray} />
+            <Table
+              columns={columns}
+              dataSource={dataArray}
+            />
           )}
         </div>
       </div>
