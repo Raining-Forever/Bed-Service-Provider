@@ -9,15 +9,20 @@ import { Oval } from "react-loader-spinner";
 import Swal from "sweetalert2";
 
 export default function DoctorAppoint() {
-  const { auth, authLoaded, roleCheck } = useAuthContext();
+  const { auth, authLoaded, roleCheck } =
+    useAuthContext();
   useEffect(() => {
     roleCheck(["patient"], "/accessdenied");
   }, [authLoaded]);
   const [appoint, setAppoint] = useState({});
-  const [isLoading, setisLoading] = useState(true);
+  const [isLoading, setisLoading] =
+    useState(true);
   const [newArray, setNewArray] = useState([]);
-  const [freeDoctor, setFreeDoctor] = useState([]);
-  const [submitUpdate, setSubmitUpdate] = useState(false);
+  const [freeDoctor, setFreeDoctor] = useState(
+    []
+  );
+  const [submitUpdate, setSubmitUpdate] =
+    useState(false);
 
   const columns = [
     {
@@ -43,7 +48,10 @@ export default function DoctorAppoint() {
       render: (status) => (
         <>
           {status.map((tag) => {
-            let color = tag.length > 9 ? "green" : "geekblue";
+            let color =
+              tag.length > 9
+                ? "green"
+                : "geekblue";
             if (tag === "ยกเลิกนัด") {
               color = "volcano";
             } else if (tag === "ปรึกษาสำเร็จ") {
@@ -61,7 +69,102 @@ export default function DoctorAppoint() {
       ),
     },
   ];
+  //// Google Calendar API
+  var gapi = window.gapi;
 
+  const handleClick = (props) => {
+    gapi.load("client:auth2", async () => {
+      console.log("loaded client");
+
+      const googleUser = await gapi.auth2
+        .getAuthInstance()
+        .currentUser.get();
+
+      var options =
+        await new gapi.auth2.SigninOptionsBuilder(
+          {
+            scope:
+              "email https://www.googleapis.com/auth/calendar.events",
+          }
+        );
+
+      await googleUser.grant(options).then(
+        function (success) {
+          console.log(
+            JSON.stringify({
+              message: "success",
+              value: success,
+            })
+          );
+        },
+        function (fail) {
+          alert(
+            JSON.stringify({
+              message: "fail",
+              value: fail,
+            })
+          );
+        }
+      );
+
+      await gapi.client.load(
+        "calendar",
+        "v3",
+        () => console.log("bam!")
+      );
+
+      // var event = {
+      //   summary: "นัดหมายปรึกษาแพทย์",
+      //   description: "Really great refreshments",
+      //   start: {
+      //     dateTime: "2020-06-28T09:00:00-07:00",
+      //     timeZone: "America/Los_Angeles",
+      //   },
+      //   end: {
+      //     dateTime: "2020-06-28T17:00:00-07:00",
+      //     timeZone: "America/Los_Angeles",
+      //   },
+      //   conferenceData: {
+      //     createRequest: {
+      //       conferenceSolutionKey: {
+      //         type: "hangoutsMeet",
+      //       },
+      //       requestId: "coding-calendar-demo",
+      //     },
+      //   },
+      //   attendees: [
+      //     { email: "lpage@example.com" },
+      //     { email: "sbrin@example.com" },
+      //   ],
+      //   reminders: {
+      //     useDefault: false,
+      //     overrides: [
+      //       { method: "email", minutes: 24 * 60 },
+      //       { method: "popup", minutes: 10 },
+      //     ],
+      //   },
+      // };
+      await gapi.client.load(
+        "calendar",
+        "v3",
+        () => {
+          gapi.client.calendar.events
+            .insert({
+              calendarId: "primary",
+              resource: props.event,
+              conferenceDataVersion: 1,
+            })
+            .execute((e) => {
+              console.log(e);
+              props.url = e.htmlLink;
+              // window.open(e.htmlLink);
+              // window.open(e.hangoutLink);
+            });
+        }
+      );
+    });
+  };
+  ///// End of Google Calendar API
   const columns2 = [
     {
       title: "วันที่",
@@ -196,7 +299,11 @@ export default function DoctorAppoint() {
 
       nArray = result.data.map((v) => ({
         id: v.id,
-        date: v.starttime.split("T")[0].split("-").reverse().join("/"),
+        date: v.starttime
+          .split("T")[0]
+          .split("-")
+          .reverse()
+          .join("/"),
         period:
           v.starttime
             .split("T")[1]
@@ -227,32 +334,42 @@ export default function DoctorAppoint() {
           status: 1,
         }
       );
-      freeDocArray = freeDoctorData.data.map((v) => ({
-        id: v.id,
-        date: v.starttime.split("T")[0].split("-").reverse().join("/"),
-        period:
-          v.starttime
-            .split("T")[1]
-            .split("Z")[0]
-            .split(".")[0]
-            .split(":")
-            .slice(0, -1)
-            .join(".") +
-          " - " +
-          v.endtime
-            .split("T")[1]
-            .split("Z")[0]
-            .split(".")[0]
-            .split(":")
-            .slice(0, -1)
-            .join("."),
-        docname:
-          v.doctorinfo.title +
-          v.doctorinfo.firstname +
-          " " +
-          v.doctorinfo.lastname,
-        sex: [v.doctorinfo.gender],
-      }));
+      console.log(
+        "freeDoctorData",
+        freeDoctorData.data
+      );
+      freeDocArray = freeDoctorData.data.map(
+        (v) => ({
+          id: v.id,
+          date: v.starttime
+            .split("T")[0]
+            .split("-")
+            .reverse()
+            .join("/"),
+          period:
+            v.starttime
+              .split("T")[1]
+              .split("Z")[0]
+              .split(".")[0]
+              .split(":")
+              .slice(0, -1)
+              .join(".") +
+            " - " +
+            v.endtime
+              .split("T")[1]
+              .split("Z")[0]
+              .split(".")[0]
+              .split(":")
+              .slice(0, -1)
+              .join("."),
+          docname:
+            v.doctorinfo.title +
+            v.doctorinfo.firstname +
+            " " +
+            v.doctorinfo.lastname,
+          sex: [v.doctorinfo.gender],
+        })
+      );
 
       console.log(nArray);
 
@@ -273,7 +390,9 @@ export default function DoctorAppoint() {
   return (
     <div className={styles.container}>
       <div className={styles.body}>
-        <h2 className={styles.header}>รายการปรึกษาแพทย์ของฉัน</h2>
+        <h2 className={styles.header}>
+          รายการปรึกษาแพทย์ของฉัน
+        </h2>
         <div className={styles.box}>
           {isLoading ? (
             <div className={styles.loadcontainer}>
@@ -292,19 +411,27 @@ export default function DoctorAppoint() {
               pagination={{
                 defaultPageSize: 5,
                 showSizeChanger: true,
-                pageSizeOptions: ["5", "10", "20"],
+                pageSizeOptions: [
+                  "5",
+                  "10",
+                  "20",
+                ],
               }}
               onRow={(record, rowIndex) => {
                 return {
                   onClick: (e) => {
-                    navigate(`/appoint/${record.id}`);
+                    navigate(
+                      `/appoint/${record.id}`
+                    );
                   },
                 };
               }}
             />
           )}
         </div>
-        <h2 className={styles.header}>นัดปรึกษาแพทย์</h2>
+        <h2 className={styles.header}>
+          นัดปรึกษาแพทย์
+        </h2>
         <div className={styles.box}>
           <Table
             columns={columns2}

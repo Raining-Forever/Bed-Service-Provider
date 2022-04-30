@@ -87,6 +87,7 @@ export default function DoctorDetail({
             const registerData =
               form.getFieldValue();
             registerData.user_id = auth.user_id;
+            registerData.email = auth.email;
             const data = await axios.put(
               `https://bed-service-provider.herokuapp.com/api/doctor/${doctorinfo.id}`,
               registerData

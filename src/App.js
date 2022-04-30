@@ -33,7 +33,11 @@ import ManageAppoint from "./pages/Admin/ManageAppoint";
 import ManageReserve from "./pages/Admin/ManageReserve";
 // import Navbar_patient from "./components/Navbar/Navbar_patient";
 
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+} from "react-router-dom";
 
 // import Navbar_patient from "./components/Navbar/Navbar_patient";
 
@@ -58,51 +62,161 @@ function App() {
   return (
     <div className="App">
       <div>
-        {window.location.pathname !== "/register" && <Navbar />}
-        <div className={window.location.pathname !== "/register" && "layout"}>
+        {window.location.pathname !==
+          "/register" && <Navbar />}
+        <div
+          className={
+            window.location.pathname !==
+              "/register" && "layout"
+          }
+        >
           <Subnavbar />
           <Routes>
-            <Route exact path="/" element={<Homepage />} />
-            <Route element={<AccountPatient />} path="/accountpatient" />
-            <Route exact path="/form" element={<Symtom />} />
-            <Route exact path="/formResult" element={<Result />} />
-            <Route path="/register" element={<SelectRegister />} />
-            <Route path="/register/patient" element={<Patientregister />} />
-            <Route path="/register/agency" element={<Agency />} />
-            <Route path="/register/agency/doctor" element={<Doctor />} />
-            <Route path="/register/agency/hospital" element={<Hospital />} />
-            <Route exact path="/appoint" element={<DoctorAppoint />} />
-            <Route path="/historyappoint" element={<HistoryAppoint />} />
-            <Route path="/accounthospital" element={<AccountHospital />} />
-            <Route path="/accountdoctor" element={<AccountDoctor />} />
-            <Route path="/accessdenied" element={<Accessdenied />} />
-            <Route path="/registersuccess" element={<RegisterSuccess />} />
-            <Route path="/managepatient" element={<ManagePatient />} />
-            <Route path="/managedoctor" element={<ManageDoctor />} />
-            <Route path="/managehospital" element={<ManageHospital />} />
-            <Route path="/manageappoint" element={<ManageAppoint />} />
-            <Route path="/managereserve" element={<ManageReserve />} />
-            <Route path="/checkevidence" element={<CheckEvid />} />
-            <Route exact path="/appoint/:id" element={<AppointmentDetail />} />
-            <Route path="/reserve" element={<Reserve />} />
-            <Route path="/historyreserve" element={<HistoryReserve />} />
-            <Route path="/reservehospital" element={<ReserveHospital />} />
-            <Route path="/historypatient" element={<HistoryPatient />} />
-            <Route path="/appointmanage" element={<AppointManage />} />
-            <Route path="/waitreserve" element={<WaitReserve />} />
-            <Route path="/appointregister" element={<AppointRegister />} />
-            <Route path="/agencyhomepage" element={<AgencyHomepage />} />
+            <Route
+              exact
+              path="/"
+              element={<Homepage />}
+            />
+            <Route
+              element={<AccountPatient />}
+              path="/accountpatient"
+            />
+            <Route
+              exact
+              path="/form"
+              element={<Symtom />}
+            />
+            <Route
+              exact
+              path="/formResult"
+              element={<Result />}
+            />
+            <Route
+              path="/register"
+              element={<SelectRegister />}
+            />
+            <Route
+              path="/register/patient"
+              element={<Patientregister />}
+            />
+            <Route
+              path="/register/agency"
+              element={<Agency />}
+            />
+            <Route
+              path="/register/agency/doctor"
+              element={<Doctor />}
+            />
+            <Route
+              path="/register/agency/hospital"
+              element={<Hospital />}
+            />
+            <Route
+              exact
+              path="/appoint"
+              element={<DoctorAppoint />}
+            />
+            <Route
+              path="/historyappoint"
+              element={<HistoryAppoint />}
+            />
+            <Route
+              path="/accounthospital"
+              element={<AccountHospital />}
+            />
+            <Route
+              path="/accountdoctor"
+              element={<AccountDoctor />}
+            />
+            <Route
+              path="/accessdenied"
+              element={<Accessdenied />}
+            />
+            <Route
+              path="/registersuccess"
+              element={<RegisterSuccess />}
+            />
+            <Route
+              path="/managepatient"
+              element={<ManagePatient />}
+            />
+            <Route
+              path="/managedoctor"
+              element={<ManageDoctor />}
+            />
+            <Route
+              path="/managehospital"
+              element={<ManageHospital />}
+            />
+            <Route
+              path="/manageappoint"
+              element={<ManageAppoint />}
+            />
+            <Route
+              path="/managereserve"
+              element={<ManageReserve />}
+            />
+            <Route
+              path="/checkevidence"
+              element={<CheckEvid />}
+            />
+            <Route
+              exact
+              path="/appoint/:id"
+              element={<AppointmentDetail />}
+            />
+            <Route
+              path="/reserve"
+              element={<Reserve />}
+            />
+            <Route
+              path="/historyreserve"
+              element={<HistoryReserve />}
+            />
+            <Route
+              path="/reservehospital"
+              element={<ReserveHospital />}
+            />
+            <Route
+              path="/historypatient"
+              element={<HistoryPatient />}
+            />
+            <Route
+              path="/appointmanage"
+              element={<AppointManage />}
+            />
+            <Route
+              path="/waitreserve"
+              element={<WaitReserve />}
+            />
+            <Route
+              path="/appointregister"
+              element={<AppointRegister />}
+            />
+            <Route
+              path="/agencyhomepage"
+              element={<AgencyHomepage />}
+            />
             <Route
               path="/doctor/historyappoint"
               element={<DoctorHistoryAppoint />}
             />
-            <Route path="/chatbot" element={<Chatbot />} />
-            <Route path="/patientreview/:id" element={<PatientReview />} />
+            <Route
+              path="/chatbot"
+              element={<Chatbot />}
+            />
+            <Route
+              path="/patientreview/:id"
+              element={<PatientReview />}
+            />
             <Route
               path="/confirmationpage/:id"
               element={<ConfirmationPage />}
             />
-            <Route path="/calendar/" element={<Calendar />} />
+            <Route
+              path="/calendar/"
+              element={<Calendar />}
+            />
             <Route
               path="/anothercontact"
               element={<AnotherContact />}
