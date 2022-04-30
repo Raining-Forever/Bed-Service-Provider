@@ -57,6 +57,7 @@ import PatientReview from "./pages/Reserve/ReserveHospital/PatientReview";
 import ConfirmationPage from "./pages/Reserve/ReserveHospital/ConfirmationPage";
 import Meeting from "./components/ShowStatus/Meeting/inedx";
 import AnotherContact from "./components/CovidInfo/AnotherContact";
+import AppointmentDetailPage from "./pages/DoctorAppoint/AppoinmentDetailPage";
 
 function App() {
   return (
@@ -163,7 +164,7 @@ function App() {
             <Route
               exact
               path="/appoint/:id"
-              element={<AppointmentDetail />}
+              element={<AppointmentDetailPage />}
             />
             <Route
               path="/reserve"

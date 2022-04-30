@@ -71,8 +71,34 @@ export default function DoctorAppoint() {
   ];
   //// Google Calendar API
   var gapi = window.gapi;
-
-  const handleClick = (props) => {
+  var formatEvent = {
+    summary: "นัดหมายปรึกษาแพทย์",
+    description: "Really great refreshments",
+    start: {
+      dateTime: "2020-06-28T09:00:00-07:00",
+      timeZone: "America/Los_Angeles",
+    },
+    end: {
+      dateTime: "2020-06-28T17:00:00-07:00",
+      timeZone: "America/Los_Angeles",
+    },
+    conferenceData: {
+      createRequest: {
+        conferenceSolutionKey: {
+          type: "hangoutsMeet",
+        },
+        requestId: "coding-calendar-demo",
+      },
+    },
+    attendees: [
+      { email: "lpage@example.com" },
+      { email: "sbrin@example.com" },
+    ],
+    reminders: {
+      useDefault: true,
+    },
+  };
+  const handleClick = (event, record) => {
     gapi.load("client:auth2", async () => {
       console.log("loaded client");
 
@@ -113,37 +139,6 @@ export default function DoctorAppoint() {
         () => console.log("bam!")
       );
 
-      // var event = {
-      //   summary: "นัดหมายปรึกษาแพทย์",
-      //   description: "Really great refreshments",
-      //   start: {
-      //     dateTime: "2020-06-28T09:00:00-07:00",
-      //     timeZone: "America/Los_Angeles",
-      //   },
-      //   end: {
-      //     dateTime: "2020-06-28T17:00:00-07:00",
-      //     timeZone: "America/Los_Angeles",
-      //   },
-      //   conferenceData: {
-      //     createRequest: {
-      //       conferenceSolutionKey: {
-      //         type: "hangoutsMeet",
-      //       },
-      //       requestId: "coding-calendar-demo",
-      //     },
-      //   },
-      //   attendees: [
-      //     { email: "lpage@example.com" },
-      //     { email: "sbrin@example.com" },
-      //   ],
-      //   reminders: {
-      //     useDefault: false,
-      //     overrides: [
-      //       { method: "email", minutes: 24 * 60 },
-      //       { method: "popup", minutes: 10 },
-      //     ],
-      //   },
-      // };
       await gapi.client.load(
         "calendar",
         "v3",
@@ -151,14 +146,21 @@ export default function DoctorAppoint() {
           gapi.client.calendar.events
             .insert({
               calendarId: "primary",
-              resource: props.event,
+              resource: event,
               conferenceDataVersion: 1,
             })
             .execute((e) => {
-              console.log(e);
-              props.url = e.htmlLink;
+              console.log("e", e);
+              axios.put(
+                `https://bed-service-provider.herokuapp.com/api/appointment/${record.id}`,
+                {
+                  patient_id: auth.user_info.id,
+                  status: 2,
+                  url: e.hangoutLink,
+                }
+              );
               // window.open(e.htmlLink);
-              // window.open(e.hangoutLink);
+              window.open(e.hangoutLink);
             });
         }
       );
@@ -216,19 +218,44 @@ export default function DoctorAppoint() {
             <Button
               type="primary"
               onClick={async () => {
-                await axios.put(
-                  `https://bed-service-provider.herokuapp.com/api/appointment/${record.id}`,
-                  {
-                    patient_id: auth.user_info.id,
-                    status: 2,
-                  }
+                let newFormatEvent = formatEvent;
+                newFormatEvent = {
+                  ...formatEvent,
+                  start: {
+                    dateTime: record.starttime,
+                    timeZone: "Asia/Bangkok",
+                  },
+                  end: {
+                    dateTime: record.endtime,
+                    timeZone: "Asia/Bangkok",
+                  },
+                  attendees: [
+                    {
+                      email:
+                        record.doctorinfo.email,
+                    },
+                    {
+                      email: auth.email,
+                    },
+                  ],
+                };
+                await handleClick(
+                  newFormatEvent,
+                  record
                 );
+                // await axios.put(
+                //   `https://bed-service-provider.herokuapp.com/api/appointment/${record.id}`,
+                //   {
+                //     patient_id: auth.user_info.id,
+                //     status: 2,
+                //   }
+                // );
                 Swal.fire({
                   position: "center",
                   icon: "success",
                   title: "จองคิวสำเร็จ",
                   showConfirmButton: false,
-                  timer: 1500,
+                  timer: 3000,
                 });
                 setSubmitUpdate(!submitUpdate);
               }}
@@ -340,6 +367,7 @@ export default function DoctorAppoint() {
       );
       freeDocArray = freeDoctorData.data.map(
         (v) => ({
+          ...v,
           id: v.id,
           date: v.starttime
             .split("T")[0]
@@ -371,8 +399,8 @@ export default function DoctorAppoint() {
         })
       );
 
-      console.log(nArray);
-
+      // console.log(nArray);
+      console.log("result", result.data);
       setAppoint(result.data);
       setNewArray(nArray);
       setFreeDoctor(freeDocArray);

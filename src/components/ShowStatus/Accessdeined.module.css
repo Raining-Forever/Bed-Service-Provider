@@ -110,3 +110,10 @@
   font-size: 18px;
   /* line-height: 27px; */
 }
+.wrapbutton{
+  display: flex;
+  flex-direction: row;
+}
+.buttonitem{
+  margin: 0px 10px;
+}
