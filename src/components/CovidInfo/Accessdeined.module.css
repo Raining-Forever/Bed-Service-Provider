@@ -119,3 +119,36 @@
   font-size: 18px;
   /* line-height: 27px; */
 }
+.title{
+  font-size: 20px;
+  font-weight: medium;
+  text-align: left;
+}
+.boxcontainer{
+  display: flex;
+  flex-direction: column;
+
+}
+.description{
+  display: flex;
+  flex-direction: column;
+}
+
+.item{
+  display: flex;
+  flex-direction: row;
+  font-size: 18px;
+  font-weight: 400;
+  align-items: center;
+  margin: 10px 20px;
+}
+.imgicon{
+  width: 65px;
+  height: auto;
+  margin: 0px 20px;
+}
+.phonenum{
+  margin: 0px 12px;
+  font-size: 24px;
+  color: rgb(197, 2, 2);
+}
