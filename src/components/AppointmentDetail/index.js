@@ -64,7 +64,7 @@ export default function AppointmentDetail(props) {
 
       setAppointdetail(nArray[0]);
       setisLoading(false);
-      console.log("appoint", appointdetail);
+      // console.log("appoint", appointdetail);
     }
   }
 

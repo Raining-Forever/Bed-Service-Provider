@@ -31,7 +31,7 @@ export default function AccountDoctor() {
       );
       setDoctorinfo(result.data[0]);
       setisLoading(false);
-      console.log(result);
+      // console.log(result);
     } else console.log("no user_info.id");
   }
   useEffect(() => {

@@ -70,10 +70,10 @@ export default function AppointRegister() {
                       `https://bed-service-provider.herokuapp.com/api/appointment/`,
                       registerData
                     );
-                    console.log(
-                      "registerData",
-                      registerData
-                    );
+                    // console.log(
+                    //   "registerData",
+                    //   registerData
+                    // );
                     Swal.fire({
                       position: "center",
                       icon: "success",

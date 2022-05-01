@@ -38,7 +38,7 @@ export default function ConfirmationPage() {
       );
       // setPatientinfo(result.data[0]);
       setisLoading(false);
-      console.log(result.data[0]);
+      // console.log(result.data[0]);
       setPatientinfo(result.data[0]);
     } else console.log("no user_info.id");
   }

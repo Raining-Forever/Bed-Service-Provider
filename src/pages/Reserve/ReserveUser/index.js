@@ -182,14 +182,14 @@ export default function Reserve() {
           status: 1,
         }
       );
-      console.log(
-        "myHospitalQueue.data[0]",
-        myHospitalQueue.data[0]
-      );
-      console.log(
-        "freeHospitalData.data[0]",
-        freeHospitalData.data[0]
-      );
+      // console.log(
+      //   "myHospitalQueue.data[0]",
+      //   myHospitalQueue.data[0]
+      // );
+      // console.log(
+      //   "freeHospitalData.data[0]",
+      //   freeHospitalData.data[0]
+      // );
       newformatmyHospital =
         myHospitalQueue.data.map((v) => ({
           //     id: "1",

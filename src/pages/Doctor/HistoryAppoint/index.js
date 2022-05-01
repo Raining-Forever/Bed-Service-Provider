@@ -125,7 +125,7 @@ export default function DoctorHistoryAppoint() {
         status: [statusArray[v.status - 1]],
       }));
 
-      console.log(nArray);
+      // console.log(nArray);
       setDataArray(nArray);
       setisLoading(false);
     }

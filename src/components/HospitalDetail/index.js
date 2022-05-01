@@ -70,7 +70,7 @@ export default function HospitalDetail({
               `https://bed-service-provider.herokuapp.com/api/hospital/${hospitalinfo.id}`,
               form.getFieldValue()
             );
-            console.log(data);
+            // console.log(data);
             Swal.fire({
               position: "center",
               icon: "success",
@@ -91,10 +91,10 @@ export default function HospitalDetail({
                 registerData
               )
               .then(async (response) => {
-                console.log(
-                  "response: ",
-                  response.data
-                );
+                // console.log(
+                //   "response: ",
+                //   response.data
+                // );
                 await login(response.data);
                 const result = await axios.post(
                   `https://bed-service-provider.herokuapp.com/api/reservation/`,
@@ -106,10 +106,10 @@ export default function HospitalDetail({
                 );
               });
 
-            console.log(
-              "hospital_id",
-              auth.user_info.id
-            );
+            // console.log(
+            //   "hospital_id",
+            //   auth.user_info.id
+            // );
             navigate("/registersuccess");
           }
         }}

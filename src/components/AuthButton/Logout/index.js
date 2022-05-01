@@ -26,7 +26,7 @@ export default function Logout() {
   }, [auth]);
 
   const responseGoogle = (response) => {
-    console.log(response);
+    // console.log(response);
     localStorage.clear();
   };
   const onSuccess = () => {

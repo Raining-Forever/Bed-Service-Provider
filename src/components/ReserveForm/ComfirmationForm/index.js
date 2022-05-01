@@ -68,7 +68,7 @@ export default function ComfirmationForm(props) {
               showConfirmButton: false,
               timer: 1500,
             });
-            console.log(FormData);
+            // console.log(FormData);
           } else {
             await axios.put(
               `https://bed-service-provider.herokuapp.com/api/phr/${props.phr_id}`,

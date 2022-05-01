@@ -18,7 +18,7 @@ export default function Login() {
         email: email,
       })
       .then((response) => {
-        console.log("response: ", response.data);
+        // console.log("response: ", response.data);
         // localStorage.setItem("email", response.data.email);
         // localStorage.setItem("loggedIn", response.data.loggedIn);
         // localStorage.setItem("user_id", response.data.user_id);
@@ -30,7 +30,7 @@ export default function Login() {
           }
         }
       });
-    console.log("Login success! user: ", profile);
+    // console.log("Login success! user: ", profile);
     localStorage.setItem("googleAccount", JSON.stringify(profile));
   };
 

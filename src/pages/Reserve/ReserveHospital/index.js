@@ -65,7 +65,7 @@ export default function ReserveHospital() {
           province: v.patientinfo.province,
           tel: v.patientinfo.tel,
         }));
-      console.log(myPatientQueue.data);
+      // console.log(myPatientQueue.data);
       SetPatientReserve(newformatPatientReserve);
       setisLoading(false);
     }

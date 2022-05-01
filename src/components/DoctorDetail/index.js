@@ -92,7 +92,7 @@ export default function DoctorDetail({
               `https://bed-service-provider.herokuapp.com/api/doctor/${doctorinfo.id}`,
               registerData
             );
-            console.log(data);
+            // console.log(data);
             Swal.fire({
               position: "center",
               icon: "success",
@@ -113,13 +113,8 @@ export default function DoctorDetail({
                 registerData
               )
               .then((response) => {
-                console.log(
-                  "response: ",
-                  response.data
-                );
                 login(response.data);
               });
-            console.log(data);
             navigate("/registersuccess");
           }
         }}
@@ -138,7 +133,7 @@ export default function DoctorDetail({
                 {
                   required: true,
                   message:
-                    "กรุณาระบุข้อมูลบัตรประชาชน",
+                    "กรุณาระบุใบประกอบวิชาชีพ",
                 },
               ]}
               {...headFormItemLayout}
@@ -154,8 +149,7 @@ export default function DoctorDetail({
                 rules={[
                   {
                     required: true,
-                    message:
-                      "กรุณาระบุข้อมูลบัตรประชาชน",
+                    message: "กรุณาระบุชื่อ",
                   },
                 ]}
               >

@@ -108,7 +108,7 @@ export default function AccountDetail({
               `https://bed-service-provider.herokuapp.com/api/patient/${patientinfo.id}`,
               registerData
             );
-            console.log(data);
+            // console.log(data);
             Swal.fire({
               position: "center",
               icon: "success",
@@ -127,14 +127,14 @@ export default function AccountDetail({
                 registerData
               )
               .then((response) => {
-                console.log(
-                  "response: ",
-                  response.data
-                );
+                // console.log(
+                //   "response: ",
+                //   response.data
+                // );
                 login(response.data);
               });
             // console.log(registerData);
-            console.log(data);
+            // console.log(data);
             navigate("/registersuccess");
           }
         }}

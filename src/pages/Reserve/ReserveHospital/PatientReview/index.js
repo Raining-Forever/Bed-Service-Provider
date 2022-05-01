@@ -51,7 +51,7 @@ export default function PatientReview() {
       setSymptominfo(symptomdata.data[0]);
       setPatientinfo(result.data[0]);
       setisLoading(false);
-      console.log(phrid.data[0]);
+      // console.log(phrid.data[0]);
     }
   }
 
