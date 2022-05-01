@@ -38,7 +38,7 @@ export default function HistoryPatient() {
                 : "geekblue";
             if (tag === "ยกเลิกการจอง") {
               color = "volcano";
-            } else if (tag == "จองเตียงสำเร็จ") {
+            } else if (tag === "จองเตียงสำเร็จ") {
               color = "green";
             } else {
               color = "geekblue";
