@@ -159,7 +159,7 @@ export default function DoctorAppoint() {
                   url: e.hangoutLink,
                 }
               );
-              setSubmitUpdate(!submitUpdate);
+
               window.open(e.htmlLink);
               // window.open(e.hangoutLink);
             });
@@ -240,6 +240,7 @@ export default function DoctorAppoint() {
                     },
                   ],
                 };
+                setSubmitUpdate(!submitUpdate);
                 await handleClick(
                   newFormatEvent,
                   record
@@ -258,7 +259,6 @@ export default function DoctorAppoint() {
                   showConfirmButton: false,
                   timer: 3000,
                 });
-                setSubmitUpdate(!submitUpdate);
               }}
               className={styles.appointbutton}
             >

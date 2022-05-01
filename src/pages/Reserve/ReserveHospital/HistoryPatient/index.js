@@ -76,7 +76,7 @@ export default function HistoryPatient() {
       newformatMyHistory = myHistory.data.map(
         (v) => ({
           id: v.id,
-          hosname: v.hospitalinfo.hospital_name,
+          patname: `${v.patientinfo.firstname} ${v.patientinfo.lastname}`,
           date: v.created_at
             .split("T")[0]
             .split("-")
