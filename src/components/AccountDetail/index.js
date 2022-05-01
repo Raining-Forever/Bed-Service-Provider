@@ -68,6 +68,19 @@ export default function AccountDetail({
   const navigate = useNavigate();
   const [form] = Form.useForm();
 
+  function Script_checkID(id) {
+    let i, sum;
+    if (id.substring(0, 1) == 0) return false;
+    if (id.length != 13) return false;
+    for (i = 0, sum = 0; i < 12; i++)
+      sum += parseFloat(id.charAt(i)) * (13 - i);
+    if (
+      (11 - (sum % 11)) % 10 !=
+      parseFloat(id.charAt(12))
+    )
+      return false;
+    return true;
+  }
   useEffect(() => {
     if (patientinfo) {
       let tempBirthday = moment(
@@ -132,17 +145,55 @@ export default function AccountDetail({
               name="idcard"
               label="เลขบัตรประชาชน :"
               rules={[
-                {
-                  pattern: /^\d{13}$/,
-                  message:
-                    "The input is not valid idcard",
-                },
+                //{
+                //     pattern: /^\d{13}$/,
+                //     message:
+                //       "The input is not valid idcard",
+                //   },
                 {
                   required: true,
                   message:
                     "กรุณาระบุข้อมูลบัตรประชาชน",
                 },
+                ({ getFieldValue }) => ({
+                  validator(_, value) {
+                    if (
+                      !value ||
+                      Script_checkID(value)
+                    ) {
+                      return Promise.resolve();
+                    }
+
+                    return Promise.reject(
+                      new Error(
+                        "กรุณาระบุเลขบัตรประชาชน"
+                      )
+                    );
+                  },
+                }),
               ]}
+              // rules={[
+              //
+              //   {
+              //     required: true,
+              //     message:
+              //       "กรุณาระบุข้อมูลบัตรประชาชน",
+              //   },
+              //   () => ({
+              //     validator(_, value) {
+              //       console.log(value);
+              //       if (Script_checkID(value)) {
+              //         return Promise.resolve();
+              //       }
+
+              //       return Promise.reject(
+              //         new Error(
+              //           "กรุณาระบุเลขบัตรประชาชน"
+              //         )
+              //       );
+              //     },
+              //   }),
+              // ]}
             >
               <Input
                 disabled={disabled}

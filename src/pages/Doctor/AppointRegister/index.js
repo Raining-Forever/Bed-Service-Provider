@@ -32,6 +32,7 @@ export default function AppointRegister() {
   const { auth, login } = useAuthContext();
   const [form] = Form.useForm();
   const navigate = useNavigate();
+
   return (
     <div className={styles.container}>
       <div className={styles.body}>
@@ -69,6 +70,10 @@ export default function AppointRegister() {
                       `https://bed-service-provider.herokuapp.com/api/appointment/`,
                       registerData
                     );
+                    console.log(
+                      "registerData",
+                      registerData
+                    );
                     Swal.fire({
                       position: "center",
                       icon: "success",
@@ -78,7 +83,7 @@ export default function AppointRegister() {
                       timer: 1500,
                     });
                     form.resetFields();
-                    console.log(data);
+                    // console.log(data);
                   }
                 }
               }

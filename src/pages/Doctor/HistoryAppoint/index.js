@@ -47,6 +47,10 @@ export default function DoctorHistoryAppoint() {
                 : "geekblue";
             if (tag === "ยกเลิกนัด") {
               color = "volcano";
+            } else if (tag === "ปรึกษาสำเร็จ") {
+              color = "green";
+            } else {
+              color = "geekblue";
             }
             return (
               <Tag color={color} key={tag}>
