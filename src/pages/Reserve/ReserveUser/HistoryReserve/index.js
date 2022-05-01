@@ -1,10 +1,8 @@
 import styles from "./HistoryReserve.module.css";
+import moment from "moment";
 
-import { Button, Table, Tag, Space } from "antd";
-import React, {
-  useEffect,
-  useState,
-} from "react";
+import { Table, Tag } from "antd";
+import React, { useEffect, useState } from "react";
 
 import axios from "axios";
 
@@ -12,8 +10,7 @@ import { Oval } from "react-loader-spinner";
 import { useAuthContext } from "../../../../context/AuthContext";
 
 export default function HistoryReserve() {
-  const { auth, authLoaded, roleCheck } =
-    useAuthContext();
+  const { auth, authLoaded, roleCheck } = useAuthContext();
 
   useEffect(() => {
     roleCheck(["patient"], "/accessdenied");
@@ -42,10 +39,7 @@ export default function HistoryReserve() {
       render: (status) => (
         <>
           {status.map((tag) => {
-            let color =
-              tag.length > 9
-                ? "green"
-                : "geekblue";
+            let color = tag.length > 9 ? "green" : "geekblue";
             if (tag === "ยกเลิกการจอง") {
               color = "volcano";
             } else if (tag === "จองเตียงสำเร็จ") {
@@ -79,10 +73,8 @@ export default function HistoryReserve() {
       status: ["อยู่ระหว่างดำเนินการ"],
     },
   ];
-  const [historyReserve, SetHistoryReserve] =
-    useState({});
-  const [isLoading, setisLoading] =
-    useState(true);
+  const [historyReserve, SetHistoryReserve] = useState({});
+  const [isLoading, setisLoading] = useState(true);
   let newformatMyHistory = [];
   const statusArray = [
     "รอลงทะเบียน",
@@ -99,25 +91,27 @@ export default function HistoryReserve() {
           patient_id: auth.user_info.id,
         }
       );
-      newformatMyHistory = myHistory.data.map(
-        (v) => ({
-          id: v.id,
-          hosname: v.hospitalinfo.hospital_name,
-          date: v.created_at
-            .split("T")[0]
-            .split("-")
-            .reverse()
-            .join("/"),
-          time: v.created_at
-            .split("T")[1]
-            .split("Z")[0]
-            .split(".")[0]
-            .split(":")
-            .slice(0, -1)
-            .join("."),
-          status: [statusArray[v.status - 1]],
-        })
-      );
+      newformatMyHistory = myHistory.data.map((v) => ({
+        id: v.id,
+        hosname: v.hospitalinfo.hospital_name,
+        date: moment(v.created_at)
+          .utcOffset("+0700")
+          .format()
+          .split("T")[0]
+          .split("-")
+          .reverse()
+          .join("/"),
+        time: moment(v.created_at)
+          .utcOffset("+0700")
+          .format()
+          .split("T")[1]
+          .split("+")[0]
+          .split(".")[0]
+          .split(":")
+          .slice(0, -1)
+          .join("."),
+        status: [statusArray[v.status - 1]],
+      }));
       SetHistoryReserve(newformatMyHistory);
       // console.log(
       //   "myHistory.data",
@@ -134,9 +128,7 @@ export default function HistoryReserve() {
   return (
     <div className={styles.container}>
       <div className={styles.body}>
-        <h2 className={styles.header}>
-          ประวัติการจองเตียงของฉัน
-        </h2>
+        <h2 className={styles.header}>ประวัติการจองเตียงของฉัน</h2>
         <div className={styles.box}>
           {isLoading ? (
             <div className={styles.loadcontainer}>
@@ -149,10 +141,7 @@ export default function HistoryReserve() {
               Loading
             </div>
           ) : (
-            <Table
-              columns={columns}
-              dataSource={historyReserve}
-            />
+            <Table columns={columns} dataSource={historyReserve} />
           )}
         </div>
       </div>

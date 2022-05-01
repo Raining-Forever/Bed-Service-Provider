@@ -1,19 +1,15 @@
-import React, {
-  useEffect,
-  useState,
-} from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../Reserve.module.css";
 import { Button, Table, Tag, Space } from "antd";
 import { useAuthContext } from "../../../context/AuthContext";
 import axios from "axios";
 import { Oval } from "react-loader-spinner";
 import Swal from "sweetalert2";
+import moment from "moment";
 
 export default function Reserve() {
-  const { auth, authLoaded, roleCheck } =
-    useAuthContext();
-  const [submitUpdate, setSubmitUpdate] =
-    useState(false);
+  const { auth, authLoaded, roleCheck } = useAuthContext();
+  const [submitUpdate, setSubmitUpdate] = useState(false);
   useEffect(() => {
     roleCheck(["patient"], "/accessdenied");
   }, [authLoaded]);
@@ -41,10 +37,7 @@ export default function Reserve() {
       render: (status) => (
         <>
           {status.map((tag) => {
-            let color =
-              tag.length > 9
-                ? "green"
-                : "geekblue";
+            let color = tag.length > 9 ? "green" : "geekblue";
             if (tag === "ยกเลิกการจอง") {
               color = "volcano";
             } else if (tag === "จองเตียงสำเร็จ") {
@@ -102,21 +95,17 @@ export default function Reserve() {
                 showCancelButton: true,
                 focusConfirm: false,
                 confirmButtonText: " ยืนยัน",
-                confirmButtonAriaLabel:
-                  "ปฏิเสธการของรับการรักษาสำเร็จ",
+                confirmButtonAriaLabel: "ปฏิเสธการของรับการรักษาสำเร็จ",
                 cancelButtonText: "ยกเลิก",
-                cancelButtonAriaLabel:
-                  "ยกเลิกการปฏิเสธการของรับการรักษาสำเร็จ",
+                cancelButtonAriaLabel: "ยกเลิกการปฏิเสธการของรับการรักษาสำเร็จ",
               }).then(async (result) => {
                 /* Read more about isConfirmed, isDenied below */
                 if (result.isConfirmed) {
                   await axios.post(
                     "https://bed-service-provider.herokuapp.com/api/phr",
                     {
-                      patient_id:
-                        auth.user_info.id,
-                      hospital_id:
-                        record.hospital_id,
+                      patient_id: auth.user_info.id,
+                      hospital_id: record.hospital_id,
                       reservation_id: record.id,
                       status: 2,
                     }
@@ -124,8 +113,7 @@ export default function Reserve() {
                   const test1 = await axios.put(
                     `https://bed-service-provider.herokuapp.com/api/hospital/${record.hospital_id}`,
                     {
-                      bed_occupied:
-                        record.bed_occupied - 1,
+                      bed_occupied: record.bed_occupied - 1,
                     }
                   );
                   Swal.fire({
@@ -155,10 +143,8 @@ export default function Reserve() {
     },
   ];
   const [reserve, setReserve] = useState({});
-  const [freeHospital, setFreeHospital] =
-    useState({});
-  const [isLoading, setisLoading] =
-    useState(true);
+  const [freeHospital, setFreeHospital] = useState({});
+  const [isLoading, setisLoading] = useState(true);
   let newformatfreehos = [];
   let newformatmyHospital = [];
   const statusArray = [
@@ -182,51 +168,43 @@ export default function Reserve() {
           status: 1,
         }
       );
-      console.log(
-        "myHospitalQueue.data[0]",
-        myHospitalQueue.data[0]
-      );
-      console.log(
-        "freeHospitalData.data[0]",
-        freeHospitalData.data[0]
-      );
-      newformatmyHospital =
-        myHospitalQueue.data.map((v) => ({
-          //     id: "1",
-          // hosname: "โรงพยาบาลพระจอมเกล้าเจ้าคุณทหาร",
-          // date: "22/9/2564",
-          // time: "17.00.53",
-          // status: ["อยู่ระหว่างดำเนินการ"],
-          id: v.id,
-          hosname: v.hospitalinfo.hospital_name,
-          date: v.created_at
-            .split("T")[0]
-            .split("-")
-            .reverse()
-            .join("/"),
-          time: v.created_at
-            .split("T")[1]
-            .split("Z")[0]
-            .split(".")[0]
-            .split(":")
-            .slice(0, -1)
-            .join("."),
-          status: [statusArray[v.status - 1]],
-        }));
-      newformatfreehos =
-        freeHospitalData.data.map((v) => ({
-          id: v.id,
-          hosname: v.hospitalinfo.hospital_name,
-          numOfbed:
-            v.hospitalinfo.bed_occupied +
-            "/" +
-            v.hospitalinfo.bed_total,
-          province: v.hospitalinfo.province,
-          tel: v.hospitalinfo.tel,
-          hospital_id: v.hospitalinfo.id,
-          bed_occupied:
-            v.hospitalinfo.bed_occupied,
-        }));
+      console.log("myHospitalQueue.data[0]", myHospitalQueue.data[0]);
+      console.log("freeHospitalData.data[0]", freeHospitalData.data[0]);
+      newformatmyHospital = myHospitalQueue.data.map((v) => ({
+        //     id: "1",
+        // hosname: "โรงพยาบาลพระจอมเกล้าเจ้าคุณทหาร",
+        // date: "22/9/2564",
+        // time: "17.00.53",
+        // status: ["อยู่ระหว่างดำเนินการ"],
+        id: v.id,
+        hosname: v.hospitalinfo.hospital_name,
+        date: moment(v.created_at)
+          .utcOffset("+0700")
+          .format()
+          .split("T")[0]
+          .split("-")
+          .reverse()
+          .join("/"),
+        time: moment(v.created_at)
+          .utcOffset("+0700")
+          .format()
+          .split("T")[1]
+          .split("+")[0]
+          .split(".")[0]
+          .split(":")
+          .slice(0, -1)
+          .join("."),
+        status: [statusArray[v.status - 1]],
+      }));
+      newformatfreehos = freeHospitalData.data.map((v) => ({
+        id: v.id,
+        hosname: v.hospitalinfo.hospital_name,
+        numOfbed: v.hospitalinfo.bed_occupied + "/" + v.hospitalinfo.bed_total,
+        province: v.hospitalinfo.province,
+        tel: v.hospitalinfo.tel,
+        hospital_id: v.hospitalinfo.id,
+        bed_occupied: v.hospitalinfo.bed_occupied,
+      }));
       setReserve(newformatmyHospital);
       setFreeHospital(newformatfreehos);
       setisLoading(false);
@@ -267,9 +245,7 @@ export default function Reserve() {
   return (
     <div className={styles.container}>
       <div className={styles.body}>
-        <h2 className={styles.header}>
-          รายการจองเตียงของฉัน
-        </h2>
+        <h2 className={styles.header}>รายการจองเตียงของฉัน</h2>
         <div className={styles.box}>
           {isLoading ? (
             <div className={styles.loadcontainer}>
@@ -291,9 +267,7 @@ export default function Reserve() {
             />
           )}
         </div>
-        <h2 className={styles.header}>
-          ค้นหาและจองเตียง
-        </h2>
+        <h2 className={styles.header}>ค้นหาและจองเตียง</h2>
         <div className={styles.box}>
           {isLoading ? (
             <div className={styles.loadcontainer}>
