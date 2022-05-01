@@ -17,6 +17,9 @@ export default function BestPractice() {
               className={styles.img}
               src="https://www.sikarin.com/wp-content/uploads/2021/05/14030435287273-1024x1024.jpg"
             />
+            <div className={styles.item}>
+              ขอบคุณรูปภาพจาก : โรงพยาบาลศิครินทร์
+            </div>
           </div>
         </div>
 
@@ -26,6 +29,10 @@ export default function BestPractice() {
               className={styles.img}
               src="https://chulalongkornhospital.go.th/kcmh/wp-content/uploads/2021/07/E51BE51E-E0F3-40B3-B1EE-7D07DD462CA2.jpg"
             />
+            <div className={styles.item}>
+              ขอบคุณรูปภาพจาก :
+              โรงพยาบาลจุฬาลงกรณ์ สภากาชาดไทย
+            </div>
           </div>
         </div>
         <div className={styles.box}>
@@ -34,6 +41,9 @@ export default function BestPractice() {
               className={styles.img}
               src="https://www.sikarin.com/wp-content/uploads/2021/07/14430680139518-1024x1024.jpg"
             />
+            <div className={styles.item}>
+              ขอบคุณรูปภาพจาก : โรงพยาบาลศิครินทร์
+            </div>
           </div>
         </div>
       </div>
