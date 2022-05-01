@@ -28,7 +28,7 @@
   align-items: center;
   padding: 50px 5%;
   flex-direction: column;
-  
+  margin-bottom: 50px;
 }
 
 .header {
@@ -127,7 +127,8 @@
 .boxcontainer{
   display: flex;
   flex-direction: column;
-
+  justify-content: center;
+  align-items: center;
 }
 .description{
   display: flex;
@@ -151,4 +152,8 @@
   margin: 0px 12px;
   font-size: 24px;
   color: rgb(197, 2, 2);
+}
+.img{
+  width: 80%;
+  max-width: 900px;
 }

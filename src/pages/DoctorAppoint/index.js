@@ -160,8 +160,8 @@ export default function DoctorAppoint() {
                 }
               );
               setSubmitUpdate(!submitUpdate);
-              // window.open(e.htmlLink);
-              window.open(e.hangoutLink);
+              window.open(e.htmlLink);
+              // window.open(e.hangoutLink);
             });
         }
       );

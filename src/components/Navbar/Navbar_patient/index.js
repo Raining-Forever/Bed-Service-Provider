@@ -106,7 +106,7 @@ export default function Navbar_patient() {
       >
         <Menu.Item key="7">
           <NavLink
-            to="/anothercontact"
+            to="/bestpractice"
             activeclassname="selectedLink"
           >
             ข้อควรปฏิบัติเมื่อติด โควิด-19

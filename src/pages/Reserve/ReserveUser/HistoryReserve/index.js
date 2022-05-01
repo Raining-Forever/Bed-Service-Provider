@@ -119,10 +119,10 @@ export default function HistoryReserve() {
         })
       );
       SetHistoryReserve(newformatMyHistory);
-      console.log(
-        "myHistory.data",
-        myHistory.data
-      );
+      // console.log(
+      //   "myHistory.data",
+      //   myHistory.data
+      // );
       setisLoading(false);
     }
   }

@@ -58,6 +58,7 @@ import ConfirmationPage from "./pages/Reserve/ReserveHospital/ConfirmationPage";
 import Meeting from "./components/ShowStatus/Meeting/inedx";
 import AnotherContact from "./components/CovidInfo/AnotherContact";
 import AppointmentDetailPage from "./pages/DoctorAppoint/AppoinmentDetailPage";
+import BestPractice from "./components/CovidInfo/BestPractice";
 
 function App() {
   return (
@@ -221,6 +222,10 @@ function App() {
             <Route
               path="/anothercontact"
               element={<AnotherContact />}
+            />
+            <Route
+              path="/bestpractice"
+              element={<BestPractice />}
             />
           </Routes>
         </div>
