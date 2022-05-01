@@ -175,7 +175,7 @@ export default function ComfirmationForm(props) {
             <div className={styles.row1}>
               <Form.Item
                 name="checkin_time"
-                label="นัดหมาย :"
+                label="เวลาที่นัดหมาย :"
                 rules={[
                   {
                     required: tempDisable,

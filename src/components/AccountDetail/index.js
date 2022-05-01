@@ -216,9 +216,11 @@ export default function AccountDetail({
                 allowClear
                 disabled={disabled}
               >
-                <Option value="mr">นาย</Option>
-                <Option value="mrs">นาง</Option>
-                <Option value="ms">นางสาว</Option>
+                <Option value="นาย">นาย</Option>
+                <Option value="นาง">นาง</Option>
+                <Option value="นางสาว">
+                  นางสาว
+                </Option>
               </Select>
             </Form.Item>
             <Form.Item
